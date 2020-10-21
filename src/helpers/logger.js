@@ -1,5 +1,11 @@
 import isMobile from 'ismobilejs';
 import { detect } from 'detect-browser';
+import $cookies from 'vue-cookies';
+
+const AVAILABLE_LANGUAGES = ['en', 'es', 'ru'];
+const DEFAULT_LANGUAGE_ID = AVAILABLE_LANGUAGES[0];
+const LANGUAGES_COOKIE_KEY = 'currentLanguage'
+const USER_TOKEN_COOKIE_KEY = 'userToken'
 
 export const getBrowserName = () => {
   const { name, os } = detect();
@@ -15,4 +21,28 @@ export const getIsMobile = () => {
 export const getAdBlockDetectedValue = () => {
   const blockedItem = document.getElementById('adBanner');
   return window.getComputedStyle(blockedItem).display === 'none';
+};
+export const getLanguageId = () => {
+  const url = new URL(window.location.href);
+  const urlLangId = url.searchParams.get('lang');
+  const cookieLangId = $cookies.get(LANGUAGES_COOKIE_KEY);
+  if (urlLangId && AVAILABLE_LANGUAGES.includes(urlLangId)) {
+    return urlLangId;
+  }
+  if (cookieLangId && AVAILABLE_LANGUAGES.includes(cookieLangId)) {
+    return cookieLangId;
+  }
+  return DEFAULT_LANGUAGE_ID;
+};
+export const setLanguageId = (languageId) => {
+  $cookies.set(LANGUAGES_COOKIE_KEY, languageId)
+};
+export const getUserToken = () => {
+  return $cookies.get(USER_TOKEN_COOKIE_KEY);
+};
+export const setUserToken = (token) => {
+  $cookies.set(USER_TOKEN_COOKIE_KEY, token);
+};
+export const removeUserToken = () => {
+  $cookies.remove(USER_TOKEN_COOKIE_KEY);
 };

@@ -1,34 +1,21 @@
+$color-black-01: #000000;
 $color-gray-01: #ffffff;
-$color-gray-02: #DDDDDD;
-$color-gray-03: #C9CBD0;
-$color-gray-04: #798085;
-$color-gray-05: #394247;
-$color-gray-06: #435a73;
-$color-gray-07: #405770;
-$color-gray-08: #2b3645;
-$color-gray-09: #253245;
-$color-gray-10: #131921;
-$color-gray-11: #081319;
-$color-blue-1: #0076ff;
-$color-red-1: #ff5555;
-$color-red-2: #D45A57;
-$color-red-3: #E47E7B;
-$color-green-1: #23dba7;
-$color-green-2: #6EAC6E;
-$color-green-3: #84CA84;
-$color-yellow-1: #CDAD45;
-$color-yellow-2: #EDC040;
+$color-gray-02: #323b47;
+$color-gray-03: #282828;
+$color-gray-04: #101010;
+$color-gray-05: #465162;
+$color-violet-01: #6c68ab;
+$color-red-01: #ffe0e0;
+$color-red-02: #ff4c4c;
 
 $color-overlay: rgba(0, 0, 0, 0.4);
-$start-form-overlay: rgba(0, 0, 0, 0.2);
-$start-modal-background: rgba(0, 0, 0, 0.7);
 
 $animation-time-01: 0.15s;
 $animation-time-02: 0.2s;
 $animation-time-03: 0.3s;
 $animation-easing: cubic-bezier(0.5, 0, 0.5 ,1);
 
-$modal-background: linear-gradient(to bottom, #eaf0f5, #d1d9e3);
+$modal-background: rgba($color-gray-05, 0.4);
 $modal-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 
 $screen-xs: map-get($grid-breakpoints, 'xs');

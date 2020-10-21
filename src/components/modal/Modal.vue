@@ -145,7 +145,7 @@
     flex-wrap: wrap;
     align-items: center;
     background-color: $color-overlay;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(10px);
     top: 0;
     left: 0;
     width: 100%;

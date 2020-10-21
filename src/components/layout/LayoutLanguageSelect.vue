@@ -1,111 +1,119 @@
 <template>
-  <div class="layout-navigation">
-    <template v-if="!userIsAuthed">
-      <div class="layout-navigation_item">
-        <UserIcon />
+  <div class="col-11 col-sm-8 col-lg-6 col-xl-5 layout-language-select">
+    <div class="layout-language-select__wrapper">
+      <div class="row mb-4">
+        <div class="col-12">
+          <h2 class="layout-language-select__title">
+            {{ i18n.languageSelectModalTitle }}
+          </h2>
+        </div>
       </div>
-    </template>
-    <template v-if="userIsAuthed && !userIsAdmin">
-      <div class="layout-navigation_item">
-        <DashboardIcon />
+      <div class="row">
+        <div class="col-12 col-md-4 mb-4 mb-md-0">
+          <div
+            class="layout-language-select__option"
+            :class="currentLanguageId === 'en' && 'layout-language-select__option_selected'"
+            @click="selectLanguage('en')"
+          >
+            <EnLanguageIcon />
+          </div>
+        </div>
+        <div class="col-12 col-md-4 mb-4 mb-md-0">
+          <div
+            class="layout-language-select__option"
+            :class="currentLanguageId === 'es' && 'layout-language-select__option_selected'"
+            @click="selectLanguage('es')"
+          >
+            <EsLanguageIcon />
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div
+            class="layout-language-select__option"
+            :class="currentLanguageId === 'ru' && 'layout-language-select__option_selected'"
+            @click="selectLanguage('ru')"
+          >
+            <RuLanguageIcon />
+          </div>
+        </div>
       </div>
-    </template>
-    <template v-if="userIsAuthed && userIsAdmin">
-      <div class="layout-navigation_item">
-        <SettingsIcon />
-      </div>
-    </template>
-    <div class="layout-navigation_item">
-      <LanguageIcon />
     </div>
-    <template v-if="userIsAuthed">
-      <div class="layout-navigation_item">
-        <Report1Icon />
-      </div>
-    </template>
-    <template v-if="userIsAuthed">
-      <div class="layout-navigation_item">
-        <Report2Icon />
-      </div>
-    </template>
-    <template v-if="userIsAuthed">
-      <div class="layout-navigation_item">
-        <Report3Icon />
-      </div>
-    </template>
-    <template v-if="userIsAuthed">
-      <div class="layout-navigation_item">
-        <LogoutIcon />
-      </div>
-    </template>
   </div>
 </template>
 
 <script>
-  import UserIcon from '~/assets/svg/user-icon.svg';
-  import DashboardIcon from '~/assets/svg/dashboard-icon.svg';
-  import SettingsIcon from '~/assets/svg/settings-icon.svg';
-  import LanguageIcon from '~/assets/svg/language-icon.svg';
-  import Report1Icon from '~/assets/svg/report-1-icon.svg';
-  import Report2Icon from '~/assets/svg/report-2-icon.svg';
-  import Report3Icon from '~/assets/svg/report-3-icon.svg';
-  import LogoutIcon from '~/assets/svg/logout-icon.svg';
+  import { mapGetters, mapActions } from 'vuex';
+  import { REFERENCES, MODAL } from '~/store/types';
+
+  import EnLanguageIcon from '~/assets/svg/languages-en-icon.svg';
+  import EsLanguageIcon from '~/assets/svg/languages-es-icon.svg';
+  import RuLanguageIcon from '~/assets/svg/languages-ru-icon.svg';
 
   export default {
-    name: 'LayoutNavigation',
+    name: 'LayoutLanguageSelect',
     components: {
-      UserIcon,
-      DashboardIcon,
-      SettingsIcon,
-      LanguageIcon,
-      Report1Icon,
-      Report2Icon,
-      Report3Icon,
-      LogoutIcon,
+      EnLanguageIcon,
+      EsLanguageIcon,
+      RuLanguageIcon,
     },
     computed: {
-      userIsAuthed() {
-        //TODO: REPLACE BY STORE
-        return false;
-      },
-      userIsAdmin() {
-        //TODO: REPLACE BY STORE
-        return false;
+      ...mapGetters('references', {
+        i18n: REFERENCES.GET_I18N,
+        currentLanguageId: REFERENCES.GET_LANGUAGE_ID,
+      }),
+    },
+    methods: {
+      ...mapActions('references', {
+        selectLanguageId: REFERENCES.SET_LANGUAGE_ID,
+      }),
+      ...mapActions('modal', {
+        closeModal: MODAL.HIDE_MODAL,
+      }),
+      selectLanguage(languageId) {
+        this.selectLanguageId(languageId);
+        this.closeModal();
       },
     },
   };
 </script>
 
 <style lang="scss" scoped>
-  .layout-navigation {
-    background-color: $color-gray-02;
+  .layout-language-select__wrapper {
+    padding: 0 30px;
   }
-  .layout-navigation_item {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 4px;
-    transition: background-color $animation-time-01 $animation-easing;
-    cursor: pointer;
-  }
-  .layout-navigation_item:first-child {
-    margin-top: 80px;
-  }
-  .layout-navigation_item:not(:last-child) {
-    margin-bottom: 55px;
-  }
-  .layout-navigation_item:hover {
-    background-color: $color-violet-01;
-  }
-  .layout-navigation_item svg {
+  .layout-language-select__title {
     display: block;
-    width: 16px;
-    height: 16px;
+    font-size: 25px;
+    font-weight: 500;
     color: $color-gray-01;
-    margin: auto;
+    text-align: center;
+  }
+  .layout-language-select__option {
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
+    opacity: 0.5;
+    transition: opacity $animation-time-01 $animation-easing, transform $animation-time-01 $animation-easing;
+    transform: scale(1);
+    cursor: pointer;
+    margin: 0 auto;
+    max-width: 120px;
+  }
+  .layout-language-select__option_selected {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  .layout-language-select__option:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  .layout-language-select__option svg {
+    display: block;
+    width: 100%;
+  }
+  @media (min-width: $screen-md) {
+    .layout-language-select__option {
+      max-width: unset;
+    }
   }
 </style>

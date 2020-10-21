@@ -1,10 +1,9 @@
 <template>
   <div
-    class="pa-button"
+    class="amk-button"
     :class="[
-      theme && `pa-button_${theme}`,
-      block && 'pa-button_block',
-      disabled && 'pa-button_disabled',
+      block && 'amk-button_block',
+      disabled && 'amk-button_disabled',
     ]"
     @click="clickHandler"
   >
@@ -20,11 +19,10 @@
 </template>
 
 <script>
-  const THEMES_LIST = ['blue', 'white', 'text', 'white-text'];
   const TYPES_LIST = ['button', 'reset', 'submit'];
 
   export default {
-    name: 'PaButton',
+    name: 'AmkButton',
     props: {
       disabled: {
         type: Boolean,
@@ -39,11 +37,6 @@
         type: String,
         validator: (value) => TYPES_LIST.includes(value),
       },
-      theme: {
-        default: THEMES_LIST[0],
-        type: String,
-        validator: (value) => THEMES_LIST.includes(value),
-      },
     },
     methods: {
       clickHandler() {
@@ -57,59 +50,42 @@
 </script>
 
 <style lang="scss" scoped>
-  .pa-button {
-    display: inline-block !important;
-    transition: filter $animation-time-01 $animation-easing, transform $animation-time-01 $animation-easing !important;
+  .amk-button {
+    display: inline-block;
+    transform: scale(0.96);
+    filter: brightness(0.96);
+    transition: filter $animation-time-01 $animation-easing, transform $animation-time-01 $animation-easing;
   }
-  .pa-button:not(.pa-button_disabled):hover {
-    transform: scale(1.02) !important;
-    filter: brightness(0.8) !important;
+  .amk-button:not(.amk-button_disabled):hover {
+    transform: scale(0.98);
+    filter: brightness(0.98);
   }
-  .pa-button:not(.pa-button_disabled):active {
-    transform: scale(0.98) !important;
+  .amk-button:not(.amk-button_disabled):active {
+    transform: scale(1);
+    filter: brightness(1);
   }
-  .pa-button_block {
-    display: block !important;
-    width: 100% !important;
+  .amk-button_disabled {
+    filter: brightness(0.6);
   }
-  .pa-button_disabled {
-    filter: brightness(0.7) !important;
+  .amk-button button {
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    background-color: $color-violet-01;
+    cursor: pointer;
   }
-  .pa-button button {
-    display: block !important;
-    width: 100% !important;
-    border-radius: 5px !important;
-    border: 1px solid transparent !important;
-    background-color: transparent !important;
-    cursor: pointer !important;
+  .amk-button_disabled button {
+    cursor: not-allowed;
   }
-  .pa-button_blue button {
-    background-color: $color-blue-1 !important;
-    border-color: $color-blue-1 !important;
-    color: $color-gray-01 !important;
-  }
-  .pa-button_white button {
-    background-color: $color-gray-01 !important;
-    border-color: $color-gray-11 !important;
-    color: $color-gray-11 !important;
-  }
-  .pa-button_text button {
-    color: $color-gray-11 !important;
-    border-color: $color-gray-11 !important;
-  }
-  .pa-button_white-text button {
-    color: $color-gray-01 !important;
-    border-color: $color-gray-01 !important;
-  }
-  .pa-button_disabled button {
-    cursor: not-allowed !important;
-  }
-  .pa-button button span {
-    display: block !important;
-    padding: 5px 10px !important;
-    font-size: 15px !important;
-    line-height: 20px !important;
-    font-weight: 500 !important;
-    text-transform: uppercase !important;
+  .amk-button button span {
+    display: block;
+    text-align: center;
+    padding: 10px 25px 8px 25px;
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: $color-gray-01;
   }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <transition
     appear
-    name="fade"
+    name="fade-in"
   >
     <div
       v-if="isVisible"
@@ -50,6 +50,6 @@
     margin: 0 auto;
     color: $color-gray-01;
     will-change: transform;
-    animation: rotate 1.7s linear infinite;
+    animation: preloader 3s linear infinite;
   }
 </style>

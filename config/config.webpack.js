@@ -1,12 +1,10 @@
 const path = require('path');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-const { DuplicatesPlugin } = require('inspectpack/plugin');
-const CircularDependencyPlugin = require('circular-dependency-plugin');
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const WebpackBar = require('webpackbar');
+const pkg = require('../package.json');
 
 const faviconConfig = {
-  logo: path.resolve(__dirname, './icon-fav.png'),
+  logo: path.resolve(__dirname, './project.png'),
   cache: true,
   inject: true,
   mode: 'webapp',
@@ -15,7 +13,7 @@ const faviconConfig = {
   background: '#ffffff',
   theme_color: '#405770',
   favicons: {
-    appName: 'Paxum',
+    appName: pkg.name,
     icons: {
       android: true,
       appleIcon: true,
@@ -29,27 +27,14 @@ const faviconConfig = {
   },
 };
 
-const CircularDependencyConfig = {
-  failOnError: true,
-  exclude: /node_modules/,
-};
-
-const DuplicatesConfig = {
-  emitErrors: true,
-  verbose: true,
-};
-
 const WebpackBarConfig = {
-  name: 'Paxum',
+  name: pkg.name,
   color: '#0076ff',
 };
 
 module.exports = {
   plugins: [
     new FaviconsWebpackPlugin(faviconConfig),
-    new DuplicatesPlugin(DuplicatesConfig),
-    new CircularDependencyPlugin(CircularDependencyConfig),
-    new CaseSensitivePathsPlugin(),
     new WebpackBar(WebpackBarConfig),
   ],
 };

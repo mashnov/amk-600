@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -15,9 +17,11 @@
 }
 
 html {
-  font-family: avenir-next-cyr, 'cursive';
+  font-family: 'Montserrat', sans-serif;
   box-sizing: border-box;
   -webkit-text-size-adjust: 100%;
+  background: linear-gradient(180deg, #222830 0%, rgba(63, 73, 86, 0.2) 100%), #222931;
+  background-attachment: fixed;
 }
 a {
   text-decoration: none;

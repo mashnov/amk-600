@@ -29,14 +29,3 @@ export const scrollToEl = (htmlElement) => {
     behavior: 'smooth',
   });
 };
-export const lockScrollByKeyboard = () => {
-  const scrollLocker = ['Space', 'ArrowUp', 'ArrowDown'];
-  window.addEventListener('keydown', (e) => {
-    const keyCode = e.code;
-    const isLock = scrollLocker.includes(keyCode);
-    const isBody = e.target === document.body;
-    if (isLock && isBody) {
-      e.preventDefault();
-    }
-  });
-};

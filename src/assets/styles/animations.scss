@@ -7,6 +7,15 @@
   }
 }
 
+.fade-in {
+  &-enter-active {
+    animation: fadeIn $animation-time-03 $animation-easing;
+  }
+  &-leave-active {
+    animation: fadeIn $animation-time-02 $animation-easing reverse;
+  }
+}
+
 .modal-default {
   will-change: transform;
 
@@ -38,11 +47,4 @@
   &-leave-active {
     animation: moveBottom $animation-time-02 $animation-easing reverse;
   }
-}
-
-.select-options-enter-active {
-  animation: sliceDown $animation-time-03 $animation-easing;
-}
-.select-options-leave-active {
-  animation: sliceDown $animation-time-02 $animation-easing reverse;
 }

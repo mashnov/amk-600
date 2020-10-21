@@ -1,15 +1,14 @@
 <template>
   <div
-    class="pa-input"
+    class="amk-input"
     :class="[
-      disabled && 'pa-input_disabled',
+      disabled && 'amk-input_disabled',
     ]"
   >
     <label>
       <input
         ref="input"
         :type="type"
-        :inputmode="inputmode"
         :value="value"
         :placeholder="placeholder"
         :min="min"
@@ -32,20 +31,14 @@
 
 <script>
   const INPUT_TYPES = ['text', 'password', 'number', 'email'];
-  const INPUT_MODE_TYPES = ['none', 'numeric', 'tel', 'decimal', 'email', 'url', 'search'];
 
   export default {
-    name: 'InputBase',
+    name: 'AmkInput',
     props: {
       type: {
         default: INPUT_TYPES[0],
         type: String,
         validator: (value) => INPUT_TYPES.includes(value),
-      },
-      inputmode: {
-        default: INPUT_MODE_TYPES[0],
-        type: String,
-        validator: (value) => INPUT_MODE_TYPES.includes(value),
       },
       value: {
         default: '',
@@ -91,81 +84,84 @@
 </script>
 
 <style lang="scss" scoped>
-  .pa-input {
+  .amk-input {
+    display: block;
+    width: 100%;
+    background-color: $color-gray-01;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  .amk-input label {
     display: block;
     width: 100%;
   }
-  .pa-input label {
+  .amk-input label input {
     display: block;
     width: 100%;
-  }
-  .pa-input label input {
-    display: block;
-    width: 100%;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 500;
-    color: $color-gray-05;
+    color: $color-black-01;
     border: none;
     appearance: none;
     user-select: text;
     background-color: transparent;
   }
-  .pa-input_disabled input {
+  .amk-input_disabled input {
     color: $color-gray-03;
     cursor: not-allowed;
   }
-  .pa-input input::-webkit-input-placeholder {
-    font-size: 12px;
+  .amk-input input::-webkit-input-placeholder {
+    font-size: 13px;
     text-transform: lowercase;
     opacity: 1;
     text-indent: 0;
     transform: translateZ(0);
-    color: $color-gray-04;
+    color: $color-gray-05;
     transition: text-indent 0.2s $animation-easing, opacity 0.1s $animation-easing;
   }
-  .pa-input input::-moz-placeholder {
-    font-size: 12px;
+  .amk-input input::-moz-placeholder {
+    font-size: 13px;
     text-transform: lowercase;
     opacity: 1;
     text-indent: 0;
     transform: translateZ(0);
-    color: $color-gray-04;
+    color: $color-gray-05;
     transition: text-indent 0.2s $animation-easing, opacity 0.1s $animation-easing;
   }
-  .pa-input input:-moz-placeholder {
-    font-size: 12px;
+  .amk-input input:-moz-placeholder {
+    font-size: 13px;
     text-transform: lowercase;
     opacity: 1;
     text-indent: 0;
     transform: translateZ(0);
-    color: $color-gray-04;
+    color: $color-gray-05;
     transition: text-indent 0.2s $animation-easing, opacity 0.1s $animation-easing;
   }
-  .pa-input input:-ms-input-placeholder {
-    font-size: 12px;
+  .amk-input input:-ms-input-placeholder {
+    font-size: 13px;
     text-transform: lowercase;
     opacity: 1;
     text-indent: 0;
     transform: translateZ(0);
-    color: $color-gray-04;
+    color: $color-gray-05;
     transition: text-indent 0.2s $animation-easing, opacity 0.1s $animation-easing;
   }
-  .pa-input input:focus::-webkit-input-placeholder {
+  .amk-input input:focus::-webkit-input-placeholder {
     opacity: 0;
     text-indent: -500px;
     transition: text-indent 0.2s $animation-easing, opacity 0.1s $animation-easing;
   }
-  .pa-input input:focus::-moz-placeholder {
+  .amk-input input:focus::-moz-placeholder {
     opacity: 0;
     text-indent: -500px;
     transition: text-indent 0.2s $animation-easing, opacity 0.1s $animation-easing;
   }
-  .pa-input input:focus:-moz-placeholder {
+  .amk-input input:focus:-moz-placeholder {
     opacity: 0;
     text-indent: -500px;
     transition: text-indent 0.2s $animation-easing, opacity 0.1s $animation-easing;
   }
-  .pa-input input:focus:-ms-input-placeholder {
+  .amk-input input:focus:-ms-input-placeholder {
     opacity: 0;
     text-indent: -500px;
     transition: text-indent 0.2s $animation-easing, opacity 0.1s $animation-easing;

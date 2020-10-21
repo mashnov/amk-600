@@ -1,19 +1,20 @@
 import MODULE from './types';
 import Api from './api';
+import { getLanguageId, setLanguageId } from '~/helpers/logger';
 
 export default {
-  async [MODULE.INIT]({ commit }) {
-    const { countries, currencies, occupation, questions, transactions, identity, address, wire, eft, pep } = await Api[MODULE.FETCH_DICTIONARIES]();
-    commit(MODULE.MUTATE_IS_READY, true);
-    commit(MODULE.MUTATE_COUNTRIES, countries);
-    commit(MODULE.MUTATE_CURRENCIES, currencies);
-    commit(MODULE.MUTATE_OCCUPATION, occupation);
-    commit(MODULE.MUTATE_QUESTIONS, questions);
-    commit(MODULE.MUTATE_TRANSACTION, transactions);
-    commit(MODULE.MUTATE_IDENTITY, identity);
-    commit(MODULE.MUTATE_ADDRESS, address);
-    commit(MODULE.MUTATE_WIRE, wire);
-    commit(MODULE.MUTATE_ETF, eft);
-    commit(MODULE.MUTATE_PEP, pep);
+  async [MODULE.INIT]({ dispatch }) {
+    dispatch(MODULE.SET_LANGUAGE_ID, getLanguageId());
+    await dispatch(MODULE.FETCH_I18N);
+    return true;
+  },
+  async [MODULE.FETCH_I18N]({ commit }) {
+    const i18n = await Api.FETCH_I18N();
+    commit(MODULE.MUTATE_I18N, i18n);
+    return true;
+  },
+  [MODULE.SET_LANGUAGE_ID]({ commit }, languageId) {
+    commit(MODULE.MUTATE_LANGUAGE_ID, languageId);
+    setLanguageId(languageId);
   },
 };

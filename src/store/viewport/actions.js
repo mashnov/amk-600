@@ -1,5 +1,5 @@
-import throttle from 'lodash/throttle';
 import cloneDeep from 'lodash/cloneDeep';
+import throttle from 'lodash/throttle';
 import MODULE from './types';
 
 import {

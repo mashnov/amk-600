@@ -4,14 +4,10 @@
     :style="layoutStyle"
     :class="layoutIsLocked && 'layout_locked'"
   >
-    <LayoutWrapper>
-      <LayoutHeader />
-      <LayoutStatus />
-      <LayoutContent>
-        <slot />
-      </LayoutContent>
-    </LayoutWrapper>
-    <LayoutFooter />
+    <LayoutNavigation class="layout__navigation" />
+    <LayoutContent class="layout__content">
+      <slot />
+    </LayoutContent>
   </div>
 </template>
 
@@ -20,20 +16,14 @@
   import { VIEWPORT } from '~/store/types';
   import { setScrollTop } from '~/helpers/viewport';
 
-  import LayoutWrapper from './LayoutWrapper';
-  import LayoutHeader from './LayoutHeader';
-  import LayoutStatus from './LayoutStatus';
+  import LayoutNavigation from './LayoutNavigation';
   import LayoutContent from './LayoutContent';
-  import LayoutFooter from './LayoutFooter';
 
   export default {
     name: 'Layout',
     components: {
-      LayoutWrapper,
-      LayoutHeader,
-      LayoutStatus,
+      LayoutNavigation,
       LayoutContent,
-      LayoutFooter,
     },
     data() {
       return {
@@ -59,7 +49,7 @@
     },
     methods: {
       setPageScroll() {
-        const { pageScrollPosition, layoutIsLocked, scrollTop } = this;
+        const {pageScrollPosition, layoutIsLocked, scrollTop} = this;
         const scrollPosition = layoutIsLocked ? 0 : pageScrollPosition;
         if (layoutIsLocked) {
           this.pageScrollPosition = scrollTop;
@@ -75,10 +65,17 @@
 <style lang="scss" scoped>
   .layout {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: stretch;
     min-height: 100vh;
     width: 100%;
     z-index: 0;
+  }
+  .layout__navigation {
+    width: 80px;
+  }
+  .layout__content {
+    width: calc(100% - 80px);
   }
   .layout_locked {
     position: fixed;

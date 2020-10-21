@@ -1,10 +1,27 @@
 import MODULE from './types';
 import { sleep } from '~/helpers/system';
-import i18n from './i18n';
 
 export default {
-  async [MODULE.FETCH_I18N]() {
-    await sleep(0);
-    return i18n;
+  async [MODULE.RE_LOGIN_HANDLER]({ userToken }) {
+    await sleep(5000);
+    return {
+      successes: true,
+      token: 'anyTokenText',
+      group: 'user'
+    };
+  },
+  async [MODULE.LOGIN_HANDLER]({ username, password }) {
+    await sleep(5000);
+    return {
+      successes: true,
+      token: 'anyTokenText',
+      group: 'user'
+    };
+  },
+  async [MODULE.LOGOUT_HANDLER]({ token }) {
+    await sleep(5000);
+    return {
+      success: true
+    };
   },
 };

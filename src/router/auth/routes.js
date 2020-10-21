@@ -1,12 +1,10 @@
 import names from './names';
 import paths from './paths';
 
-import Test from '~/views/Test';
-
 export default [
   {
-    path: paths.test,
-    name: names.test,
-    component: Test,
+    path: paths.auth,
+    name: names.auth,
+    component: () => import(/* webpackChunkName: "auth" */ '~/views/auth/AuthView.vue'),
   },
 ];

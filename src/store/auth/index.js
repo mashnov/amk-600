@@ -4,7 +4,7 @@ import actions from './actions';
 import mutations from './mutations';
 
 export default {
-  moduleName: 'admin',
+  moduleName: 'auth',
   namespaced: true,
   state,
   getters,

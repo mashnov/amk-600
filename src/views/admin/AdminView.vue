@@ -1,11 +1,7 @@
 <template>
   <div class="admin-view">
     <div class="container-fluid">
-      <div class="row justify-content-center">
-        <div class="col-12">
-          <AdminPage />
-        </div>
-      </div>
+      <AdminPage />
     </div>
   </div>
 </template>
