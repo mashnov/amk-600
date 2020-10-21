@@ -1,5 +1,8 @@
 <template>
-  <transition name="fade">
+  <transition
+    appear
+    name="fade-in"
+  >
     <div
       v-if="isVisible"
       class="preloader"

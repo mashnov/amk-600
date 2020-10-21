@@ -1,7 +1,7 @@
 <template>
   <transition
     appear
-    name="fade"
+    name="fade-in"
   >
     <div
       v-if="isVisible"

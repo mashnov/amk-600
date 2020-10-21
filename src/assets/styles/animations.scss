@@ -1,21 +1,3 @@
-.fade {
-  &-enter-active {
-    animation: fadeIn $animation-time-03 $animation-easing;
-  }
-  &-leave-active {
-    animation: fadeIn $animation-time-02 $animation-easing reverse;
-  }
-}
-
-.fade-in {
-  &-enter-active {
-    animation: fadeIn $animation-time-03 $animation-easing;
-  }
-  &-leave-active {
-    animation: fadeIn $animation-time-02 $animation-easing reverse;
-  }
-}
-
 .modal-default {
   will-change: transform;
 
@@ -46,5 +28,14 @@
   }
   &-leave-active {
     animation: moveBottom $animation-time-02 $animation-easing reverse;
+  }
+}
+
+.fade-in {
+  &-enter-active {
+    animation: fadeIn $animation-time-03 $animation-easing;
+  }
+  &-leave-active {
+    animation: fadeIn $animation-time-02 $animation-easing reverse;
   }
 }

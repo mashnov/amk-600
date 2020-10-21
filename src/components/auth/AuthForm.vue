@@ -38,7 +38,7 @@
     </div>
     <transition
       appear
-      name="fade"
+      name="fade-in"
     >
       <div
         class="row mt-4"
