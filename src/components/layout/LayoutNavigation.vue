@@ -23,16 +23,16 @@
     </div>
     <div
       class="layout-navigation_item"
-      @click="showLanguageModal"
-    >
-      <LanguageIcon/>
-    </div>
-    <div
-      class="layout-navigation_item"
       @click="showReportModal"
       v-if="userIsAuthed"
     >
       <ReportIcon/>
+    </div>
+    <div
+      class="layout-navigation_item"
+      @click="showLanguageModal"
+    >
+      <LanguageIcon/>
     </div>
     <div
       class="layout-navigation_item"
@@ -128,8 +128,8 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     margin-left: auto;
     margin-right: auto;
     border-radius: 4px;
@@ -150,8 +150,8 @@
   }
   .layout-navigation_item svg {
     display: block;
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     color: $color-gray-01;
     margin: auto;
   }
