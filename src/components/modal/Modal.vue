@@ -49,7 +49,7 @@
 <script>
   import cloneDeep from 'lodash/cloneDeep';
   import isNull from 'lodash/isNull';
-  import { mapActions, mapGetters } from 'vuex';
+  import { mapGetters, mapActions } from 'vuex';
   import { MODAL } from '~/store/types';
   import { sleep } from '~/helpers/system';
 

@@ -6,6 +6,10 @@ export default {
     loginForm_submit: 'Submit',
     loginForm_errorMessage: 'Login or password is incorrect',
     languageSelectModalTitle: 'Select language',
+    reportSelectModalTitle: 'Select report range',
+    reportSelectOptionWeek: 'Week',
+    reportSelectOptionMonth: 'Month',
+    reportSelectOptionYear: 'Year',
   },
   ru: {
     loginForm_title: 'Вход',
@@ -14,6 +18,10 @@ export default {
     loginForm_submit: 'Войти',
     loginForm_errorMessage: 'Неправильный логин или пароль',
     languageSelectModalTitle: 'Выберите язык',
+    reportSelectModalTitle: 'Выберите временной промежуток',
+    reportSelectOptionWeek: 'Неделя',
+    reportSelectOptionMonth: 'Месяц',
+    reportSelectOptionYear: 'Год',
   },
   es: {
     loginForm_title: 'Formulario de acceso',
@@ -22,5 +30,9 @@ export default {
     loginForm_submit: 'Enviar',
     loginForm_errorMessage: 'El inicio de sesión o la contraseña son incorrectos',
     languageSelectModalTitle: 'Seleccione el idioma',
+    reportSelectModalTitle: 'Seleccionar rango de informe',
+    reportSelectOptionWeek: 'Semana',
+    reportSelectOptionMonth: 'Mes',
+    reportSelectOptionYear: 'Año',
   },
 };

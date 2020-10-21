@@ -41,6 +41,7 @@
     },
     created() {
       this.initApp();
+      //TODO: REMOVE ROUTER LANG PARAMS
     },
     methods: {
       ...mapActions('references', {
@@ -60,10 +61,10 @@
         hidePreloader: PRELOADER.HIDE_PRELOADER,
       }),
       async initApp() {
+        this.showPreloader(PRELOADER_KEY);
         await this.initReferences();
         await this.initViewport();
         await this.initLogger();
-        this.showPreloader(PRELOADER_KEY);
         const { successes, group } = await this.initAuth();
         const name = successes ? REDIRECT_NAME_MAPPER[group] : AUTH_ROUTE_NAMES.auth;
         this.hidePreloader(PRELOADER_KEY);

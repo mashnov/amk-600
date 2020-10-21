@@ -4,7 +4,7 @@ import i18n from './i18n';
 
 export default {
   async [MODULE.FETCH_I18N]() {
-    await sleep(0);
+    await sleep(2000);
     return i18n;
   },
 };

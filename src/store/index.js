@@ -2,8 +2,9 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import references from './references/index';
-import viewport from './viewport/index';
 import preloader from './preloader/index';
+import viewport from './viewport/index';
+import reports from './reports/index';
 import logger from './logger/index';
 import modal from './modal/index';
 import auth from './auth/index';
@@ -14,8 +15,9 @@ export default new Vuex.Store({
   strict: true,
   modules: {
     references,
-    viewport,
     preloader,
+    viewport,
+    reports,
     logger,
     modal,
     auth,

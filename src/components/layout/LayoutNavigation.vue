@@ -46,7 +46,7 @@
 
 <script>
   import isNull from 'lodash/isNull';
-  import { mapActions, mapGetters } from 'vuex';
+  import { mapGetters, mapActions } from 'vuex';
   import { MODAL, AUTH, PRELOADER } from '~/store/types';
   import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
 
