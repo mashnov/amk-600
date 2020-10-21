@@ -15,7 +15,7 @@
         <AmkInput
           :value="username"
           :placeholder="i18n.loginForm_username"
-          @input="setUsername($event.target.value)"
+          @input="username = $event.target.value"
           @enter-press="submitClickHandler"
           @focus="loginError = false"
         />
@@ -30,7 +30,7 @@
           :value="password"
           :placeholder="i18n.loginForm_password"
           type="password"
-          @input="setPassword($event.target.value)"
+          @input="password = $event.target.value"
           @enter-press="submitClickHandler"
           @focus="loginError = false"
         />
@@ -72,7 +72,7 @@
   import AmkInput from '~/components/form-items/amk-input/AmkInput';
   import AmkButton from '~/components/form-items/amk-button/AmkButton';
 
-  const LOGIN_PRELOADER_KEY = 'loginRequest';
+  const PRELOADER_KEY = 'login';
   const REDIRECT_NAME_MAPPER = {
     user: USER_ROUTE_NAMES.user,
     admin: ADMIN_ROUTE_NAMES.admin,
@@ -86,14 +86,12 @@
     },
     data: () => ({
       loginError: false,
+      username: '',
+      password: '',
     }),
     computed: {
       ...mapGetters('references', {
         i18n: REFERENCES.GET_I18N,
-      }),
-      ...mapGetters('auth', {
-        username: AUTH.GET_USERNAME,
-        password: AUTH.GET_PASSWORD,
       }),
       formIsDisabled() {
         const { username, password } = this;
@@ -104,8 +102,6 @@
     },
     methods: {
       ...mapActions('auth', {
-        setUsername: AUTH.SET_USERNAME,
-        setPassword: AUTH.SET_PASSWORD,
         authHandler: AUTH.LOGIN_HANDLER,
       }),
       ...mapActions('preloader', {
@@ -113,13 +109,13 @@
         hidePreloader: PRELOADER.HIDE_PRELOADER,
       }),
       async submitClickHandler() {
-        const { formIsDisabled } = this;
+        const { formIsDisabled, username, password } = this;
         if (formIsDisabled) {
           return;
         }
-        this.showPreloader(LOGIN_PRELOADER_KEY);
-        const { successes, group } = await this.authHandler();
-        this.hidePreloader(LOGIN_PRELOADER_KEY);
+        this.showPreloader(PRELOADER_KEY);
+        const { successes, group } = await this.authHandler({ username, password });
+        this.hidePreloader(PRELOADER_KEY);
         if (successes) {
           this.$router.push({ name: REDIRECT_NAME_MAPPER[group] });
         }

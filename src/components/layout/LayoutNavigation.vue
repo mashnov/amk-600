@@ -60,7 +60,7 @@
   import ReportIcon from '~/assets/svg/report-icon.svg';
   import LogoutIcon from '~/assets/svg/logout-icon.svg';
 
-  const LOGOUT_PRELOADER_KEY = 'logoutRequest';
+  const PRELOADER_KEY = 'logout';
   const ADMIN_USER_TYPE = 'admin';
 
   export default {
@@ -109,9 +109,9 @@
         });
       },
       async logoutClickHandler() {
-        this.showPreloader(LOGOUT_PRELOADER_KEY);
+        this.showPreloader(PRELOADER_KEY);
         const { success } = await this.logoutHandler();
-        this.hidePreloader(LOGOUT_PRELOADER_KEY);
+        this.hidePreloader(PRELOADER_KEY);
         if (success) {
           this.$router.push({ name: AUTH_ROUTE_NAMES.auth })
         }

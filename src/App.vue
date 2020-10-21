@@ -20,7 +20,7 @@
   import Layout from '~/components/layout/Layout';
   import Modal from '~/components/modal/Modal';
 
-  const RE_LOGIN_PRELOADER_KEY = 'reloginRequest';
+  const PRELOADER_KEY = 'reLogin';
   const REDIRECT_NAME_MAPPER = {
     user: USER_ROUTE_NAMES.user,
     admin: ADMIN_ROUTE_NAMES.admin,
@@ -63,10 +63,10 @@
         await this.initReferences();
         await this.initViewport();
         await this.initLogger();
-        this.showPreloader(RE_LOGIN_PRELOADER_KEY);
+        this.showPreloader(PRELOADER_KEY);
         const { successes, group } = await this.initAuth();
         const name = successes ? REDIRECT_NAME_MAPPER[group] : AUTH_ROUTE_NAMES.auth;
-        this.hidePreloader(RE_LOGIN_PRELOADER_KEY);
+        this.hidePreloader(PRELOADER_KEY);
         this.redirectToPage(name);
       },
       redirectToPage(name) {

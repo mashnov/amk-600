@@ -1,3 +1,1 @@
-export const sensors = {
-  fetchAllData: '',
-};
+const apiUrl = process.env.VUE_APP_API_URL;

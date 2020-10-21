@@ -11,10 +11,8 @@ export default {
     setUserToken(token);
     return { successes, group };
   },
-  async [MODULE.LOGIN_HANDLER]({ dispatch, state: { username, password } }) {
+  async [MODULE.LOGIN_HANDLER]({ dispatch }, { username, password }) {
     const { successes, token, group } = await Api.LOGIN_HANDLER({ username, password });
-    dispatch(MODULE.SET_USERNAME, '');
-    dispatch(MODULE.SET_PASSWORD, '');
     dispatch(MODULE.SET_USER_TOKEN, token);
     dispatch(MODULE.SET_USER_TYPE, group);
     setUserToken(token);
@@ -32,11 +30,5 @@ export default {
   },
   [MODULE.SET_USER_TYPE]({ commit }, userType) {
     commit(MODULE.MUTATE_USER_TYPE, userType);
-  },
-  [MODULE.SET_USERNAME]({ commit }, username) {
-    commit(MODULE.MUTATE_USERNAME, username);
-  },
-  [MODULE.SET_PASSWORD]({ commit }, password) {
-    commit(MODULE.MUTATE_PASSWORD, password);
   },
 };

@@ -2,10 +2,10 @@ import isMobile from 'ismobilejs';
 import { detect } from 'detect-browser';
 import $cookies from 'vue-cookies';
 
-const AVAILABLE_LANGUAGES = ['en', 'es', 'ru'];
+const AVAILABLE_LANGUAGES = process.env.VUE_APP_AVAILABLE_LANGUAGES.split(' ');
 const DEFAULT_LANGUAGE_ID = AVAILABLE_LANGUAGES[0];
-const LANGUAGES_COOKIE_KEY = 'currentLanguage'
-const USER_TOKEN_COOKIE_KEY = 'userToken'
+const LANGUAGES_COOKIE_KEY = process.env.VUE_APP_LANGUAGES_COOKIE_KEY;
+const USER_TOKEN_COOKIE_KEY = process.env.VUE_APP_USER_TOKEN_COOKIE_KEY;
 
 export const getBrowserName = () => {
   const { name, os } = detect();
