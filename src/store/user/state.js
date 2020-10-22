@@ -21,7 +21,8 @@ export default {
     positionW: null,
     date: null,
     time: null,
-    temperature: null,
+    temperature1: null,
+    temperature2: null,
     power1: null,
     power2: null,
     voltage1: null,
@@ -33,6 +34,7 @@ export default {
     weatherIsOnLine: true,
     gpsIsOnLine: true,
     compassIsOnLine: true,
-    powerIsOnLine: true,
+    battery1IsOnLine: true,
+    battery2IsOnLine: true,
   },
 };
