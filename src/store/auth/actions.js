@@ -15,8 +15,8 @@ export default {
       return { successes };
     }
   },
-  async [MODULE.LOGIN_HANDLER]({ dispatch }, { login, password }) {
-    const { successes, token, group } = await Api.LOGIN_HANDLER({ login, password });
+  async [MODULE.LOGIN_HANDLER]({ dispatch }, { username, password }) {
+    const { successes, token, group } = await Api.LOGIN_HANDLER({ username, password });
     if (successes) {
       dispatch(MODULE.SET_USER_TOKEN, token);
       dispatch(MODULE.SET_USER_TYPE, group);

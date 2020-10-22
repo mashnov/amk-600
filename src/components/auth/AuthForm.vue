@@ -13,9 +13,9 @@
           {{ i18n.loginForm_username }}
         </span>
         <AmkInput
-          :value="login"
+          :value="username"
           :placeholder="i18n.loginForm_username"
-          @input="login = $event.target.value"
+          @input="username = $event.target.value"
           @enter-press="submitClickHandler"
           @focus="loginError = false"
         />
@@ -87,7 +87,7 @@
     //TODO: REMOVE USERNAME & PASSWORD
     data: () => ({
       loginError: false,
-      login: 'VeyDlin',
+      username: 'VeyDlin',
       password: 'VeyDlin',
     }),
     computed: {
@@ -95,8 +95,8 @@
         i18n: REFERENCES.GET_I18N,
       }),
       formIsDisabled() {
-        const { login, password } = this;
-        const usernameIsCorrect = login.length > 3;
+        const { username, password } = this;
+        const usernameIsCorrect = username.length > 3;
         const passwordIsCorrect = password.length > 3;
         return !usernameIsCorrect || !passwordIsCorrect;
       },
@@ -110,12 +110,12 @@
         hidePreloader: PRELOADER.HIDE_PRELOADER,
       }),
       async submitClickHandler() {
-        const { formIsDisabled, login, password } = this;
+        const { formIsDisabled, username, password } = this;
         if (formIsDisabled) {
           return;
         }
         this.showPreloader(PRELOADER_KEY);
-        const { successes, group } = await this.authHandler({ login, password });
+        const { successes, group } = await this.authHandler({ username, password });
         this.hidePreloader(PRELOADER_KEY);
         if (successes) {
           this.$router.push({ name: REDIRECT_NAME_MAPPER[group] });

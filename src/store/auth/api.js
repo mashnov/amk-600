@@ -13,10 +13,10 @@ export default {
       return { successes: false };
     }
   },
-  async [MODULE.LOGIN_HANDLER]({ login, password }) {
+  async [MODULE.LOGIN_HANDLER]({ username, password }) {
     const apiUrl = auth.login;
     try {
-      const { successes, token, group } = await axios.post(apiUrl, { login, password });
+      const { successes, token, group } = await axios.post(apiUrl, { username, password });
       return { successes, token, group };
     }
     catch {
