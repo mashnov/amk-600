@@ -47,7 +47,8 @@
     },
     created() {
       this.initApp();
-      //TODO: REMOVE ROUTER LANG PARAMS
+      this.clearUrlParams();
+      this.tryReLogin();
     },
     methods: {
       ...mapActions('references', {
@@ -66,11 +67,16 @@
         showPreloader: PRELOADER.SHOW_PRELOADER,
         hidePreloader: PRELOADER.HIDE_PRELOADER,
       }),
-      async initApp() {
+      initApp() {
+        this.initReferences();
+        this.initViewport();
+        this.initLogger();
+      },
+      clearUrlParams() {
+        this.$router.replace({'lang': null});
+      },
+      async tryReLogin() {
         this.showPreloader(PRELOADER_KEY);
-        await this.initReferences();
-        await this.initViewport();
-        await this.initLogger();
         const { successes, group } = await this.initAuth();
         const name = successes ? REDIRECT_NAME_MAPPER[group] : AUTH_ROUTE_NAMES.auth;
         this.hidePreloader(PRELOADER_KEY);
