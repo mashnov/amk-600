@@ -20,11 +20,8 @@ export default {
     if (successes) {
       dispatch(MODULE.SET_USER_TOKEN, token);
       dispatch(MODULE.SET_USER_TYPE, group);
-      return { successes, group };
     }
-    if (!successes) {
-      return { successes };
-    }
+    return { successes, group };
   },
   async [MODULE.LOGOUT_HANDLER]({ dispatch, state: { userToken } }) {
     const { successes } = await Api.LOGOUT_HANDLER({ userToken });

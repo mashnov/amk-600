@@ -110,9 +110,9 @@
       },
       async logoutClickHandler() {
         this.showPreloader(PRELOADER_KEY);
-        const { success } = await this.logoutHandler();
+        const { successes } = await this.logoutHandler();
         this.hidePreloader(PRELOADER_KEY);
-        if (success) {
+        if (successes) {
           this.$router.push({ name: AUTH_ROUTE_NAMES.auth })
         }
       },
