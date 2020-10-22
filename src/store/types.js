@@ -5,3 +5,4 @@ export { default as REPORTS } from './reports/types';
 export { default as LOGGER } from './logger/types';
 export { default as MODAL } from './modal/types';
 export { default as AUTH } from './auth/types';
+export { default as USER } from './user/types';

@@ -43,6 +43,3 @@ export const getUserToken = () => {
 export const setUserToken = (token) => {
   $cookies.set(USER_TOKEN_COOKIE_KEY, token);
 };
-export const removeUserToken = () => {
-  $cookies.remove(USER_TOKEN_COOKIE_KEY);
-};

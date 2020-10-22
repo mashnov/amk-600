@@ -5,3 +5,6 @@ export const auth = {
   login: `${apiUrl}api/auth`,
   logout: `${apiUrl}api/logout`,
 };
+export const user = {
+  fetchData: `${apiUrl}api/info`,
+};
