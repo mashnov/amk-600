@@ -1,27 +1,36 @@
+import axios from 'axios';
 import MODULE from './types';
-import { sleep } from '~/helpers/system';
+import { auth } from '~/store/request-url';
 
 export default {
   async [MODULE.RE_LOGIN_HANDLER]({ userToken }) {
-    await sleep(2000);
-    return {
-      successes: true,
-      token: 'anyTokenText',
-      group: 'user'
-    };
+    const apiUrl = auth.reLogin;
+    try {
+      const { successes, token, group } = await axios.post(apiUrl, { token: userToken });
+      return { successes, token, group };
+    }
+    catch {
+      return { successes: false };
+    }
   },
-  async [MODULE.LOGIN_HANDLER]({ username, password }) {
-    await sleep(2000);
-    return {
-      successes: true,
-      token: 'anyTokenText',
-      group: 'user'
-    };
+  async [MODULE.LOGIN_HANDLER]({ login, password }) {
+    const apiUrl = auth.login;
+    try {
+      const { successes, token, group } = await axios.post(apiUrl, { login, password });
+      return { successes, token, group };
+    }
+    catch {
+      return { successes: false };
+    }
   },
-  async [MODULE.LOGOUT_HANDLER]({ token }) {
-    await sleep(2000);
-    return {
-      success: true
-    };
+  async [MODULE.LOGOUT_HANDLER]({ userToken }) {
+    const apiUrl = auth.logout;
+    try {
+      const { successes } = await axios.post(apiUrl, { token: userToken });
+      return { successes };
+    }
+    catch {
+      return { successes: false };
+    }
   },
 };
