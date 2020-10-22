@@ -42,7 +42,6 @@
     width: 100%;
     height: 100%;
     z-index: 12;
-    transition: opacity $animation-time-03 $animation-easing;
   }
   .preloader svg {
     display: block;
