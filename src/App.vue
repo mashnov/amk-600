@@ -5,7 +5,13 @@
   >
     <Preloader />
     <Layout>
-      <router-view />
+      <transition
+        appear
+        name="fadeIn"
+        mode="out-in"
+      >
+        <router-view />
+      </transition>
     </Layout>
     <Modal />
   </div>
