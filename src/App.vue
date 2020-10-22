@@ -7,7 +7,7 @@
     <Layout>
       <transition
         appear
-        name="fadeIn"
+        name="fade-in"
         mode="out-in"
       >
         <router-view />
