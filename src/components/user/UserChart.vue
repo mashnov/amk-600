@@ -1,16 +1,19 @@
 <template>
-  <div class="row justify-content-center user-page">
-    <div class="col-12 col-xl-8">
-      Данные
-    </div>
-    <div class="col-12 col-xl-4">
-      Схема и датчики
-    </div>
+  <div class="user-chart">
+    {{ reportTypes }}
   </div>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+  import { REPORTS } from '~/store/types';
+
   export default {
-    name: 'UserPage',
+    name: 'UserChart',
+    computed: {
+      ...mapGetters('reports', {
+        reportTypes: REPORTS.GET_REPORT_TYPES,
+      }),
+    },
   };
 </script>

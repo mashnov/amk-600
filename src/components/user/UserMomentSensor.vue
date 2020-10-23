@@ -69,14 +69,18 @@
     display: block;
     padding: 25px;
     background: $color-gray-06;
-    box-shadow: 0 8px 24px rgba(1, 1, 1, 0.1);
+    box-shadow: 0 8px 24px $color-overlay;
     border-radius: 6px;
     transition: background-color $animation-time-01 $animation-easing, box-shadow $animation-time-01 $animation-easing;
     cursor: pointer;
   }
   .user-moment-sensor_active .user-moment-sensor__wrapper {
     background: $color-gray-05;
-    box-shadow: inset 10px 10px 24px rgba(1, 1, 1, 0.3);
+    box-shadow: inset 0 0 10px $color-overlay;
+  }
+  .user-moment-sensor__wrapper:hover {
+    background: $color-gray-05;
+    box-shadow: inset 0 0 10px $color-overlay;
   }
   .user-moment-sensor__unit {
     display: block;

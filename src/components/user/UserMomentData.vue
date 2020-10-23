@@ -8,8 +8,8 @@
               :title="i18n.momentData_temperatureSensorTitle"
               :unit="i18n.momentData_temperatureSensorUnit"
               :value="momentData.temperature"
-              :is-active="true"
-              @select-item="selectItemHandler('temperature')"
+              :is-active="reportTypes.includes('temperature')"
+              @select-item="setReportTypes('temperature')"
             />
           </div>
           <div class="col-12 col-sm-6 mb-4 mb-lg-0">
@@ -17,8 +17,8 @@
               :title="i18n.momentData_humiditySensorTitle"
               :unit="i18n.momentData_humiditySensorUnit"
               :value="momentData.humidity"
-              :is-active="false"
-              @select-item="selectItemHandler('humidity')"
+              :is-active="reportTypes.includes('humidity')"
+              @select-item="setReportTypes('humidity')"
             />
           </div>
         </div>
@@ -28,8 +28,8 @@
               :title="i18n.momentData_pressureSensorTitle"
               :unit="i18n.momentData_pressureSensorUnit"
               :value="momentData.pressure"
-              :is-active="false"
-              @select-item="selectItemHandler('pressure')"
+              :is-active="reportTypes.includes('pressure')"
+              @select-item="setReportTypes('pressure')"
             />
           </div>
           <div class="col-12 col-sm-6 mb-4 mb-lg-0">
@@ -37,8 +37,8 @@
               :title="i18n.momentData_rainfallSensorTitle"
               :unit="i18n.momentData_rainfallSensorUnit"
               :value="momentData.rainfall"
-              :is-active="false"
-              @select-item="selectItemHandler('rainfall')"
+              :is-active="reportTypes.includes('rainfall')"
+              @select-item="setReportTypes('rainfall')"
             />
           </div>
         </div>
@@ -52,7 +52,7 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import { REFERENCES, USER } from '~/store/types';
+  import { REFERENCES, USER, REPORTS } from '~/store/types';
 
   import UserMomentSensor from './UserMomentSensor';
   import UserMomentWind from './UserMomentWind';
@@ -70,11 +70,14 @@
       ...mapGetters('user', {
         momentData: USER.GET_MOMENT_DATA,
       }),
+      ...mapGetters('reports', {
+        reportTypes: REPORTS.GET_REPORT_TYPES,
+      }),
     },
     methods: {
-      selectItemHandler(id) {
-        console.log(id);
-      },
+      ...mapActions('reports', {
+        setReportTypes: REPORTS.SET_REPORT_TYPES,
+      }),
     },
   };
 </script>

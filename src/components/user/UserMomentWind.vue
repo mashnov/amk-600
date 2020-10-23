@@ -8,41 +8,29 @@
         <div class="col-12 col-sm-5 mb-3 mb-sm-0">
           <div class="row mb-4">
             <div class="col-12">
-              <div class="user-moment-wind__sensor-title">
-                {{ i18n.momentData_windVerticalTitle }}
-              </div>
-              <div class="user-moment-wind__sensor-value">
-                {{ momentData.windVerticalSpeed || 0 }}
-                <span>
-                  {{ i18n.momentData_windVerticalUnit }}
-                </span>
-              </div>
+              <UserMomentWindItem
+                :title="i18n.momentData_windVerticalTitle"
+                :value="momentData.windVerticalSpeed"
+                :unit="i18n.momentData_windVerticalUnit"
+              />
             </div>
           </div>
           <div class="row mb-4">
             <div class="col-12">
-              <div class="user-moment-wind__sensor-title">
-                {{ i18n.momentData_windSpeedTitle }}
-              </div>
-              <div class="user-moment-wind__sensor-value">
-                {{ momentData.windSpeed || 0 }}
-                <span>
-                  {{ i18n.momentData_windSpeedUnit }}
-                </span>
-              </div>
+              <UserMomentWindItem
+                :title="i18n.momentData_windSpeedTitle"
+                :value="momentData.windSpeed"
+                :unit="i18n.momentData_windSpeedUnit"
+              />
             </div>
           </div>
           <div class="row">
             <div class="col-12">
-              <div class="user-moment-wind__sensor-title">
-                {{ i18n.momentData_windDirectionTitle }}
-              </div>
-              <div class="user-moment-wind__sensor-value">
-                {{ momentData.windDirection || 0 }}
-                <span>
-                  {{ i18n.momentData_windDirectionUnit }}
-                </span>
-              </div>
+              <UserMomentWindItem
+                :title="i18n.momentData_windDirectionTitle"
+                :value="momentData.windDirection"
+                :unit="i18n.momentData_windDirectionUnit"
+              />
             </div>
           </div>
         </div>
@@ -60,11 +48,13 @@
   import { mapGetters } from 'vuex';
   import { REFERENCES, USER } from '~/store/types';
 
+  import UserMomentWindItem from './UserMomentWindItem';
   import UserMomentCompass from './UserMomentCompass';
 
   export default {
     name: 'UserMomentWind',
     components: {
+      UserMomentWindItem,
       UserMomentCompass,
     },
     computed: {
@@ -98,7 +88,7 @@
     padding: 25px;
     flex: 1 0 auto;
     background: $color-gray-06;
-    box-shadow: 0 8px 24px rgba(1, 1, 1, 0.1);
+    box-shadow: 0 8px 24px $color-overlay;
     border-radius: 6px;
     transition: background-color $animation-time-01 $animation-easing, box-shadow $animation-time-01 $animation-easing;
   }

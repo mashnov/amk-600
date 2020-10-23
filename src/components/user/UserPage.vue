@@ -1,12 +1,12 @@
 <template>
   <div class="row justify-content-center user-page">
     <div class="col-12 col-xl-8">
-      <div class="row">
+      <div class="row mb-5">
         <div class="col-12">
           <UserMomentData />
         </div>
       </div>
-      <div class="row">
+      <div class="row mb-5">
         <div class="col-12">
           <UserChart />
         </div>
