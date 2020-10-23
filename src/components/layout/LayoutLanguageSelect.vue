@@ -4,7 +4,7 @@
       <div class="row mb-4">
         <div class="col-12">
           <h2 class="layout-language-select__title">
-            {{ i18n.languageSelectModalTitle }}
+            {{ i18n.languageSelect_ModalTitle }}
           </h2>
         </div>
       </div>

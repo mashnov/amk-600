@@ -6,7 +6,7 @@ export default {
     rainfall: null,
     windVerticalSpeed: null,
     windSpeed: null,
-    windDirections: null,
+    windDirection: null,
   },
   statData: {
     windSpeed: null,

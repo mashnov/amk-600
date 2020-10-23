@@ -4,7 +4,7 @@
       <div class="row mb-5">
         <div class="col-12">
           <h2 class="layout-report-select__title">
-            {{ i18n.reportSelectModalTitle }}
+            {{ i18n.reportSelect_ModalTitle }}
           </h2>
         </div>
       </div>
@@ -16,7 +16,7 @@
           >
             <ReportIcon />
             <span class="layout-report-select__option-title">
-              {{ i18n.reportSelectOptionWeek }}
+              {{ i18n.reportSelect_OptionWeek }}
             </span>
           </div>
         </div>
@@ -27,7 +27,7 @@
           >
             <ReportIcon />
             <span class="layout-report-select__option-title">
-              {{ i18n.reportSelectOptionMonth }}
+              {{ i18n.reportSelect_OptionMonth }}
             </span>
           </div>
         </div>
@@ -38,7 +38,7 @@
           >
             <ReportIcon />
             <span class="layout-report-select__option-title">
-              {{ i18n.reportSelectOptionYear }}
+              {{ i18n.reportSelect_OptionYear }}
             </span>
           </div>
         </div>

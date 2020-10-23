@@ -13,7 +13,7 @@ export const userDataTransformer = (data) => {
     rainfall: get(data, 'sensors.rain.rainPower', null),
     windVerticalSpeed: get(data, 'sensors.wind.minute2.vertical', null),
     windSpeed: get(data, 'sensors.wind.minute2.horizontal', null),
-    windDirections: get(data, 'sensors.wind.minute2.direction', null),
+    windDirection: get(data, 'sensors.wind.minute2.direction', null),
   };
   const deviceData = {
     name: get(data, 'deviceName', null),

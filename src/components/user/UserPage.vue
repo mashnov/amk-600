@@ -1,9 +1,21 @@
 <template>
   <div class="row justify-content-center user-page">
     <div class="col-12 col-xl-8">
-      <UserMomentData />
-      <UserChart />
-      <UserStatData />
+      <div class="row">
+        <div class="col-12">
+          <UserMomentData />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <UserChart />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <UserStatData />
+        </div>
+      </div>
     </div>
     <div class="col-12 col-xl-4">
       Схема и датчики
@@ -25,3 +37,14 @@
     },
   };
 </script>
+
+<style lang="scss" scoped>
+  .user-page {
+    padding: 20px 10px;
+  }
+  @media (min-width: $screen-lg) {
+    .user-page {
+      padding: 50px;
+    }
+  }
+</style>
