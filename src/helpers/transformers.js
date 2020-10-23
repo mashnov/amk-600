@@ -4,13 +4,13 @@ export const userDataTransformer = (data) => {
   const temperatureMainSensor = get(data, 'sensors.temperature.main', null);
   const humidityMainSensor = get(data, 'sensors.humidity.main', null);
   const pressureMainSensor = get(data, 'sensors.pressure.main', null);
+  const rainMainSensor = get(data, 'sensors.rain.main', null);
 
   const momentData = {
     temperature: get(data, `sensors.temperature.allSensors[${temperatureMainSensor}]`, null),
     humidity: get(data, `sensors.humidity.allSensors[${humidityMainSensor}]`, null),
     pressure: get(data, `sensors.pressure.allSensors[${pressureMainSensor}]`, null),
-    //TODO: УТОЧНИТЬ КАКОЕ ИМЕННО ПОЛЕ ВЫВОДИТЬ
-    rainfall: get(data, 'sensors.rain.rainPower', null),
+    rainfall: get(data, `sensors.rain.allSensors[${rainMainSensor}]`, null),
     windVerticalSpeed: get(data, 'sensors.wind.minute2.vertical', null),
     windSpeed: get(data, 'sensors.wind.minute2.horizontal', null),
     windDirection: get(data, 'sensors.wind.minute2.direction', null),
