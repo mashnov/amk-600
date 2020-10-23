@@ -13,28 +13,28 @@
           <div class="col-12">
             <div class="user-stat-data__wrapper">
               <div class="row">
-                <div class="col-12 col-md-3">
+                <div class="col-12 col-sm-6 col-md-3 mb-4 mb-md-0">
                   <UserStatDataItem
                     :title="i18n.statData_windSpeedTitle"
                     :value="statData.windSpeed"
                     :unit="i18n.statData_windSpeedUnit"
                   />
                 </div>
-                <div class="col-12 col-md-3">
+                <div class="col-12 col-sm-6 col-md-3 mb-4 mb-md-0">
                   <UserStatDataItem
                     :title="i18n.statData_windHorizontalTitle"
                     :value="statData.windHorizontalSpeed"
                     :unit="i18n.statData_windHorizontalUnit"
                   />
                 </div>
-                <div class="col-12 col-md-3">
+                <div class="col-12 col-sm-6 col-md-3 mb-4 mb-sm-0">
                   <UserStatDataItem
                     :title="i18n.statData_windMaxTitle"
                     :value="statData.windMaxSpeed"
                     :unit="i18n.statData_windMaxUnit"
                   />
                 </div>
-                <div class="col-12 col-md-3">
+                <div class="col-12 col-sm-6 col-md-3 mb-4 mb-sm-0">
                   <UserStatDataItem
                     :title="i18n.statData_windDirectionTitle"
                     :value="statData.windDirection"
