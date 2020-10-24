@@ -1,45 +1,47 @@
 <template>
   <div class="layout-navigation">
-    <div
-      v-if="!userIsAuthed"
-      class="layout-navigation_item"
-      :class="!userIsAuthed && 'layout-navigation_item_selected'"
-    >
-      <UserIcon />
-    </div>
-    <div
-      v-if="userIsAuthed && !userIsAdmin"
-      class="layout-navigation_item"
-      :class="userIsAuthed && !userIsAdmin && 'layout-navigation_item_selected'"
-    >
-      <DashboardIcon />
-    </div>
-    <div
-      v-if="userIsAuthed && userIsAdmin"
-      class="layout-navigation_item"
-      :class="userIsAuthed && userIsAdmin && 'layout-navigation_item_selected'"
-    >
-      <SettingsIcon />
-    </div>
-    <div
-      v-if="userIsAuthed"
-      class="layout-navigation_item"
-      @click="showReportModal"
-    >
-      <ReportIcon />
-    </div>
-    <div
-      class="layout-navigation_item"
-      @click="showLanguageModal"
-    >
-      <LanguageIcon />
-    </div>
-    <div
-      v-if="userIsAuthed"
-      class="layout-navigation_item"
-      @click="logoutClickHandler"
-    >
-      <LogoutIcon />
+    <div class="layout-navigation__wrapper">
+      <div
+        v-if="!userIsAuthed"
+        class="layout-navigation_item"
+        :class="!userIsAuthed && 'layout-navigation_item_selected'"
+      >
+        <UserIcon />
+      </div>
+      <div
+        v-if="userIsAuthed && !userIsAdmin"
+        class="layout-navigation_item"
+        :class="userIsAuthed && !userIsAdmin && 'layout-navigation_item_selected'"
+      >
+        <DashboardIcon />
+      </div>
+      <div
+        v-if="userIsAuthed && userIsAdmin"
+        class="layout-navigation_item"
+        :class="userIsAuthed && userIsAdmin && 'layout-navigation_item_selected'"
+      >
+        <SettingsIcon />
+      </div>
+      <div
+        v-if="userIsAuthed"
+        class="layout-navigation_item"
+        @click="showReportModal"
+      >
+        <ReportIcon />
+      </div>
+      <div
+        class="layout-navigation_item"
+        @click="showLanguageModal"
+      >
+        <LanguageIcon />
+      </div>
+      <div
+        v-if="userIsAuthed"
+        class="layout-navigation_item"
+        @click="logoutClickHandler"
+      >
+        <LogoutIcon />
+      </div>
     </div>
   </div>
 </template>
@@ -123,6 +125,11 @@
 <style lang="scss" scoped>
   .layout-navigation {
     background-color: $color-gray-02;
+  }
+  .layout-navigation__wrapper {
+    position: sticky;
+    top: 50px;
+    bottom: 50px;
   }
   .layout-navigation_item {
     display: flex;
