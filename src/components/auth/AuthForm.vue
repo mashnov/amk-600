@@ -41,8 +41,8 @@
       name="fade-in"
     >
       <div
-        class="row mt-4"
         v-if="loginError"
+        class="row mt-4"
       >
         <div class="col-12">
           <p class="auth-form__error-message">

@@ -49,7 +49,7 @@
     },
     methods: {
       itemClickHandler() {
-        this.$emit('select-item')
+        this.$emit('select-item');
       },
     },
   };

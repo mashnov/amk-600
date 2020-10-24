@@ -73,7 +73,7 @@
         this.initLogger();
       },
       clearUrlParams() {
-        this.$router.replace({'lang': null});
+        this.$router.replace({ lang: null });
       },
       async tryReLogin() {
         this.showPreloader(PRELOADER_KEY);

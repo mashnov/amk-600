@@ -2,5 +2,5 @@ import i18n from './i18n';
 
 export default {
   languageId: null,
-  i18n: i18n,
+  i18n,
 };

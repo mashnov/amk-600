@@ -20,6 +20,3 @@ export default {
     dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
   },
 };
-
-
-

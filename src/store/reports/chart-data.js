@@ -379,7 +379,7 @@ export default {
         { time: 1603324800, y: 8 },
         { time: 1603411200, y: 10 },
         { time: 1603497600, y: 9 },
-      ]
+      ],
     },
     humidity: {
       week: [
@@ -421,7 +421,7 @@ export default {
         { time: 1603411200, y: 5 },
         { time: 1603497600, y: 7 },
       ],
-      year: []
+      year: [],
     },
     pressure: {
       week: [
@@ -800,7 +800,7 @@ export default {
         { time: 1603324800, y: 7 },
         { time: 1603411200, y: 5 },
         { time: 1603497600, y: 7 },
-      ]
+      ],
     },
     rain: {
       week: [
@@ -1179,7 +1179,7 @@ export default {
         { time: 1603324800, y: 0 },
         { time: 1603411200, y: 0 },
         { time: 1603497600, y: 1 },
-      ]
+      ],
     },
   },
 };

@@ -1,11 +1,12 @@
 import Vue from 'vue';
 
-import App from './App.vue';
+import App from './App';
 import router from './router';
 import store from './store';
 
 Vue.config.productionTip = false;
 
+/* eslint no-new:0 */
 new Vue({
   el: '#app',
   router,

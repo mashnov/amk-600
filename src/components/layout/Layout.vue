@@ -49,7 +49,7 @@
     },
     methods: {
       setPageScroll() {
-        const {pageScrollPosition, layoutIsLocked, scrollTop} = this;
+        const { pageScrollPosition, layoutIsLocked, scrollTop } = this;
         const scrollPosition = layoutIsLocked ? 0 : pageScrollPosition;
         if (layoutIsLocked) {
           this.pageScrollPosition = scrollTop;

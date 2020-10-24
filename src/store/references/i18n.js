@@ -71,6 +71,3 @@ export default {
     reportSelect_OptionYear: 'Año',
   },
 };
-
-
-

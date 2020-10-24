@@ -114,7 +114,3 @@
     border-radius: 6px;
   }
 </style>
-
-
-statData_DewPointTitle: 'dew point',
-statData_DewPointUnit: '°',

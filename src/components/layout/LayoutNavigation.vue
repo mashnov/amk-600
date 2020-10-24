@@ -1,45 +1,45 @@
 <template>
   <div class="layout-navigation">
     <div
+      v-if="!userIsAuthed"
       class="layout-navigation_item"
       :class="!userIsAuthed && 'layout-navigation_item_selected'"
-      v-if="!userIsAuthed"
     >
-      <UserIcon/>
+      <UserIcon />
     </div>
     <div
+      v-if="userIsAuthed && !userIsAdmin"
       class="layout-navigation_item"
       :class="userIsAuthed && !userIsAdmin && 'layout-navigation_item_selected'"
-      v-if="userIsAuthed && !userIsAdmin"
     >
-      <DashboardIcon/>
+      <DashboardIcon />
     </div>
     <div
+      v-if="userIsAuthed && userIsAdmin"
       class="layout-navigation_item"
       :class="userIsAuthed && userIsAdmin && 'layout-navigation_item_selected'"
-      v-if="userIsAuthed && userIsAdmin"
     >
-      <SettingsIcon/>
+      <SettingsIcon />
     </div>
     <div
+      v-if="userIsAuthed"
       class="layout-navigation_item"
       @click="showReportModal"
-      v-if="userIsAuthed"
     >
-      <ReportIcon/>
+      <ReportIcon />
     </div>
     <div
       class="layout-navigation_item"
       @click="showLanguageModal"
     >
-      <LanguageIcon/>
+      <LanguageIcon />
     </div>
     <div
-      class="layout-navigation_item"
       v-if="userIsAuthed"
+      class="layout-navigation_item"
       @click="logoutClickHandler"
     >
-      <LogoutIcon/>
+      <LogoutIcon />
     </div>
   </div>
 </template>
@@ -113,7 +113,7 @@
         const { successes } = await this.logoutHandler();
         this.hidePreloader(PRELOADER_KEY);
         if (successes) {
-          this.$router.push({ name: AUTH_ROUTE_NAMES.auth })
+          this.$router.push({ name: AUTH_ROUTE_NAMES.auth });
         }
       },
     },

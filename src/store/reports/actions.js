@@ -26,7 +26,8 @@ export default {
     const typeIndex = reportTypes.indexOf(reportType);
     if (typeIndex >= 0) {
       reportTypes.splice(typeIndex, 1);
-    } else {
+    }
+    else {
       reportTypes.push(reportType);
     }
     commit(MODULE.MUTATE_REPORT_TYPES, reportTypes);

@@ -6,9 +6,9 @@
     tag="div"
   >
     <div
-      class="col-12 col-sm-6 col-md-3 mb-3 mb-md-0"
       v-for="(chartType, index) in list"
       :key="index"
+      class="col-12 col-sm-6 col-md-3 mb-3 mb-md-0"
     >
       <div class="user-chart-legend__item">
         <span
@@ -58,13 +58,13 @@
       getItemStyle(chartType) {
         return {
           backgroundColor: CHART_BACKGROUND_MAPPER[chartType],
-        }
+        };
       },
       getItemName(chartType) {
         const { i18n } = this;
         const translationKey = replaceCurly(TYPE_TRANSLATION_KEY, ['chartType'], [chartType]);
         return i18n[translationKey];
-      }
+      },
     },
   };
 </script>

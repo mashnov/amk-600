@@ -8,19 +8,19 @@
           />
         </div>
       </div>
-      <div class="row mb-5">
-        <div class="col-12">
-          <AmkSelect
-            :value="chartPeriod"
-            :options="chartPeriodOptions"
-            @input="chartPeriod = $event"
-          />
-        </div>
-      </div>
       <div class="row">
         <div class="col-12">
           <UserChartItem
             :chart-data="chartDataSets"
+          />
+        </div>
+      </div>
+      <div class="row mb-5">
+        <div class="col-12">
+          <UserChartPeriodSelect
+            :value="chartPeriod"
+            :options="chartPeriodTypes"
+            @input="chartPeriod = $event"
           />
         </div>
       </div>
@@ -35,7 +35,7 @@
 
   import UserChartItem from './UserChartItem';
   import UserChartLegend from './UserChartLegend';
-  import AmkSelect from '~/components/form-items/amk-select/AmkSelect'
+  import UserChartPeriodSelect from './UserChartPeriodSelect';
 
   const CHART_PERIOD_TYPES = ['week', 'month', 'year'];
 
@@ -44,7 +44,7 @@
     components: {
       UserChartItem,
       UserChartLegend,
-      AmkSelect,
+      UserChartPeriodSelect,
     },
     data: () => ({
       chartPeriod: CHART_PERIOD_TYPES[0],
@@ -58,10 +58,6 @@
       ...mapGetters('references', {
         i18n: REFERENCES.GET_I18N,
       }),
-      chartPeriodOptions() {
-        const { chartPeriodTypes } = this;
-        return chartPeriodTypes;
-      },
       chartDataSets() {
         const { reportTypes, chartData, chartPeriod, i18n } = this;
         return chartDataTransformer({ reportTypes, chartData, chartPeriod, i18n });

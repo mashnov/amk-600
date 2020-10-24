@@ -35,7 +35,7 @@ export const getLanguageId = () => {
   return DEFAULT_LANGUAGE_ID;
 };
 export const setLanguageId = (languageId) => {
-  $cookies.set(LANGUAGES_COOKIE_KEY, languageId)
+  $cookies.set(LANGUAGES_COOKIE_KEY, languageId);
 };
 export const getUserToken = () => {
   return $cookies.get(USER_TOKEN_COOKIE_KEY);

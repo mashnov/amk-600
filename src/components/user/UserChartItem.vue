@@ -24,19 +24,20 @@
           fontColor: '#ffffff',
           fontSize: 12,
         },
-      }]
-    }
+      }],
+    },
   };
 
   export default {
     extends: Line,
     mixins: [
-      mixins.reactiveProp
+      mixins.reactiveProp,
     ],
     props: {
       chartData: {
-        type: Object,
-        default: null
+        default: null,
+        required: true,
+        validator: (prop) => ['object'].includes(typeof prop) || prop === null,
       },
       options: {
         type: Object,

@@ -48,8 +48,8 @@ export const userDataTransformer = (data) => {
     positionW: get(data, 'sensors.GPS.W', null),
     date: get(data, 'sensors.date', null),
     time: get(data, 'sensors.time', null),
-    temperature1: get(data, `sensors.power.battery[0].temperatureInsideEquipment`, null),
-    temperature2: get(data, `sensors.power.battery[0].temperatureInsideEquipment`, null),
+    temperature1: get(data, 'sensors.power.battery[0].temperatureInsideEquipment', null),
+    temperature2: get(data, 'sensors.power.battery[0].temperatureInsideEquipment', null),
     power1: get(data, 'sensors.power.battery[0].batteryPower', null),
     power2: get(data, 'sensors.power.battery[1].batteryPower', null),
     voltage1: get(data, 'sensors.power.battery[0].batteryVoltage', null),
@@ -78,14 +78,14 @@ export const adminDataTransformer = (data) => {
 };
 export const chartDataTransformer = ({ reportTypes, chartData, chartPeriod, i18n }) => {
   const chartDataTypes = Object.keys(chartData);
-  const filteredChartTypes = chartDataTypes.filter(( chartType ) => ( reportTypes.includes(chartType) ));
-  const mappedChartData = filteredChartTypes.map(( chartType ) => {
+  const filteredChartTypes = chartDataTypes.filter((chartType) => (reportTypes.includes(chartType)));
+  const mappedChartData = filteredChartTypes.map((chartType) => {
     const chartTypeData = get(chartData, `${chartType}.${chartPeriod}`, []);
     const translationKey = replaceCurly(SENSOR_TRANSLATION_KEY, ['chartType'], [chartType]);
     return {
       label: get(i18n, translationKey, chartType),
-      data: chartTypeData.map(( item ) => (item.y)),
-      dataLabel: chartTypeData.map(( item ) => (item.time)),
+      data: chartTypeData.map((item) => (item.y)),
+      dataLabel: chartTypeData.map((item) => (item.time)),
       spanGaps: false,
       backgroundColor: CHART_BACKGROUND_MAPPER[chartType],
 
@@ -111,7 +111,7 @@ export const chartDataTransformer = ({ reportTypes, chartData, chartPeriod, i18n
     return sum1 - sum2;
   });
   const chartDataTimes = get(mappedChartData, '[0].dataLabel', []);
-  const chartDataLabels = chartDataTimes.map(( timestamp ) => ( DateTime.fromSeconds(timestamp).toISODate() ));
+  const chartDataLabels = chartDataTimes.map((timestamp) => (DateTime.fromSeconds(timestamp).toISODate()));
   return {
     datasets: sortedDataItems,
     labels: chartDataLabels,
