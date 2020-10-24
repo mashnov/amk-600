@@ -1,6 +1,11 @@
 import Api from './api';
-import { getUserToken, setUserToken } from '~/helpers/logger';
+import { getUserToken, setUserToken, removeUserToken } from '~/helpers/logger';
 import MODULE from './types';
+import { ADMIN, REPORTS, USER } from '~/store/types';
+
+const RESET_ADMIN_STATE = `admin/${ADMIN.RESET_STATE}`;
+const RESET_REPORTS_STATE = `reports/${REPORTS.RESET_STATE}`;
+const RESET_USER_STATE = `user/${USER.RESET_STATE}`;
 
 export default {
   async [MODULE.INIT]({ dispatch }) {
@@ -23,8 +28,10 @@ export default {
   async [MODULE.LOGOUT_HANDLER]({ dispatch, state: { userToken } }) {
     const { successes } = await Api.LOGOUT_HANDLER({ userToken });
     if (successes) {
-      dispatch(MODULE.SET_USER_TOKEN, null);
-      dispatch(MODULE.SET_USER_TYPE, null);
+      dispatch(MODULE.RESET_STATE);
+      dispatch(RESET_ADMIN_STATE, null, { root: true });
+      dispatch(RESET_REPORTS_STATE, null, { root: true });
+      dispatch(RESET_USER_STATE, null, { root: true });
     }
     return { successes };
   },
@@ -34,5 +41,10 @@ export default {
   },
   [MODULE.SET_USER_TYPE]({ commit }, userType) {
     commit(MODULE.MUTATE_USER_TYPE, userType);
+  },
+  [MODULE.RESET_STATE]({ dispatch }) {
+    dispatch(MODULE.SET_USER_TOKEN, null);
+    dispatch(MODULE.SET_USER_TYPE, null);
+    removeUserToken();
   },
 };
