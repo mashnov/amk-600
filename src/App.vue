@@ -19,7 +19,7 @@
 
 <script>
   import { mapActions } from 'vuex';
-  import { LOGGER, VIEWPORT, REFERENCES, AUTH, PRELOADER } from '~/store/types';
+  import { REFERENCES, PRELOADER, LOGGER, VIEWPORT, AUTH, REPORTS } from '~/store/types';
   import { USER as USER_ROUTE_NAMES, ADMIN as ADMIN_ROUTE_NAMES, AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
 
   import Preloader from '~/components/preloader/Preloader';
@@ -63,6 +63,9 @@
       ...mapActions('auth', {
         initAuth: AUTH.INIT,
       }),
+      ...mapActions('reports', {
+        initReports: REPORTS.INIT,
+      }),
       ...mapActions('preloader', {
         showPreloader: PRELOADER.SHOW_PRELOADER,
         hidePreloader: PRELOADER.HIDE_PRELOADER,
@@ -70,6 +73,7 @@
       initApp() {
         this.initReferences();
         this.initViewport();
+        this.initReports();
         this.initLogger();
       },
       clearUrlParams() {

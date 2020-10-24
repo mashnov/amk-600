@@ -6,6 +6,8 @@ const AVAILABLE_LANGUAGES = process.env.VUE_APP_AVAILABLE_LANGUAGES.split(' ');
 const DEFAULT_LANGUAGE_ID = AVAILABLE_LANGUAGES[0];
 const LANGUAGES_COOKIE_KEY = process.env.VUE_APP_LANGUAGES_COOKIE_KEY;
 const USER_TOKEN_COOKIE_KEY = process.env.VUE_APP_USER_TOKEN_COOKIE_KEY;
+const USER_REPORT_TYPES_COOKIE_KEY = process.env.VUE_APP_USER_REPORT_TYPES_COOKIE_KEY;
+const USER_REPORT_RANGE_COOKIE_KEY = process.env.VUE_APP_USER_REPORT_RANGE_COOKIE_KEY;
 
 export const getBrowserName = () => {
   const { name, os } = detect();
@@ -45,4 +47,23 @@ export const setUserToken = (token) => {
 };
 export const removeUserToken = () => {
   $cookies.remove(USER_TOKEN_COOKIE_KEY);
+};
+export const getUserReportTypes = () => {
+  const reportTypes = $cookies.get(USER_REPORT_TYPES_COOKIE_KEY);
+  return reportTypes.split(',');
+};
+export const setUserReportTypes = (types) => {
+  $cookies.set(USER_REPORT_TYPES_COOKIE_KEY, types);
+};
+export const removeUserReportTypes = () => {
+  $cookies.remove(USER_REPORT_TYPES_COOKIE_KEY);
+};
+export const getUserReportRange = () => {
+  return $cookies.get(USER_REPORT_RANGE_COOKIE_KEY);
+};
+export const setUserReportRange = (range) => {
+  $cookies.set(USER_REPORT_RANGE_COOKIE_KEY, range);
+};
+export const removeUserReportRange = () => {
+  $cookies.remove(USER_REPORT_RANGE_COOKIE_KEY);
 };

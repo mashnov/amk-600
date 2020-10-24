@@ -1,9 +1,10 @@
 import cloneDeep from 'lodash/cloneDeep';
-import Api from './api';
-import MODULE from './types';
-import defaultState from './defaultState';
 import { AUTH } from '~/store/types';
 import { userDataTransformer } from '~/helpers/transformers';
+
+import MODULE from './types';
+import defaultState from './defaultState';
+import Api from './api';
 
 const USER_TOKEN_GETTER_KEY = `auth/${AUTH.GET_USER_TOKEN}`;
 const UPDATE_USER_TOKEN_KEY = `auth/${AUTH.SET_USER_TOKEN}`;

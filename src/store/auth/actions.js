@@ -1,7 +1,8 @@
-import Api from './api';
 import { getUserToken, setUserToken, removeUserToken } from '~/helpers/logger';
-import MODULE from './types';
 import { ADMIN, REPORTS, USER } from '~/store/types';
+
+import MODULE from './types';
+import Api from './api';
 
 const RESET_ADMIN_STATE = `admin/${ADMIN.RESET_STATE}`;
 const RESET_REPORTS_STATE = `reports/${REPORTS.RESET_STATE}`;
