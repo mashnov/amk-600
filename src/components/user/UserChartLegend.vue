@@ -10,7 +10,10 @@
       :key="index"
       class="col-12 col-sm-6 col-md-3 mb-3 mb-md-0"
     >
-      <div class="user-chart-legend__item">
+      <div
+        class="user-chart-legend__item"
+        @click="itemClickHandler(chartType)"
+      >
         <span
           :style="getItemStyle(chartType)"
         />
@@ -23,8 +26,8 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
-  import { REFERENCES } from '~/store/types';
+  import { mapGetters, mapActions } from 'vuex';
+  import { REFERENCES, REPORTS } from '~/store/types';
   import { replaceCurly } from '~/helpers/system';
 
   const TEMPERATURE_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_TEMPERATURE_COLOR;
@@ -55,6 +58,9 @@
       }),
     },
     methods: {
+      ...mapActions('reports', {
+        itemClickHandler: REPORTS.SET_REPORT_TYPES,
+      }),
       getItemStyle(chartType) {
         return {
           backgroundColor: CHART_BACKGROUND_MAPPER[chartType],
@@ -75,6 +81,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
   }
   .user-chart-legend__item span:first-child {
     display: block;
