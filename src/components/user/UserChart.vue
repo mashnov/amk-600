@@ -74,7 +74,7 @@
       }),
       async setReportPeriod(period) {
         this.showPreloader(PRELOADER_KEY);
-        this.setReportRange(period)
+        this.setReportRange(period);
         const { successes } = await this.fetchChartData();
         this.hidePreloader(PRELOADER_KEY);
         if (!successes) {
