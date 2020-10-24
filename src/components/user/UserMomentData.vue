@@ -34,11 +34,11 @@
           </div>
           <div class="col-12 col-sm-6 mb-4 mb-lg-0">
             <UserMomentSensor
-              :title="i18n.momentData_rainfallSensorTitle"
-              :unit="i18n.momentData_rainfallSensorUnit"
+              :title="i18n.momentData_rainSensorTitle"
+              :unit="i18n.momentData_rainSensorUnit"
               :value="momentData.rainfall"
-              :is-active="reportTypes.includes('rainfall')"
-              @select-item="setReportTypes('rainfall')"
+              :is-active="reportTypes.includes('rain')"
+              @select-item="setReportTypes('rain')"
             />
           </div>
         </div>

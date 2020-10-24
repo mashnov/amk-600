@@ -12,6 +12,15 @@ export default {
     dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
     return await Api.FETCH_REPORT_FILE({ range, token });
   },
+  async [MODULE.FETCH_CHART_DATA]({ rootGetters, dispatch, commit }) {
+    const userToken = rootGetters[USER_TOKEN_GETTER_KEY];
+    const { successes, token, data } = await Api.FETCH_CHART_DATA({ userToken });
+    if (successes) {
+      commit(MODULE.MUTATE_CHART_DATA, data);
+    }
+    // dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
+    return { successes };
+  },
   [MODULE.SET_REPORT_TYPES]({ commit, state }, reportType) {
     const reportTypes = cloneDeep(state.reportTypes);
     const typeIndex = reportTypes.indexOf(reportType);

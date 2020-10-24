@@ -8,11 +8,13 @@
 
 <script>
   import { mapActions } from 'vuex';
-  import { USER } from '~/store/types';
+  import { USER, REPORTS, PRELOADER } from '~/store/types';
 
   import storeMixin from '~/mixins/storeMixin';
   import userModule from '~/store/user';
   import UserPage from '~/components/user/UserPage';
+
+  const PRELOADER_KEY = 'userFetchData';
 
   export default {
     name: 'UserView',
@@ -26,15 +28,28 @@
       this.$_registerStoreModule(userModule);
     },
     mounted() {
-      this.fetchData();
+     this.fetchUserData();
     },
     destroyed() {
       this.$_unRegisterStoreModule(userModule);
     },
     methods: {
       ...mapActions('user', {
-        fetchData: USER.FETCH_DATA,
+        fetchStatData: USER.FETCH_DATA,
       }),
+      ...mapActions('reports', {
+        fetchChartData: REPORTS.FETCH_CHART_DATA,
+      }),
+      ...mapActions('preloader', {
+        showPreloader: PRELOADER.SHOW_PRELOADER,
+        hidePreloader: PRELOADER.HIDE_PRELOADER,
+      }),
+      async fetchUserData() {
+        this.showPreloader(PRELOADER_KEY);
+        await this.fetchStatData();
+        await this.fetchChartData();
+        this.hidePreloader(PRELOADER_KEY);
+      },
     },
   };
 </script>

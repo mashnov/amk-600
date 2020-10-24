@@ -1,4 +1,31 @@
 import get from 'lodash/get';
+import { DateTime } from 'luxon';
+import { replaceCurly } from '~/helpers/system';
+
+const TEMPERATURE_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_TEMPERATURE_COLOR;
+const HUMIDITY_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_HUMIDITY_COLOR;
+const PRESSURE_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_PRESSURE_COLOR;
+const RAIN_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_RAIN_COLOE;
+const SENSOR_TRANSLATION_KEY = 'momentData_{chartType}SensorTitle';
+
+const CHART_BACKGROUND_MAPPER = {
+  temperature: `rgba(${TEMPERATURE_BASE_COLOR}, 0.4)`,
+  humidity: `rgba(${HUMIDITY_BASE_COLOR}, 0.4)`,
+  pressure: `rgba(${PRESSURE_BASE_COLOR}, 0.4)`,
+  rain: `rgba(${RAIN_BASE_COLOR}, 0.4)`,
+};
+const CHART_BORDER_MAPPER = {
+  temperature: `rgba(${TEMPERATURE_BASE_COLOR}, 0.8)`,
+  humidity: `rgba(${HUMIDITY_BASE_COLOR}, 0.8)`,
+  pressure: `rgba(${PRESSURE_BASE_COLOR}, 0.8)`,
+  rain: `rgba(${RAIN_BASE_COLOR}, 0.8)`,
+};
+const CHART_HOVER_MAPPER = {
+  temperature: `rgba(${TEMPERATURE_BASE_COLOR}, 1)`,
+  humidity: `rgba(${HUMIDITY_BASE_COLOR}, 1)`,
+  pressure: `rgba(${PRESSURE_BASE_COLOR}, 1)`,
+  rain: `rgba(${RAIN_BASE_COLOR}, 1)`,
+};
 
 export const userDataTransformer = (data) => {
   const temperatureMainSensor = get(data, 'sensors.temperature.main', null);
@@ -48,4 +75,45 @@ export const userDataTransformer = (data) => {
 };
 export const adminDataTransformer = (data) => {
   return data;
+};
+export const chartDataTransformer = ({ reportTypes, chartData, chartPeriod, i18n }) => {
+  const chartDataTypes = Object.keys(chartData);
+  const filteredChartTypes = chartDataTypes.filter(( chartType ) => ( reportTypes.includes(chartType) ));
+  const mappedChartData = filteredChartTypes.map(( chartType ) => {
+    const chartTypeData = get(chartData, `${chartType}.${chartPeriod}`, []);
+    const translationKey = replaceCurly(SENSOR_TRANSLATION_KEY, ['chartType'], [chartType]);
+    return {
+      label: get(i18n, translationKey, chartType),
+      data: chartTypeData.map(( item ) => (item.y)),
+      dataLabel: chartTypeData.map(( item ) => (item.time)),
+      spanGaps: false,
+      backgroundColor: CHART_BACKGROUND_MAPPER[chartType],
+
+      borderColor: CHART_BORDER_MAPPER[chartType],
+      borderCapStyle: 'round',
+      borderJoinStyle: 'round',
+      borderWidth: 1,
+
+      pointBorderColor: CHART_BORDER_MAPPER[chartType],
+      pointHoverBorderColor: CHART_HOVER_MAPPER[chartType],
+      pointBackgroundColor: CHART_BACKGROUND_MAPPER[chartType],
+      pointHoverBackgroundColor: CHART_HOVER_MAPPER[chartType],
+      pointRadius: 2,
+      pointHoverRadius: 8,
+      pointBorderWidth: 1,
+    };
+  });
+  const sortedDataItems = mappedChartData.sort((chartData1, chartData2) => {
+    const data1 = get(chartData1, 'data', []);
+    const data2 = get(chartData2, 'data', []);
+    const sum1 = data1.reduce((a, b) => (a + b), 0) / data1.length;
+    const sum2 = data2.reduce((a, b) => (a + b), 0) / data2.length;
+    return sum1 - sum2;
+  });
+  const chartDataTimes = get(mappedChartData, '[0].dataLabel', []);
+  const chartDataLabels = chartDataTimes.map(( timestamp ) => ( DateTime.fromSeconds(timestamp).toISODate() ));
+  return {
+    datasets: sortedDataItems,
+    labels: chartDataLabels,
+  };
 };
