@@ -14,6 +14,7 @@
   import userModule from '~/store/user';
   import UserPage from '~/components/user/UserPage';
 
+  const FETCH_INTERVAL = process.env.VUE_APP_USER_DATA_FETCH_INTERVAL;
   const PRELOADER_KEY = 'userFetchData';
 
   export default {
@@ -29,6 +30,10 @@
     },
     mounted() {
      this.fetchUserData();
+     this.startFetchInterval();
+    },
+    beforeDestroy() {
+      this.stopFetchInterval();
     },
     destroyed() {
       this.$_unRegisterStoreModule(userModule);
@@ -49,6 +54,13 @@
         await this.fetchStatData();
         await this.fetchChartData();
         this.hidePreloader(PRELOADER_KEY);
+      },
+      startFetchInterval() {
+        //TODO: ADD TIMER
+        console.log(FETCH_INTERVAL);
+      },
+      stopFetchInterval() {
+        //TODO: REMOVE TIMER
       },
     },
   };
