@@ -20,7 +20,7 @@
           <UserChartPeriodSelect
             :value="chartPeriod"
             :options="chartPeriodTypes"
-            @input="chartPeriod = $event"
+            @select-period="chartPeriod = $event"
           />
         </div>
       </div>
