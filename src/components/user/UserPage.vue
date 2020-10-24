@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="col-12 col-xl-4">
-      Схема и датчики
+      <UserStatus />
     </div>
   </div>
 </template>
@@ -38,6 +38,7 @@
   import UserMomentData from './UserMomentData';
   import UserChart from './UserChart';
   import UserStatData from './UserStatData';
+  import UserStatus from './UserStatus';
 
   export default {
     name: 'UserPage',
@@ -45,6 +46,7 @@
       UserMomentData,
       UserChart,
       UserStatData,
+      UserStatus,
     },
     computed: {
       ...mapGetters('reports', {
