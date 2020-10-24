@@ -110,7 +110,7 @@
     display: block;
     padding: 25px;
     background: $color-gray-06;
-    box-shadow: 0 8px 24px $color-overlay;
+    box-shadow: 0 8px 24px $sensor-shadow-color;
     border-radius: 6px;
   }
 </style>

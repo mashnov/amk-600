@@ -8,14 +8,14 @@
           />
         </div>
       </div>
-      <div class="row">
+      <div class="row mb-5">
         <div class="col-12">
           <UserChartItem
             :chart-data="chartDataSets"
           />
         </div>
       </div>
-      <div class="row mb-5">
+      <div class="row">
         <div class="col-12">
           <UserChartPeriodSelect
             :value="chartPeriod"

@@ -136,7 +136,7 @@
     margin: 50px 0;
     border-radius: 5px;
     background-color: $color-gray-02;
-    box-shadow: 0 8px 24px $color-overlay;
+    box-shadow: 0 8px 24px $sensor-shadow-color;
   }
   .auth-form__title {
     display: block;

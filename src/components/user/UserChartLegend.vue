@@ -63,7 +63,7 @@
       getItemName(chartType) {
         const { i18n } = this;
         const translationKey = replaceCurly(TYPE_TRANSLATION_KEY, ['chartType'], [chartType]);
-        return i18n[translationKey];
+        return i18n[translationKey] || translationKey;
       },
     },
   };

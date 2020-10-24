@@ -1,11 +1,15 @@
 <template>
-  <div class="row">
-    <div
-      v-for="(period, index) in options"
-      :key="index"
-      class="col-12 col-sm-4 mb-3 mb-sm-0"
-    >
-      {{ period }}
+  <div class="user-chart-period-select">
+    <div class="row">
+      <div
+        v-for="(period, index) in options"
+        :key="index"
+        class="col-12 col-sm-4 mb-3 mb-sm-0"
+      >
+        <div class="user-chart-period-select__option">
+          {{ getItemName(period) }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -15,7 +19,7 @@
   import { REFERENCES } from '~/store/types';
   import { replaceCurly } from '~/helpers/system';
 
-  const PERIOD_TRANSLATION_KEY = 'userChart_{chartType}PeriodTitle';
+  const PERIOD_TRANSLATION_KEY = 'userChart_{period}PeriodTitle';
 
   export default {
     name: 'UserChartPeriodSelect',
@@ -40,7 +44,7 @@
       getItemName(period) {
         const { i18n } = this;
         const translationKey = replaceCurly(PERIOD_TRANSLATION_KEY, ['period'], [period]);
-        return i18n[translationKey];
+        return i18n[translationKey] || translationKey;
       },
     },
   };

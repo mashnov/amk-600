@@ -88,7 +88,7 @@
     padding: 25px;
     flex: 1 0 auto;
     background: $color-gray-06;
-    box-shadow: 0 8px 24px $color-overlay;
+    box-shadow: 0 8px 24px $sensor-shadow-color;
     border-radius: 6px;
     transition: background-color $animation-time-01 $animation-easing, box-shadow $animation-time-01 $animation-easing;
   }
