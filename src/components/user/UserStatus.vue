@@ -10,7 +10,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-12 mb-3">
+          <div class="col-12 mb-4">
             <div class="user-status__item">
               <GeolocationIcon />
               <span>
@@ -23,7 +23,7 @@
               </span>
             </div>
           </div>
-          <div class="col-12 mb-3">
+          <div class="col-12 mb-4">
             <div class="user-status__item">
               <TimeIcon />
               <span>
@@ -31,7 +31,7 @@
               </span>
             </div>
           </div>
-          <div class="col-12 mb-3">
+          <div class="col-12 mb-4">
             <div class="user-status__item">
               <CalendarIcon />
               <span>
@@ -39,7 +39,7 @@
               </span>
             </div>
           </div>
-          <div class="col-12 mb-3">
+          <div class="col-12 mb-4">
             <div
               class="user-status__item"
               :class="[
@@ -53,7 +53,7 @@
               </span>
             </div>
           </div>
-          <div class="col-12 mb-3">
+          <div class="col-12 mb-4">
             <div
               class="user-status__item"
               :class="[
@@ -67,7 +67,7 @@
               </span>
             </div>
           </div>
-          <div class="col-12 mb-3">
+          <div class="col-12 mb-4">
             <div
               class="user-status__item"
               :class="[
@@ -180,7 +180,7 @@
     position: sticky;
     top: 50px;
     bottom: 50px;
-    padding-left: 50px;
+    padding: 0 50px;
   }
   .user-status__title {
     font-weight: 600;
@@ -223,5 +223,6 @@
   }
   .user-status__item span a {
     color: $color-gray-01;
+    text-decoration: underline;
   }
 </style>
