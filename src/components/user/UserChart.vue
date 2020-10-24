@@ -1,19 +1,30 @@
 <template>
-  <div class="user-chart">
-    <div class="user-chart__legend">
-      <UserChartLegend
-        :list="reportTypes"
-      />
+  <div class="row">
+    <div class="col-12">
+      <div class="row mb-5">
+        <div class="col-12">
+          <UserChartLegend
+            :list="reportTypes"
+          />
+        </div>
+      </div>
+      <div class="row mb-5">
+        <div class="col-12">
+          <AmkSelect
+            :value="chartPeriod"
+            :options="chartPeriodOptions"
+            @input="chartPeriod = $event"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <UserChartItem
+            :chart-data="chartDataSets"
+          />
+        </div>
+      </div>
     </div>
-    <transition
-      appear
-      name="fade-in"
-    >
-      <UserChartItem
-        v-if="reportTypes.length"
-        :chart-data="chartDataSets"
-      />
-    </transition>
   </div>
 </template>
 
@@ -24,15 +35,20 @@
 
   import UserChartItem from './UserChartItem';
   import UserChartLegend from './UserChartLegend';
+  import AmkSelect from '~/components/form-items/amk-select/AmkSelect'
+
+  const CHART_PERIOD_TYPES = ['week', 'month', 'year'];
 
   export default {
     name: 'UserChart',
     components: {
       UserChartItem,
       UserChartLegend,
+      AmkSelect,
     },
     data: () => ({
-      chartPeriod: 'week',
+      chartPeriod: CHART_PERIOD_TYPES[0],
+      chartPeriodTypes: CHART_PERIOD_TYPES,
     }),
     computed: {
       ...mapGetters('reports', {
@@ -42,6 +58,10 @@
       ...mapGetters('references', {
         i18n: REFERENCES.GET_I18N,
       }),
+      chartPeriodOptions() {
+        const { chartPeriodTypes } = this;
+        return chartPeriodTypes;
+      },
       chartDataSets() {
         const { reportTypes, chartData, chartPeriod, i18n } = this;
         return chartDataTransformer({ reportTypes, chartData, chartPeriod, i18n });
@@ -49,9 +69,3 @@
     },
   };
 </script>
-
-<style lang="scss" scoped>
-  .user-chart__legend {
-    margin-bottom: 50px;
-  }
-</style>

@@ -6,11 +6,19 @@
           <UserMomentData />
         </div>
       </div>
-      <div class="row mb-5">
-        <div class="col-12">
-          <UserChart />
+      <transition
+        appear
+        name="fade-in"
+      >
+        <div
+          v-if="reportTypes.length"
+          class="row mb-5"
+        >
+          <div class="col-12">
+            <UserChart />
+          </div>
         </div>
-      </div>
+      </transition>
       <div class="row">
         <div class="col-12">
           <UserStatData />
@@ -24,6 +32,9 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+  import { REPORTS } from '~/store/types';
+
   import UserMomentData from './UserMomentData';
   import UserChart from './UserChart';
   import UserStatData from './UserStatData';
@@ -34,6 +45,11 @@
       UserMomentData,
       UserChart,
       UserStatData,
+    },
+    computed: {
+      ...mapGetters('reports', {
+        reportTypes: REPORTS.GET_REPORT_TYPES,
+      }),
     },
   };
 </script>

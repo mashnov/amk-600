@@ -1,20 +1,23 @@
 <template>
   <transition-group
-    class="user-chart-legend"
+    class="row"
     name="fade-in"
+    mode="out-in"
     tag="div"
   >
     <div
-      class="user-chart-legend__item"
-      v-for="(item, index) in list"
+      class="col-12 col-sm-6 col-md-3 mb-3 mb-md-0"
+      v-for="(chartType, index) in list"
       :key="index"
     >
-      <span
-        :style="getItemStyle(item)"
-      />
-      <span>
-        {{ getItemName(item) }}
-      </span>
+      <div class="user-chart-legend__item">
+        <span
+          :style="getItemStyle(chartType)"
+        />
+        <span>
+          {{ getItemName(chartType) }}
+        </span>
+      </div>
     </div>
   </transition-group>
 </template>
@@ -28,7 +31,7 @@
   const HUMIDITY_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_HUMIDITY_COLOR;
   const PRESSURE_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_PRESSURE_COLOR;
   const RAIN_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_RAIN_COLOE;
-  const TYPE_TRANSLATION_KEY = 'momentData_{type}SensorTitle';
+  const TYPE_TRANSLATION_KEY = 'momentData_{chartType}SensorTitle';
 
   const CHART_BACKGROUND_MAPPER = {
     temperature: `rgb(${TEMPERATURE_BASE_COLOR})`,
@@ -52,14 +55,14 @@
       }),
     },
     methods: {
-      getItemStyle(type) {
+      getItemStyle(chartType) {
         return {
-          backgroundColor: CHART_BACKGROUND_MAPPER[type],
+          backgroundColor: CHART_BACKGROUND_MAPPER[chartType],
         }
       },
-      getItemName(type) {
+      getItemName(chartType) {
         const { i18n } = this;
-        const translationKey = replaceCurly(TYPE_TRANSLATION_KEY, ['type'], [type]);
+        const translationKey = replaceCurly(TYPE_TRANSLATION_KEY, ['chartType'], [chartType]);
         return i18n[translationKey];
       }
     },
@@ -67,32 +70,35 @@
 </script>
 
 <style lang="scss" scoped>
-  .user-chart-legend {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-  }
   .user-chart-legend__item {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-  }
-  .user-chart-legend__item:not(:last-child) {
-    margin-right: 50px;
+    justify-content: center;
   }
   .user-chart-legend__item span:first-child {
     display: block;
     width: 10px;
     height: 10px;
-    margin-right: 10px;
+    margin-right: 5px;
     border-radius: 50%;
   }
   .user-chart-legend__item span:last-child {
     display: block;
     font-weight: 300;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     color: $color-gray-01;
     text-transform: uppercase;
+  }
+  @media (min-width: $screen-md) {
+    .user-chart-legend__item span:last-child {
+      font-size: 13px;
+    }
+  }
+  @media (min-width: $screen-lg) {
+    .user-chart-legend__item span:last-child {
+      font-size: 16px;
+    }
   }
 </style>
