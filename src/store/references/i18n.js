@@ -40,6 +40,12 @@ export default {
     userChart_weekPeriodTitle: 'week',
     userChart_monthPeriodTitle: 'month',
     userChart_yearPeriodTitle: 'year',
+    deviceStatus_powerTitle: 'power',
+    deviceStatus_powerUnit: '%',
+    deviceStatus_temperatureTitle: 'temperature',
+    deviceStatus_temperatureUnit: '°C',
+    deviceStatus_voltageTitle: 'voltage',
+    deviceStatus_voltageUnit: 'V',
   },
   ru: {
     loginForm_title: 'Вход',
