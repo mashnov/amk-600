@@ -50,7 +50,7 @@ export const removeUserToken = () => {
 };
 export const getUserReportTypes = () => {
   const reportTypes = $cookies.get(USER_REPORT_TYPES_COOKIE_KEY);
-  return reportTypes.split(',');
+  return reportTypes && reportTypes.split(',');
 };
 export const setUserReportTypes = (types) => {
   $cookies.set(USER_REPORT_TYPES_COOKIE_KEY, types);
