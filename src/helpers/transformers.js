@@ -26,6 +26,12 @@ const CHART_HOVER_MAPPER = {
   pressure: `rgba(${PRESSURE_BASE_COLOR}, 1)`,
   rain: `rgba(${RAIN_BASE_COLOR}, 1)`,
 };
+const CHART_PERIOD_LABEL_FORMAT_MAPPER = {
+  day: 'HH:mm',
+  week: 'dd MMM',
+  month: 'dd.MM',
+  year: 'MMM yyyy',
+};
 
 export const userDataTransformer = (data) => {
   const temperatureMainSensor = get(data, 'sensors.temperature.main', null);
@@ -76,7 +82,7 @@ export const userDataTransformer = (data) => {
 export const adminDataTransformer = (data) => {
   return data;
 };
-export const chartDataTransformer = ({ reportTypes, chartData, chartPeriod, i18n }) => {
+export const chartDataTransformer = ({ reportTypes, chartData, chartPeriod, i18n, currentLanguage }) => {
   const chartDataTypes = Object.keys(chartData);
   const filteredChartTypes = chartDataTypes.filter((chartType) => (reportTypes.includes(chartType)));
   const mappedChartData = filteredChartTypes.map((chartType) => {
@@ -84,23 +90,16 @@ export const chartDataTransformer = ({ reportTypes, chartData, chartPeriod, i18n
     const translationKey = replaceCurly(SENSOR_TRANSLATION_KEY, ['chartType'], [chartType]);
     return {
       label: get(i18n, translationKey, chartType),
-      data: chartTypeData.map((item) => (item.y)),
+      data: chartTypeData.map((item) => (parseInt(item.y))),
       dataLabel: chartTypeData.map((item) => (item.time)),
-      spanGaps: false,
-      backgroundColor: CHART_BACKGROUND_MAPPER[chartType],
-
-      borderColor: CHART_BORDER_MAPPER[chartType],
-      borderCapStyle: 'round',
-      borderJoinStyle: 'round',
-      borderWidth: 1,
-
       pointBorderColor: CHART_BORDER_MAPPER[chartType],
       pointHoverBorderColor: CHART_HOVER_MAPPER[chartType],
       pointBackgroundColor: CHART_BACKGROUND_MAPPER[chartType],
       pointHoverBackgroundColor: CHART_HOVER_MAPPER[chartType],
-      pointRadius: 2,
+      backgroundColor: CHART_BACKGROUND_MAPPER[chartType],
+      borderColor: CHART_BORDER_MAPPER[chartType],
+      borderWidth: 1,
       pointHoverRadius: 8,
-      pointBorderWidth: 1,
     };
   });
   const sortedDataItems = mappedChartData.sort((chartData1, chartData2) => {
@@ -111,7 +110,11 @@ export const chartDataTransformer = ({ reportTypes, chartData, chartPeriod, i18n
     return sum1 - sum2;
   });
   const chartDataTimes = get(mappedChartData, '[0].dataLabel', []);
-  const chartDataLabels = chartDataTimes.map((timestamp) => (DateTime.fromSeconds(timestamp).toISODate()));
+  const chartDataLabels = chartDataTimes.map((timestamp) => {
+    const outputFormat = CHART_PERIOD_LABEL_FORMAT_MAPPER[chartPeriod];
+    const luxonTime = DateTime.fromSeconds(timestamp);
+    return luxonTime.setLocale(currentLanguage).toFormat(outputFormat);
+  });
   return {
     datasets: sortedDataItems,
     labels: chartDataLabels,

@@ -53,11 +53,12 @@
         chartData: REPORTS.GET_CHART_DATA,
       }),
       ...mapGetters('references', {
+        currentLanguage: REFERENCES.GET_LANGUAGE_ID,
         i18n: REFERENCES.GET_I18N,
       }),
       chartDataSets() {
-        const { reportTypes, chartData, chartPeriod, i18n } = this;
-        return chartDataTransformer({ reportTypes, chartData, chartPeriod, i18n });
+        const { reportTypes, chartData, chartPeriod, i18n, currentLanguage } = this;
+        return chartDataTransformer({ reportTypes, chartData, chartPeriod, i18n, currentLanguage });
       },
     },
     methods: {
