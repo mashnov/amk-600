@@ -8,3 +8,6 @@ export const auth = {
 export const user = {
   fetchData: `${apiUrl}api/info`,
 };
+export const reports = {
+  chartData: `${apiUrl}api/logs`,
+};

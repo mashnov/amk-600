@@ -27,7 +27,7 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import { REFERENCES, REPORTS } from '~/store/types';
+  import { REFERENCES, PRELOADER, REPORTS } from '~/store/types';
   import { replaceCurly } from '~/helpers/system';
 
   const TEMPERATURE_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_TEMPERATURE_COLOR;
@@ -35,6 +35,7 @@
   const PRESSURE_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_PRESSURE_COLOR;
   const RAIN_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_RAIN_COLOE;
   const TYPE_TRANSLATION_KEY = 'momentData_{chartType}SensorTitle';
+  const PRELOADER_KEY = 'userLegendFetchChartData';
 
   const CHART_BACKGROUND_MAPPER = {
     temperature: `rgb(${TEMPERATURE_BASE_COLOR})`,
@@ -59,7 +60,12 @@
     },
     methods: {
       ...mapActions('reports', {
-        itemClickHandler: REPORTS.SET_REPORT_TYPES,
+        setReportTypes: REPORTS.SET_REPORT_TYPES,
+        fetchChartData: REPORTS.FETCH_CHART_DATA,
+      }),
+      ...mapActions('preloader', {
+        showPreloader: PRELOADER.SHOW_PRELOADER,
+        hidePreloader: PRELOADER.HIDE_PRELOADER,
       }),
       getItemStyle(chartType) {
         return {
@@ -70,6 +76,12 @@
         const { i18n } = this;
         const translationKey = replaceCurly(TYPE_TRANSLATION_KEY, ['chartType'], [chartType]);
         return i18n[translationKey] || translationKey;
+      },
+      async itemClickHandler(reportType) {
+        this.showPreloader(PRELOADER_KEY);
+        this.setReportTypes(reportType);
+        await this.fetchChartData();
+        this.hidePreloader(PRELOADER_KEY);
       },
     },
   };

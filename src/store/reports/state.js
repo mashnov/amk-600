@@ -1,5 +1,6 @@
 export default {
   reportTypes: ['temperature', 'humidity'],
+  reportRange: 'day',
   chartData: {
     temperature: {
       week: [],

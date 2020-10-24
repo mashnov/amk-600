@@ -7,4 +7,7 @@ export default {
   [MODULE.MUTATE_CHART_DATA]: (state, chartData) => {
     state.chartData = chartData;
   },
+  [MODULE.MUTATE_REPORT_RANGE]: (state, reportRange) => {
+    state.reportRange = reportRange;
+  },
 };

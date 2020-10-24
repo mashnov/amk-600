@@ -9,7 +9,7 @@
               :unit="i18n.momentData_temperatureSensorUnit"
               :value="momentData.temperature"
               :is-active="reportTypes.includes('temperature')"
-              @select-item="setReportTypes('temperature')"
+              @select-item="selectReportItem('temperature')"
             />
           </div>
           <div class="col-12 col-sm-6 mb-4 mb-lg-0">
@@ -18,7 +18,7 @@
               :unit="i18n.momentData_humiditySensorUnit"
               :value="momentData.humidity"
               :is-active="reportTypes.includes('humidity')"
-              @select-item="setReportTypes('humidity')"
+              @select-item="selectReportItem('humidity')"
             />
           </div>
         </div>
@@ -29,7 +29,7 @@
               :unit="i18n.momentData_pressureSensorUnit"
               :value="momentData.pressure"
               :is-active="reportTypes.includes('pressure')"
-              @select-item="setReportTypes('pressure')"
+              @select-item="selectReportItem('pressure')"
             />
           </div>
           <div class="col-12 col-sm-6 mb-4 mb-lg-0">
@@ -38,7 +38,7 @@
               :unit="i18n.momentData_rainSensorUnit"
               :value="momentData.rainfall"
               :is-active="reportTypes.includes('rain')"
-              @select-item="setReportTypes('rain')"
+              @select-item="selectReportItem('rain')"
             />
           </div>
         </div>
@@ -52,10 +52,12 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import { REFERENCES, USER, REPORTS } from '~/store/types';
+  import { REFERENCES, PRELOADER, USER, REPORTS } from '~/store/types';
 
   import UserMomentSensor from './UserMomentSensor';
   import UserMomentWind from './UserMomentWind';
+
+  const PRELOADER_KEY = 'userFetchChartData';
 
   export default {
     name: 'UserMomentData',
@@ -77,7 +79,18 @@
     methods: {
       ...mapActions('reports', {
         setReportTypes: REPORTS.SET_REPORT_TYPES,
+        fetchChartData: REPORTS.FETCH_CHART_DATA,
       }),
+      ...mapActions('preloader', {
+        showPreloader: PRELOADER.SHOW_PRELOADER,
+        hidePreloader: PRELOADER.HIDE_PRELOADER,
+      }),
+      async selectReportItem(reportType) {
+        this.showPreloader(PRELOADER_KEY);
+        this.setReportTypes(reportType);
+        await this.fetchChartData();
+        this.hidePreloader(PRELOADER_KEY);
+      },
     },
   };
 </script>

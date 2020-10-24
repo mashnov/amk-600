@@ -4,7 +4,7 @@
       <div
         v-for="(period, index) in options"
         :key="index"
-        class="col-12 col-sm-4"
+        class="col-12 col-sm-3"
         :class="index !== options.length - 1 && 'mb-3 mb-sm-0'"
       >
         <div
@@ -24,6 +24,7 @@
   import { REFERENCES } from '~/store/types';
   import { replaceCurly } from '~/helpers/system';
 
+  const CHART_PERIOD_TYPES = ['day', 'week', 'month', 'year'];
   const PERIOD_TRANSLATION_KEY = 'userChart_{period}PeriodTitle';
 
   export default {
@@ -34,12 +35,10 @@
         required: true,
         validator: (prop) => ['string'].includes(typeof prop) || prop === null,
       },
-      options: {
-        type: Array,
-        required: true,
-        default: () => ([]),
-      },
     },
+    data: () => ({
+      options: CHART_PERIOD_TYPES,
+    }),
     computed: {
       ...mapGetters('references', {
         i18n: REFERENCES.GET_I18N,

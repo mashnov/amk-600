@@ -1,21 +1,26 @@
+import axios from 'axios';
+import get from 'lodash/get';
 import MODULE from './types';
-import { sleep } from '~/helpers/system';
-import chartData from './chart-data';
+import { reports } from '~/store/request-url';
 
 export default {
-  async [MODULE.FETCH_REPORT_FILE]({ token, range }) {
+  async [MODULE.FETCH_CHART_DATA]({ userToken, reportTypes, reportRange }) {
+    const apiUrl = reports.chartData;
     const params = {
-      token,
-      range,
-      type: 'csv',
-      query: ['temperature', 'pressure', 'humidity', 'rain'],
+      token: userToken,
+      range: reportRange,
+      query: reportTypes,
+      type: 'json',
     };
-    await sleep(2000);
-    console.log(params);
-    return '';
-  },
-  async [MODULE.FETCH_CHART_DATA]({ token }) {
-    await sleep(2000);
-    return chartData;
+    try {
+      const repsonse = await axios.post(apiUrl, params);
+      const successes = get(repsonse, 'data.successes', false);
+      const token = get(repsonse, 'data.token', null);
+      const data = get(repsonse, 'data.data', null);
+      return { successes, token, data };
+    }
+    catch {
+      return { successes: false };
+    }
   },
 };
