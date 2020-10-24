@@ -27,7 +27,8 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import { REFERENCES, PRELOADER, REPORTS } from '~/store/types';
+  import { REFERENCES, PRELOADER, REPORTS, AUTH } from '~/store/types';
+  import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
   import { replaceCurly } from '~/helpers/system';
 
   const TEMPERATURE_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_TEMPERATURE_COLOR;
@@ -67,6 +68,9 @@
         showPreloader: PRELOADER.SHOW_PRELOADER,
         hidePreloader: PRELOADER.HIDE_PRELOADER,
       }),
+      ...mapActions('auth', {
+        logoutHandler: AUTH.LOGOUT_HANDLER,
+      }),
       getItemStyle(chartType) {
         return {
           backgroundColor: CHART_BACKGROUND_MAPPER[chartType],
@@ -80,8 +84,15 @@
       async itemClickHandler(reportType) {
         this.showPreloader(PRELOADER_KEY);
         this.setReportTypes(reportType);
-        await this.fetchChartData();
+        const { successes } = await this.fetchChartData();
         this.hidePreloader(PRELOADER_KEY);
+        if (!successes) {
+          this.logoutAction();
+        }
+      },
+      async logoutAction() {
+        await this.logoutHandler();
+        this.$router.push({ name: AUTH_ROUTE_NAMES.auth });
       },
     },
   };

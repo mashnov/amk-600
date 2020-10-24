@@ -18,5 +18,6 @@ export default {
       commit(MODULE.MUTATE_SENSOR_DATA, sensorData);
     }
     dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
+    return { successes };
   },
 };

@@ -8,7 +8,8 @@
 
 <script>
   import { mapActions } from 'vuex';
-  import { USER, REPORTS, PRELOADER } from '~/store/types';
+  import { USER, REPORTS, PRELOADER, AUTH } from '~/store/types';
+  import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
 
   import storeMixin from '~/mixins/storeMixin';
   import userModule from '~/store/user';
@@ -49,11 +50,21 @@
         showPreloader: PRELOADER.SHOW_PRELOADER,
         hidePreloader: PRELOADER.HIDE_PRELOADER,
       }),
+      ...mapActions('auth', {
+        logoutHandler: AUTH.LOGOUT_HANDLER,
+      }),
       async fetchUserData() {
         this.showPreloader(PRELOADER_KEY);
-        await this.fetchStatData();
-        await this.fetchChartData();
+        const statResponse = await this.fetchStatData();
+        const chartResponse = await this.fetchChartData();
         this.hidePreloader(PRELOADER_KEY);
+        if (!statResponse.successes || !chartResponse.successes) {
+          this.logoutAction();
+        }
+      },
+      async logoutAction() {
+        await this.logoutHandler();
+        this.$router.push({ name: AUTH_ROUTE_NAMES.auth });
       },
       startFetchInterval() {
         //TODO: ADD TIMER

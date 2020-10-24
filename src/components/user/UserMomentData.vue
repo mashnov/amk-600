@@ -52,7 +52,8 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import { REFERENCES, PRELOADER, USER, REPORTS } from '~/store/types';
+  import { REFERENCES, PRELOADER, USER, REPORTS, AUTH } from '~/store/types';
+  import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
 
   import UserMomentSensor from './UserMomentSensor';
   import UserMomentWind from './UserMomentWind';
@@ -85,11 +86,21 @@
         showPreloader: PRELOADER.SHOW_PRELOADER,
         hidePreloader: PRELOADER.HIDE_PRELOADER,
       }),
+      ...mapActions('auth', {
+        logoutHandler: AUTH.LOGOUT_HANDLER,
+      }),
       async selectReportItem(reportType) {
         this.showPreloader(PRELOADER_KEY);
         this.setReportTypes(reportType);
-        await this.fetchChartData();
+        const { successes } = await this.fetchChartData();
         this.hidePreloader(PRELOADER_KEY);
+        if (!successes) {
+          this.logoutAction();
+        }
+      },
+      async logoutAction() {
+        await this.logoutHandler();
+        this.$router.push({ name: AUTH_ROUTE_NAMES.auth });
       },
     },
   };

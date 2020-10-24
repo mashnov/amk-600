@@ -29,7 +29,8 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import { REFERENCES, PRELOADER, REPORTS } from '~/store/types';
+  import { REFERENCES, PRELOADER, REPORTS, AUTH } from '~/store/types';
+  import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
   import { chartDataTransformer } from '~/helpers/transformers';
 
   import UserChartItem from './UserChartItem';
@@ -68,12 +69,22 @@
         showPreloader: PRELOADER.SHOW_PRELOADER,
         hidePreloader: PRELOADER.HIDE_PRELOADER,
       }),
+      ...mapActions('auth', {
+        logoutHandler: AUTH.LOGOUT_HANDLER,
+      }),
       async setReportPeriod(period) {
         this.showPreloader(PRELOADER_KEY);
         this.setReportRange(period)
-        await this.fetchChartData();
+        const { successes } = await this.fetchChartData();
         this.hidePreloader(PRELOADER_KEY);
-      }
+        if (!successes) {
+          this.logoutAction();
+        }
+      },
+      async logoutAction() {
+        await this.logoutHandler();
+        this.$router.push({ name: AUTH_ROUTE_NAMES.auth });
+      },
     },
   };
 </script>

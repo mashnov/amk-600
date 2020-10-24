@@ -12,8 +12,8 @@ export default {
     const { successes, token, data } = await Api.FETCH_CHART_DATA({ userToken, reportTypes, reportRange });
     if (successes) {
       commit(MODULE.MUTATE_CHART_DATA, data);
+      dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
     }
-    dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
     return { successes };
   },
   [MODULE.SET_REPORT_TYPES]({ commit, state }, reportType) {
