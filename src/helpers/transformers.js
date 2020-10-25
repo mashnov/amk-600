@@ -79,9 +79,7 @@ export const userDataTransformer = (data) => {
   };
   return { momentData, statData, deviceData, sensorData };
 };
-export const adminDataTransformer = (data) => {
-  return data;
-};
+
 export const chartDataTransformer = ({ reportTypes, chartData, chartPeriod, i18n, currentLanguage }) => {
   const chartDataTypes = Object.keys(chartData);
   const filteredChartTypes = chartDataTypes.filter((chartType) => (reportTypes.includes(chartType)));
@@ -119,4 +117,8 @@ export const chartDataTransformer = ({ reportTypes, chartData, chartPeriod, i18n
     datasets: sortedDataItems,
     labels: chartDataLabels,
   };
+};
+
+export const adminUserTransformer = (data) => {
+  return data;
 };

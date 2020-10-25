@@ -31,7 +31,7 @@
           <SettingsIcon />
         </div>
         <div
-          v-if="userIsAuthed && !userIsAdmin"
+          v-if="userIsAuthed"
           key="report"
           class="layout-navigation_item"
           @click="showReportModal"
@@ -39,7 +39,7 @@
           <ReportIcon />
         </div>
         <div
-          v-if="userIsAuthed"
+          v-if="userIsAuthed && !userIsAdmin"
           key="device"
           class="layout-navigation_item"
           @click="showDeviceModal"
