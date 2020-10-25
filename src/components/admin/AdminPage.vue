@@ -7,6 +7,9 @@
       <AdminSensorList />
     </div>
     <div class="col-12 mb-5">
+      <AdminSensorDefault />
+    </div>
+    <div class="col-12 mb-5">
       <AdminDeviceInfo />
     </div>
     <div class="col-12 mb-5">
@@ -18,6 +21,7 @@
 <script>
   import AdminDeviceName from './AdminDeviceName';
   import AdminSensorList from './AdminSensorList';
+  import AdminSensorDefault from './AdminSensorDefault';
   import AdminDeviceInfo from './AdminDeviceInfo';
   import AdminUserList from './AdminUserList';
 
@@ -25,6 +29,7 @@
     name: 'AdminPage',
     components: {
       AdminDeviceName,
+      AdminSensorDefault,
       AdminDeviceInfo,
       AdminSensorList,
       AdminUserList,

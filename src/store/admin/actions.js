@@ -31,6 +31,12 @@ export default {
     dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
     return { successes };
   },
+  async [MODULE.CHANGE_MAIN_SENSOR]({ rootGetters, dispatch }, { name, type }) {
+    const userToken = rootGetters[USER_TOKEN_GETTER_KEY];
+    const { successes, token } = await Api.CHANGE_MAIN_SENSOR({ userToken, type, name });
+    dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
+    return { successes };
+  },
   [MODULE.RESET_STATE]({ commit }) {
     const { deviceData, userData } = getDefaultState();
     commit(MODULE.MUTATE_DEVICE_DATA, deviceData);

@@ -15,4 +15,5 @@ export const reports = {
 export const admin = {
   fetchData: `${apiUrl}api/info`,
   fetchUsers: `${apiUrl}api/user_list`,
+  setMainSensor: `${apiUrl}api/set_sensor`,
 };
