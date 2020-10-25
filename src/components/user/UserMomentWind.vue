@@ -5,6 +5,11 @@
     </div>
     <div class="user-moment-wind__wrapper">
       <div class="row d-sm-flex align-items-center">
+        <div class="col-sm-7 d-none d-sm-flex align-items-center">
+          <UserMomentCompass
+            :value="momentData.windDirection"
+          />
+        </div>
         <div class="col-12 col-sm-5 mb-3 mb-sm-0">
           <div class="row mb-4">
             <div class="col-12">
@@ -33,11 +38,6 @@
               />
             </div>
           </div>
-        </div>
-        <div class="col-sm-7 d-none d-sm-flex align-items-center">
-          <UserMomentCompass
-            :value="momentData.windDirection"
-          />
         </div>
       </div>
     </div>
@@ -89,7 +89,7 @@
     flex: 1 0 auto;
     background: $color-gray-06;
     box-shadow: 0 8px 24px $sensor-shadow-color;
-    border-radius: 6px;
+    border-radius: 5px;
     transition: background-color $animation-time-01 $animation-easing, box-shadow $animation-time-01 $animation-easing;
   }
   .user-moment-wind__sensor-title {

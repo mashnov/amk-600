@@ -1,5 +1,5 @@
 <template>
-  <div class="col-11 col-sm-8 col-lg-6 col-xl-5 layout-report-select">
+  <div class="col-10 col-sm-6 col-lg-6 col-xl-5 layout-report-select">
     <div class="layout-report-select__wrapper">
       <div class="row mb-5">
         <div class="col-12">
@@ -84,20 +84,21 @@
   }
   .layout-report-select__title {
     display: block;
-    font-size: 25px;
+    font-size: 18px;
     font-weight: 500;
     color: $color-gray-01;
     text-align: center;
   }
   .layout-report-select__option {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     cursor: pointer;
     margin: 0 auto;
-    max-width: 120px;
   }
   .layout-report-select__option svg {
     display: block;
-    width: 100%;
+    width: 40px;
     color: $color-gray-01;
     opacity: 0.5;
     transform: scale(1);
@@ -112,12 +113,22 @@
     font-size: 12px;
     font-weight: 500;
     color: $color-gray-01;
-    text-align: center;
-    margin-top: 15px;
+    margin-left: 10px;
   }
   @media (min-width: $screen-md) {
     .layout-report-select__option {
-      max-width: unset;
+      display: block;
+    }
+    .layout-report-select__option svg {
+      width: 100%;
+      max-width: 100px;
+      margin: 0 auto;
+    }
+    .layout-report-select__option-title {
+      text-align: center;
+      margin-top: 15px;
+      margin-left: 0;
+      font-size: 15px;
     }
   }
 </style>

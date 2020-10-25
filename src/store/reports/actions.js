@@ -16,7 +16,7 @@ import Api from './api';
 const USER_TOKEN_GETTER_KEY = `auth/${AUTH.GET_USER_TOKEN}`;
 const UPDATE_USER_TOKEN_KEY = `auth/${AUTH.SET_USER_TOKEN}`;
 
-const copiedState = cloneDeep(defaultState);
+const getDefaultState = () => (cloneDeep(defaultState));
 
 export default {
   async [MODULE.INIT]({ commit }) {
@@ -55,7 +55,7 @@ export default {
     setUserReportRange(reportRange);
   },
   [MODULE.RESET_STATE]({ commit }) {
-    const { reportRange, reportTypes, chartData } = copiedState;
+    const { reportRange, reportTypes, chartData } = getDefaultState();
     commit(MODULE.MUTATE_REPORT_RANGE, reportRange);
     commit(MODULE.MUTATE_REPORT_TYPES, reportTypes);
     commit(MODULE.MUTATE_CHART_DATA, chartData);

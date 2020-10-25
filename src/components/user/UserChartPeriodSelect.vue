@@ -51,7 +51,10 @@
         return i18n[translationKey] || translationKey;
       },
       itemClickEvent(period) {
-        this.$emit('select-period', period);
+        const { value } = this;
+        if (value !== period) {
+          this.$emit('select-period', period);
+        }
       },
     },
   };
@@ -62,14 +65,15 @@
     display: block;
     background: $color-gray-06;
     box-shadow: 0 8px 24px $sensor-shadow-color;
-    border-radius: 6px;
+    border-radius: 5px;
     overflow: hidden;
   }
   .user-chart-period-select__option {
     text-align: center;
     text-transform: uppercase;
     color: $color-gray-01;
-    padding: 25px;
+    padding: 25px 0;
+    font-size: 11px;
     transition: background-color $animation-time-01 $animation-easing, box-shadow $animation-time-01 $animation-easing;
     cursor: pointer;
   }
@@ -80,5 +84,11 @@
   .user-chart-period-select__option_selected {
     background: $color-gray-05;
     box-shadow: inset 0 0 10px $sensor-shadow-color;
+    cursor: default;
+  }
+  @media (min-width: $screen-md) {
+    .user-chart-period-select__option {
+      font-size: 15px;
+    }
   }
 </style>

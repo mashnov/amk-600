@@ -1,47 +1,67 @@
 <template>
   <div class="layout-navigation">
     <div class="layout-navigation__wrapper">
-      <div
-        v-if="!userIsAuthed"
-        class="layout-navigation_item"
-        :class="!userIsAuthed && 'layout-navigation_item_selected'"
+      <transition-group
+        name="fade-in"
+        mode="out-in"
+        tag="div"
       >
-        <UserIcon />
-      </div>
-      <div
-        v-if="userIsAuthed && !userIsAdmin"
-        class="layout-navigation_item"
-        :class="userIsAuthed && !userIsAdmin && 'layout-navigation_item_selected'"
-      >
-        <DashboardIcon />
-      </div>
-      <div
-        v-if="userIsAuthed && userIsAdmin"
-        class="layout-navigation_item"
-        :class="userIsAuthed && userIsAdmin && 'layout-navigation_item_selected'"
-      >
-        <SettingsIcon />
-      </div>
-      <div
-        v-if="userIsAuthed"
-        class="layout-navigation_item"
-        @click="showReportModal"
-      >
-        <ReportIcon />
-      </div>
-      <div
-        class="layout-navigation_item"
-        @click="showLanguageModal"
-      >
-        <LanguageIcon />
-      </div>
-      <div
-        v-if="userIsAuthed"
-        class="layout-navigation_item"
-        @click="logoutClickHandler"
-      >
-        <LogoutIcon />
-      </div>
+        <div
+          v-if="!userIsAuthed"
+          key="user"
+          class="layout-navigation_item"
+          :class="!userIsAuthed && 'layout-navigation_item_selected'"
+        >
+          <UserIcon />
+        </div>
+        <div
+          v-if="userIsAuthed && !userIsAdmin"
+          key="dashboard"
+          class="layout-navigation_item"
+          :class="userIsAuthed && !userIsAdmin && 'layout-navigation_item_selected'"
+        >
+          <DashboardIcon />
+        </div>
+        <div
+          v-if="userIsAuthed && userIsAdmin"
+          key="settings"
+          class="layout-navigation_item"
+          :class="userIsAuthed && userIsAdmin && 'layout-navigation_item_selected'"
+        >
+          <SettingsIcon />
+        </div>
+        <div
+          v-if="userIsAuthed && !userIsAdmin"
+          key="report"
+          class="layout-navigation_item"
+          @click="showReportModal"
+        >
+          <ReportIcon />
+        </div>
+        <div
+          v-if="userIsAuthed"
+          key="device"
+          class="layout-navigation_item"
+          @click="showDeviceModal"
+        >
+          <DeviceIcon />
+        </div>
+        <div
+          key="language"
+          class="layout-navigation_item"
+          @click="showLanguageModal"
+        >
+          <LanguageIcon />
+        </div>
+        <div
+          v-if="userIsAuthed"
+          key="logout"
+          class="layout-navigation_item"
+          @click="logoutClickHandler"
+        >
+          <LogoutIcon />
+        </div>
+      </transition-group>
     </div>
   </div>
 </template>
@@ -54,10 +74,12 @@
 
   import LayoutLanguageSelect from './LayoutLanguageSelect';
   import LayoutReportSelect from './LayoutReportSelect';
+  import LayoutDeviceInfo from './LayoutDeviceInfo';
 
   import UserIcon from '~/assets/svg/user-icon.svg';
   import DashboardIcon from '~/assets/svg/dashboard-icon.svg';
   import SettingsIcon from '~/assets/svg/settings-icon.svg';
+  import DeviceIcon from '~/assets/svg/device-icon.svg';
   import LanguageIcon from '~/assets/svg/language-icon.svg';
   import ReportIcon from '~/assets/svg/report-icon.svg';
   import LogoutIcon from '~/assets/svg/logout-icon.svg';
@@ -71,6 +93,7 @@
       UserIcon,
       DashboardIcon,
       SettingsIcon,
+      DeviceIcon,
       LanguageIcon,
       ReportIcon,
       LogoutIcon,
@@ -100,6 +123,12 @@
         showPreloader: PRELOADER.SHOW_PRELOADER,
         hidePreloader: PRELOADER.HIDE_PRELOADER,
       }),
+      showDeviceModal() {
+        this.showModal({
+          component: LayoutDeviceInfo,
+          position: 'right',
+        });
+      },
       showLanguageModal() {
         this.showModal({
           component: LayoutLanguageSelect,
@@ -108,6 +137,7 @@
       showReportModal() {
         this.showModal({
           component: LayoutReportSelect,
+          position: 'bottom',
         });
       },
       async logoutClickHandler() {
@@ -139,7 +169,7 @@
     height: 45px;
     margin-left: auto;
     margin-right: auto;
-    border-radius: 4px;
+    border-radius: 5px;
     transition: background-color $animation-time-01 $animation-easing;
     cursor: pointer;
   }

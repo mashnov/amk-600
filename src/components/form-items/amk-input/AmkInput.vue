@@ -117,7 +117,7 @@
     text-indent: 0;
     transform: translateZ(0);
     color: $color-gray-05;
-    transition: text-indent 0.2s $animation-easing, opacity 0.1s $animation-easing;
+    transition: text-indent $animation-time-02 $animation-easing, $animation-time-01 $animation-easing;
   }
   .amk-input input::-moz-placeholder {
     font-size: 13px;
@@ -126,7 +126,7 @@
     text-indent: 0;
     transform: translateZ(0);
     color: $color-gray-05;
-    transition: text-indent 0.2s $animation-easing, opacity 0.1s $animation-easing;
+    transition: text-indent $animation-time-02 $animation-easing, opacity $animation-time-01 $animation-easing;
   }
   .amk-input input:-moz-placeholder {
     font-size: 13px;
@@ -135,7 +135,7 @@
     text-indent: 0;
     transform: translateZ(0);
     color: $color-gray-05;
-    transition: text-indent 0.2s $animation-easing, opacity 0.1s $animation-easing;
+    transition: text-indent $animation-time-02 $animation-easing, opacity $animation-time-01 $animation-easing;
   }
   .amk-input input:-ms-input-placeholder {
     font-size: 13px;
@@ -144,26 +144,26 @@
     text-indent: 0;
     transform: translateZ(0);
     color: $color-gray-05;
-    transition: text-indent 0.2s $animation-easing, opacity 0.1s $animation-easing;
+    transition: text-indent $animation-time-02 $animation-easing, opacity $animation-time-01 $animation-easing;
   }
   .amk-input input:focus::-webkit-input-placeholder {
     opacity: 0;
     text-indent: -500px;
-    transition: text-indent 0.2s $animation-easing, opacity 0.1s $animation-easing;
+    transition: text-indent $animation-time-02 $animation-easing, opacity $animation-time-01 $animation-easing;
   }
   .amk-input input:focus::-moz-placeholder {
     opacity: 0;
     text-indent: -500px;
-    transition: text-indent 0.2s $animation-easing, opacity 0.1s $animation-easing;
+    transition: text-indent $animation-time-02 $animation-easing, opacity $animation-time-01 $animation-easing;
   }
   .amk-input input:focus:-moz-placeholder {
     opacity: 0;
     text-indent: -500px;
-    transition: text-indent 0.2s $animation-easing, opacity 0.1s $animation-easing;
+    transition: text-indent $animation-time-02 $animation-easing, opacity $animation-time-01 $animation-easing;
   }
   .amk-input input:focus:-ms-input-placeholder {
     opacity: 0;
     text-indent: -500px;
-    transition: text-indent 0.2s $animation-easing, opacity 0.1s $animation-easing;
+    transition: text-indent $animation-time-02 $animation-easing, opacity $animation-time-01 $animation-easing;
   }
 </style>

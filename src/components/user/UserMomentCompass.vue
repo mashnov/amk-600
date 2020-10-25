@@ -43,6 +43,8 @@
 <style lang="scss" scoped>
   .user-moment-compass {
     position: relative;
+    max-width: 240px;
+    margin: auto;
   }
   .user-moment-compass:after {
     content: '';
@@ -52,7 +54,7 @@
     top: calc(50% - 23px);
     left: calc(50% - 25px);
     background-color: $color-violet-02;
-    border-radius: 50%;
+    border-radius: 100%;
     z-index: -1;
   }
   .user-moment-compass__image svg {
@@ -77,7 +79,7 @@
     position: absolute;
     width: 8px;
     height: 8px;
-    border-radius: 50%;
+    border-radius: 100%;
     bottom: -3px;
     left: -2px;
     background: #79BFE9;

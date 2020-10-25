@@ -9,7 +9,7 @@ import Api from './api';
 const USER_TOKEN_GETTER_KEY = `auth/${AUTH.GET_USER_TOKEN}`;
 const UPDATE_USER_TOKEN_KEY = `auth/${AUTH.SET_USER_TOKEN}`;
 
-const copiedState = cloneDeep(defaultState);
+const getDefaultState = () => (cloneDeep(defaultState));
 
 export default {
   async [MODULE.FETCH_DATA]({ rootGetters, dispatch, commit }) {
@@ -26,7 +26,7 @@ export default {
     return { successes };
   },
   [MODULE.RESET_STATE]({ commit }) {
-    const { momentData, statData, deviceData, sensorData } = copiedState;
+    const { momentData, statData, deviceData, sensorData } = getDefaultState();
     commit(MODULE.MUTATE_MOMENT_DATA, momentData);
     commit(MODULE.MUTATE_STAT_DATA, statData);
     commit(MODULE.MUTATE_DEVICE_DATA, deviceData);

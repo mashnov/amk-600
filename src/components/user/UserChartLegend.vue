@@ -105,13 +105,17 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    transition: transform $animation-time-01 $animation-easing;
+  }
+  .user-chart-legend__item:hover {
+    transform: scale(1.1);
   }
   .user-chart-legend__item span:first-child {
     display: block;
     width: 10px;
     height: 10px;
     margin-right: 5px;
-    border-radius: 50%;
+    border-radius: 100%;
   }
   .user-chart-legend__item span:last-child {
     display: block;
