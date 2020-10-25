@@ -10,5 +10,5 @@ export const user = {
 };
 export const reports = {
   chartData: `${apiUrl}api/logs`,
-  downloadLink: `${apiUrl}api/logs-download?token={userToken}&range={range}&type=csv&query[]=temperature&query[]=humidity&query[]=pressure&query[]=rain`,
+  downloadLink: `${apiUrl}logs-download?token={userToken}&range={range}&type=csv&query[]=temperature&query[]=humidity&query[]=pressure&query[]=rain`,
 };
