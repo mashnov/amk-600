@@ -11,21 +11,34 @@
         </div>
       </div>
     </div>
+    <div class="col-12 mb-5">
+      <AmkButton @click="clearLogsHandler">
+        {{ i18n.admin_ClearLogs }}
+      </AmkButton>
+    </div>
   </div>
 </template>
 
 <script>
   import get from 'lodash/get';
   import { DateTime } from 'luxon';
-  import { mapGetters } from 'vuex';
-  import { REFERENCES, ADMIN } from '~/store/types';
+  import { mapGetters, mapActions } from 'vuex';
+  import { AUTH, REFERENCES, PRELOADER, ADMIN } from '~/store/types';
+  import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
 
+  import AmkButton from '~/components/form-items/amk-button/AmkButton';
+
+  const PRELOADER_KEY = 'adminClearLogs';
 
   export default {
     name: 'AdminDeviceName',
+    components: {
+      AmkButton,
+    },
     computed: {
       ...mapGetters('references', {
         currentLanguage: REFERENCES.GET_LANGUAGE_ID,
+        i18n: REFERENCES.GET_I18N,
       }),
       ...mapGetters('admin', {
         deviceData: ADMIN.GET_DEVICE_DATA,
@@ -53,6 +66,30 @@
         const outputDate = luxonDate.setLocale(currentLanguage).toFormat('DDDD');
         const outputTime = luxonTime.setLocale(currentLanguage).toFormat('tt');
         return `${outputDate} ${outputTime}`;
+      },
+    },
+    methods: {
+      ...mapActions('preloader', {
+        showPreloader: PRELOADER.SHOW_PRELOADER,
+        hidePreloader: PRELOADER.HIDE_PRELOADER,
+      }),
+      ...mapActions('auth', {
+        logoutHandler: AUTH.LOGOUT_HANDLER,
+      }),
+      ...mapActions('admin', {
+        clearLogs: ADMIN.CLEAR_LOGS,
+      }),
+      async clearLogsHandler() {
+        this.showPreloader(PRELOADER_KEY);
+        const { successes } = await this.clearLogs();
+        this.hidePreloader(PRELOADER_KEY);
+        if (!successes) {
+          this.logoutAction();
+        }
+      },
+      async logoutAction() {
+        await this.logoutHandler();
+        this.$router.push({ name: AUTH_ROUTE_NAMES.auth });
       },
     },
   };

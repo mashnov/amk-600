@@ -40,6 +40,7 @@ export default {
     userChart_weekPeriodTitle: 'week',
     userChart_monthPeriodTitle: 'month',
     userChart_yearPeriodTitle: 'year',
+    admin_ClearLogs: 'Clear logs',
     deviceStatus_powerTitle: 'power',
     deviceStatus_powerUnit: '%',
     deviceStatus_temperatureTitle: 'temperature',

@@ -37,6 +37,12 @@ export default {
     dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
     return { successes };
   },
+  async [MODULE.CLEAR_LOGS]({ rootGetters, dispatch }) {
+    const userToken = rootGetters[USER_TOKEN_GETTER_KEY];
+    const { successes, token } = await Api.CLEAR_LOGS({ userToken });
+    dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
+    return { successes };
+  },
   [MODULE.RESET_STATE]({ commit }) {
     const { deviceData, userData } = getDefaultState();
     commit(MODULE.MUTATE_DEVICE_DATA, deviceData);

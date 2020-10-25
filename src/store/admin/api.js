@@ -42,4 +42,16 @@ export default {
       return { successes: false };
     }
   },
+  async [MODULE.CLEAR_LOGS]({ userToken }) {
+    const apiUrl = admin.clearLogs;
+    try {
+      const { data } = await axios.post(apiUrl, { token: userToken });
+      const successes = get(data, 'successes', false);
+      const token = get(data, 'token', null);
+      return { successes, token };
+    }
+    catch {
+      return { successes: false };
+    }
+  },
 };
