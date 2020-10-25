@@ -10,37 +10,43 @@
       </div>
       <div class="row">
         <div class="col-12 col-md-4 mb-4 mb-md-0">
-          <div
+          <a
+            :href="getReportLink('week')"
+            target="_blank"
             class="layout-report-select__option"
-            @click="optionClickHandler('week')"
+            @click="optionClickHandler"
           >
             <ReportIcon />
             <span class="layout-report-select__option-title">
               {{ i18n.reportSelect_OptionWeek }}
             </span>
-          </div>
+          </a>
         </div>
         <div class="col-12 col-md-4 mb-4 mb-md-0">
-          <div
+          <a
+            :href="getReportLink('month')"
+            target="_blank"
             class="layout-report-select__option"
-            @click="optionClickHandler('month')"
+            @click="optionClickHandler"
           >
             <ReportIcon />
             <span class="layout-report-select__option-title">
               {{ i18n.reportSelect_OptionMonth }}
             </span>
-          </div>
+          </a>
         </div>
         <div class="col-12 col-md-4">
-          <div
+          <a
+            :href="getReportLink('year')"
+            target="_blank"
             class="layout-report-select__option"
-            @click="optionClickHandler('year')"
+            @click="optionClickHandler"
           >
             <ReportIcon />
             <span class="layout-report-select__option-title">
               {{ i18n.reportSelect_OptionYear }}
             </span>
-          </div>
+          </a>
         </div>
       </div>
     </div>
@@ -49,7 +55,9 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import { REFERENCES, REPORTS, MODAL } from '~/store/types';
+  import { REFERENCES, MODAL, AUTH } from '~/store/types';
+  import { reports } from '~/store/request-url';
+  import { replaceCurly } from '~/helpers/system';
 
   import ReportIcon from '~/assets/svg/report-icon.svg';
 
@@ -59,20 +67,24 @@
       ReportIcon,
     },
     computed: {
+      ...mapGetters('auth', {
+        userToken: AUTH.GET_USER_TOKEN,
+      }),
       ...mapGetters('references', {
         i18n: REFERENCES.GET_I18N,
       }),
     },
     methods: {
-      ...mapActions('reports', {
-        fetchReportFile: REPORTS.FETCH_REPORT_FILE,
-      }),
       ...mapActions('modal', {
         closeModal: MODAL.HIDE_MODAL,
       }),
-      optionClickHandler(range) {
-        this.fetchReportFile({ range });
+      optionClickHandler() {
         this.closeModal();
+      },
+      getReportLink(range) {
+        const { userToken } = this;
+        const apiUrl = reports.downloadLink;
+        return replaceCurly(apiUrl, ['userToken', 'range'], [userToken, range]);
       },
     },
   };
