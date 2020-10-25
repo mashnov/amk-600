@@ -1,10 +1,13 @@
 <template>
   <div class="row admin-page">
     <div class="col-12 mb-5">
-      <AdminDeviceInfo />
+      <AdminDeviceName />
     </div>
     <div class="col-12 mb-5">
       <AdminSensorList />
+    </div>
+    <div class="col-12 mb-5">
+      <AdminDeviceInfo />
     </div>
     <div class="col-12 mb-5">
       <AdminUserList />
@@ -13,13 +16,15 @@
 </template>
 
 <script>
-  import AdminDeviceInfo from './AdminDeviceInfo';
+  import AdminDeviceName from './AdminDeviceName';
   import AdminSensorList from './AdminSensorList';
+  import AdminDeviceInfo from './AdminDeviceInfo';
   import AdminUserList from './AdminUserList';
 
   export default {
     name: 'AdminPage',
     components: {
+      AdminDeviceName,
       AdminDeviceInfo,
       AdminSensorList,
       AdminUserList,

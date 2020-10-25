@@ -3,11 +3,7 @@
     <div class="col-12 mb-5">
       <div class="admin-device-info__header">
         <div class="admin-device-info__title">
-          {{ deviceName }}
-        </div>
-        <div class="admin-device-info__sub-title">
-          {{ deviceDateTime }}<br />
-          Signal: {{ deviceSignal }}
+          Sensors data
         </div>
       </div>
     </div>
@@ -161,28 +157,5 @@
     font-size: 30px;
     line-height: 34px;
     color: $color-gray-01;
-  }
-  .admin-device-info__sub-title {
-    display: block;
-    font-weight: 300;
-    font-size: 15px;
-    line-height: 20px;
-    color: $color-gray-01;
-    margin-top: 10px;
-  }
-  @media (min-width: $screen-md) {
-    .admin-device-info__title {
-      font-size: 40px;
-      line-height: 44px;
-    }
-    .admin-device-info__header {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    .admin-device-info__sub-title {
-      margin-top: 0;
-      margin-left: 10px;
-    }
   }
 </style>
