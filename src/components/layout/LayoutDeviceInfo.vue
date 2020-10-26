@@ -205,10 +205,9 @@
         return luxonDate.setLocale(currentLanguage).toFormat('tt');
       },
       formattedDate() {
-        // TODO: TEST DATE FORMAT
         const { deviceData, currentLanguage } = this;
-        const deviceDate = deviceData.date || '0000-000-00';
-        const inputFormat = 'yyyy-LL-dd';
+        const deviceDate = deviceData.date || '0000:000:00';
+        const inputFormat = 'yyyy:LL:dd';
         const luxonDate = DateTime.fromFormat(deviceDate, inputFormat);
         return luxonDate.setLocale(currentLanguage).toFormat('DDDD');
       },
