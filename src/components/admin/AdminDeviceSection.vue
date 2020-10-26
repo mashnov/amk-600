@@ -18,7 +18,7 @@
             {{ item }}
           </div>
           <div class="admin-device-section__item-value">
-            {{ sensors[item] }}
+            {{ getSensorValue(item) }}
           </div>
         </div>
       </div>
@@ -27,6 +27,8 @@
 </template>
 
 <script>
+  import get from 'lodash/get';
+
   export default {
     name: 'AdminDeviceSection',
     props: {
@@ -43,6 +45,13 @@
       sensorList() {
         const { sensors } = this;
         return Object.keys(sensors);
+      },
+    },
+    methods: {
+      getSensorValue(item) {
+        const { sensors } = this;
+        const value = get(sensors, item, 0);
+        return value.toFixed(2);
       },
     },
   };

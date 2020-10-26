@@ -1,5 +1,5 @@
 <template>
-  <div class="col-11 col-sm-8 col-md-7 col-lg-9 col-xl-5 user-device-info">
+  <div class="col-11 col-sm-8 col-md-7 col-lg-9 col-xl-6 user-device-info">
     <div class="row">
       <div class="col-12 col-sm-10 offset-sm-1">
         <div class="row mb-5">
@@ -213,11 +213,11 @@
       },
       temperatureIsOrange() {
         const { deviceData } = this;
-        return parseInt(deviceData.temperature1) <= 40 || parseInt(deviceData.temperature2) <= 40;
+        return parseInt(deviceData.temperature1) >= 55 || parseInt(deviceData.temperature2) >= 55;
       },
       temperatureIsRed() {
         const { deviceData } = this;
-        return parseInt(deviceData.temperature1) <= 20 || parseInt(deviceData.temperature2) <= 20;
+        return parseInt(deviceData.temperature1) >= 65 || parseInt(deviceData.temperature2) >= 65;
       },
       powerIsOrange() {
         const { deviceData } = this;
@@ -229,7 +229,7 @@
       },
       voltageIsOrange() {
         const { deviceData } = this;
-        return parseInt(deviceData.voltage1) <= 40 || parseInt(deviceData.voltage1) <= 40;
+        return parseInt(deviceData.voltage1) <= 21 || parseInt(deviceData.voltage1) <= 21;
       },
       voltageIsRed() {
         const { deviceData } = this;

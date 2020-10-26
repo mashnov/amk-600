@@ -40,13 +40,13 @@ export const userDataTransformer = (data) => {
   const rainMainSensor = get(data, 'sensors.rain.main', null);
 
   const momentData = {
-    temperature: get(data, `sensors.temperature.allSensors[${temperatureMainSensor}]`, null),
-    humidity: get(data, `sensors.humidity.allSensors[${humidityMainSensor}]`, null),
-    pressure: get(data, `sensors.pressure.allSensors[${pressureMainSensor}]`, null),
-    rainfall: get(data, `sensors.rain.allSensors[${rainMainSensor}]`, null),
-    windVerticalSpeed: get(data, 'sensors.wind.minute2.vertical', null),
-    windSpeed: get(data, 'sensors.wind.minute2.horizontal', null),
-    windDirection: get(data, 'sensors.wind.minute2.direction', null),
+    temperature: get(data, `sensors.temperature.allSensors[${temperatureMainSensor}]`, 0).toFixed(2),
+    humidity: get(data, `sensors.humidity.allSensors[${humidityMainSensor}]`, 0).toFixed(2),
+    pressure: get(data, `sensors.pressure.allSensors[${pressureMainSensor}]`, 0).toFixed(2),
+    rainfall: get(data, `sensors.rain.allSensors[${rainMainSensor}]`, 0).toFixed(2),
+    windVerticalSpeed: get(data, 'sensors.wind.minute2.vertical', 0).toFixed(2),
+    windSpeed: get(data, 'sensors.wind.minute2.horizontal', 0).toFixed(2),
+    windDirection: get(data, 'sensors.wind.minute2.direction', 0).toFixed(2),
   };
   const deviceData = {
     name: get(data, 'deviceName', null),
@@ -54,19 +54,19 @@ export const userDataTransformer = (data) => {
     positionW: get(data, 'sensors.GPS.W', null),
     date: get(data, 'sensors.date', null),
     time: get(data, 'sensors.time', null),
-    temperature1: get(data, 'sensors.power.battery[0].temperatureInsideEquipment', null),
-    temperature2: get(data, 'sensors.power.battery[0].temperatureInsideEquipment', null),
-    power1: get(data, 'sensors.power.battery[0].batteryPower', null),
-    power2: get(data, 'sensors.power.battery[1].batteryPower', null),
-    voltage1: get(data, 'sensors.power.battery[0].batteryVoltage', null),
-    voltage2: get(data, 'sensors.power.battery[1].batteryVoltage', null),
+    temperature1: get(data, 'sensors.power.battery[0].temperatureInsideEquipment', 0).toFixed(2),
+    temperature2: get(data, 'sensors.power.battery[0].temperatureInsideEquipment', 0).toFixed(2),
+    power1: get(data, 'sensors.power.battery[0].batteryPower', 0).toFixed(2),
+    power2: get(data, 'sensors.power.battery[1].batteryPower', 0).toFixed(2),
+    voltage1: get(data, 'sensors.power.battery[0].batteryVoltage', 0).toFixed(2),
+    voltage2: get(data, 'sensors.power.battery[1].batteryVoltage', 0).toFixed(2),
   };
   const statData = {
-    windSpeed: get(data, 'sensors.wind.minute10.vertical', null),
-    windHorizontalSpeed: get(data, 'sensors.wind.minute10.horizontal', null),
-    windMaxSpeed: get(data, 'sensors.wind.minute10.max', null),
-    windDirection: get(data, 'sensors.wind.minute10.direction', null),
-    dewPoint: get(data, 'sensors.temperature.dewPoint', null),
+    windSpeed: get(data, 'sensors.wind.minute10.vertical', 0).toFixed(2),
+    windHorizontalSpeed: get(data, 'sensors.wind.minute10.horizontal', 0).toFixed(2),
+    windMaxSpeed: get(data, 'sensors.wind.minute10.max', 0).toFixed(2),
+    windDirection: get(data, 'sensors.wind.minute10.direction', 0).toFixed(2),
+    dewPoint: get(data, 'sensors.temperature.dewPoint', 0).toFixed(2),
   };
   const sensorData = {
     windIsOnLine: get(data, 'sensors.modulesStatus.wind', false),
@@ -88,7 +88,7 @@ export const chartDataTransformer = ({ reportTypes, chartData, chartPeriod, i18n
     const translationKey = replaceCurly(SENSOR_TRANSLATION_KEY, ['chartType'], [chartType]);
     return {
       label: get(i18n, translationKey, chartType),
-      data: chartTypeData.map((item) => (parseInt(item.y))),
+      data: chartTypeData.map((item) => (get(item, 'y', 0).toFixed(2))),
       dataLabel: chartTypeData.map((item) => (item.time)),
       pointBorderColor: CHART_BORDER_MAPPER[chartType],
       pointHoverBorderColor: CHART_HOVER_MAPPER[chartType],
