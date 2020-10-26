@@ -41,6 +41,7 @@ export default {
     userChart_monthPeriodTitle: 'month',
     userChart_yearPeriodTitle: 'year',
     admin_clearLogs: 'Clear logs',
+    admin_restart: 'Restart CPU',
     admin_addUser: 'Add user',
     deviceStatus_powerTitle: 'power',
     deviceStatus_powerUnit: '%',

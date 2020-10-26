@@ -20,4 +20,5 @@ export const admin = {
   addUser: `${apiUrl}api/user_add`,
   editUser: `${apiUrl}api/user_edit`,
   deleteUser: `${apiUrl}api/user_delete`,
+  restartCpu: `${apiUrl}api/mcu_reset`,
 };

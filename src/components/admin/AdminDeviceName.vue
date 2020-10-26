@@ -11,9 +11,12 @@
         </div>
       </div>
     </div>
-    <div class="col-12 mb-5">
+    <div class="col-12 mb-4">
       <AmkButton @click="clearLogsHandler">
         {{ i18n.admin_clearLogs }}
+      </AmkButton>
+      <AmkButton @click="restartCpu">
+        {{ i18n.admin_restart }}
       </AmkButton>
     </div>
   </div>
@@ -78,6 +81,7 @@
       }),
       ...mapActions('admin', {
         clearLogs: ADMIN.CLEAR_LOGS,
+        restartCpu: ADMIN.RESTART_CPU,
       }),
       async clearLogsHandler() {
         this.showPreloader(PRELOADER_KEY);

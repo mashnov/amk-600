@@ -41,6 +41,18 @@ export default {
       return { successes: false };
     }
   },
+  async [MODULE.RESTART_CPU]({ userToken }) {
+    const apiUrl = admin.restartCpu;
+    try {
+      const { data } = await axios.post(apiUrl, { token: userToken });
+      const successes = get(data, 'successes', false);
+      const token = get(data, 'token', null);
+      return { successes, token };
+    }
+    catch {
+      return { successes: false };
+    }
+  },
   async [MODULE.FETCH_USER_LIST]({ userToken }) {
     const apiUrl = admin.fetchUsers;
     try {

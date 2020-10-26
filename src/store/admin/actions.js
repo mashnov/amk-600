@@ -59,6 +59,12 @@ export default {
     dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
     return { successes };
   },
+  async [MODULE.RESTART_CPU]({ rootGetters, dispatch }) {
+    const userToken = rootGetters[USER_TOKEN_GETTER_KEY];
+    const { successes, token } = await Api.RESTART_CPU({ userToken });
+    dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
+    return { successes };
+  },
   [MODULE.SET_SELECTED_USER]({ commit }, userName) {
     commit(MODULE.MUTATE_SELECTED_USER, userName);
   },
