@@ -73,7 +73,7 @@
           this.stopFetchInterval();
         }
         this.requestTimer = setInterval(() => {
-          console.log(FETCH_INTERVAL);
+          this.fetchStatData();
         }, FETCH_INTERVAL);
       },
       stopFetchInterval() {
