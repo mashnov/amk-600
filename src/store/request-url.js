@@ -14,7 +14,10 @@ export const reports = {
 };
 export const admin = {
   fetchData: `${apiUrl}api/info`,
-  fetchUsers: `${apiUrl}api/user_list`,
-  clearLogs: `${apiUrl}api/clear_logs`,
   setMainSensor: `${apiUrl}api/set_sensor`,
+  clearLogs: `${apiUrl}api/clear_logs`,
+  fetchUsers: `${apiUrl}api/user_list`,
+  addUser: `${apiUrl}api/user_add`,
+  editUser: `${apiUrl}api/user_edit`,
+  deleteUser: `${apiUrl}api/user_delete`,
 };

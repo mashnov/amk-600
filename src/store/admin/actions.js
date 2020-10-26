@@ -1,6 +1,5 @@
 import cloneDeep from 'lodash/cloneDeep';
 import { AUTH } from '~/store/types';
-import { adminUserTransformer } from '~/helpers/transformers';
 
 import MODULE from './types';
 import defaultState from './defaultState';
@@ -25,8 +24,7 @@ export default {
     const userToken = rootGetters[USER_TOKEN_GETTER_KEY];
     const { successes, token, users } = await Api.FETCH_USER_LIST({ userToken });
     if (successes) {
-      const { userData } = adminUserTransformer(users);
-      commit(MODULE.MUTATE_USER_DATA, userData);
+      commit(MODULE.MUTATE_USER_DATA, users);
     }
     dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
     return { successes };
@@ -37,11 +35,32 @@ export default {
     dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
     return { successes };
   },
+  async [MODULE.ADD_USER]({ rootGetters, dispatch }, { isAdmin, username, password }) {
+    const userToken = rootGetters[USER_TOKEN_GETTER_KEY];
+    const { successes, action, token } = await Api.ADD_USER({ userToken, isAdmin, username, password });
+    dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
+    return { successes, action };
+  },
+  async [MODULE.EDIT_USER]({ rootGetters, dispatch }, { isAdmin, selectUser, username, password }) {
+    const userToken = rootGetters[USER_TOKEN_GETTER_KEY];
+    const { successes, action, token } = await Api.EDIT_USER({ userToken, isAdmin, selectUser, username, password });
+    dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
+    return { successes, action };
+  },
+  async [MODULE.REMOVE_USER]({ rootGetters, dispatch }, { username }) {
+    const userToken = rootGetters[USER_TOKEN_GETTER_KEY];
+    const { successes, action, token } = await Api.REMOVE_USER({ userToken, username });
+    dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
+    return { successes, action };
+  },
   async [MODULE.CLEAR_LOGS]({ rootGetters, dispatch }) {
     const userToken = rootGetters[USER_TOKEN_GETTER_KEY];
     const { successes, token } = await Api.CLEAR_LOGS({ userToken });
     dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
     return { successes };
+  },
+  [MODULE.SET_SELECTED_USER]({ commit }, userName) {
+    commit(MODULE.MUTATE_SELECTED_USER, userName);
   },
   [MODULE.RESET_STATE]({ commit }) {
     const { deviceData, userData } = getDefaultState();

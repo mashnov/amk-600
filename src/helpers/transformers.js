@@ -118,7 +118,3 @@ export const chartDataTransformer = ({ reportTypes, chartData, chartPeriod, i18n
     labels: chartDataLabels,
   };
 };
-
-export const adminUserTransformer = (data) => {
-  return data;
-};

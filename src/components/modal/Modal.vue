@@ -150,7 +150,7 @@
     left: 0;
     width: 100%;
     min-height: 100%;
-    z-index: 20;
+    z-index: 12;
     overflow: hidden;
     transition: opacity $animation-time-02 $animation-easing;
   }

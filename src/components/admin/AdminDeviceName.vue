@@ -13,7 +13,7 @@
     </div>
     <div class="col-12 mb-5">
       <AmkButton @click="clearLogsHandler">
-        {{ i18n.admin_ClearLogs }}
+        {{ i18n.admin_clearLogs }}
       </AmkButton>
     </div>
   </div>
