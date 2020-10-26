@@ -1,6 +1,9 @@
 <template>
   <div class="col-11 col-sm-8 col-md-7 col-lg-9 col-xl-6 user-device-info">
-    <div class="row">
+    <div
+      v-if="deviceDataIsReady"
+      class="row"
+    >
       <div class="col-12 col-sm-10 offset-sm-1">
         <div class="row mb-5">
           <div class="col-12 mb-5">
@@ -164,6 +167,7 @@
 </template>
 
 <script>
+  import isEmpty from 'lodash/isEmpty';
   import { DateTime } from 'luxon';
   import { mapGetters } from 'vuex';
   import { REFERENCES, USER } from '~/store/types';
@@ -197,6 +201,10 @@
         sensorData: USER.GET_SENSOR_DATA,
         deviceData: USER.GET_DEVICE_DATA,
       }),
+      deviceDataIsReady() {
+        const { deviceData, sensorData } = this;
+        return !isEmpty(deviceData) && !isEmpty(sensorData);
+      },
       formattedTime() {
         const { deviceData, currentLanguage } = this;
         const deviceTime = deviceData.time || '00:00:00';
