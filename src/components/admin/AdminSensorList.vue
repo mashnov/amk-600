@@ -29,13 +29,13 @@
         </div>
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3">
           <AdminSensorItem
-            :title="i18n.admin_sensorCompassTitle"
+            :title="i18n.deviceStatus_sensorCompassTitle"
             :status="modulesStatus.compass"
           />
         </div>
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3">
           <AdminSensorItem
-            :title="i18n.admin_sensorRainTitle"
+            :title="i18n.deviceStatus_sensorRainTitle"
             :status="modulesStatus.rain"
           />
         </div>

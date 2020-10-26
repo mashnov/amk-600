@@ -15,32 +15,44 @@
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        :title="i18n.admin_sensorCompassTitle"
+        :title="i18n.deviceStatus_sensorCompassTitle"
         :sensors="sensors.compass"
       />
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        :title="i18n.admin_sensorHumidityTitle"
+        :title="i18n.momentData_humiditySensorTitle"
         :sensors="humiditySensor"
+        :value="humidityValue"
+        :editable="true"
+        @select-item="changeMainSensorHandler({ name: $event, type: 'humidity' })"
       />
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        :title="i18n.admin_sensorTemperatureTitle"
+        :title="i18n.momentData_temperatureSensorTitle"
         :sensors="temperatureSensor"
+        :value="temperatureValue"
+        :editable="true"
+        @select-item="changeMainSensorHandler({ name: $event, type: 'temperature' })"
       />
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        :title="i18n.admin_sensorRainTitle"
+        :title="i18n.deviceStatus_sensorRainTitle"
         :sensors="rainSensor"
+        :value="rainValue"
+        :editable="true"
+        @select-item="changeMainSensorHandler({ name: $event, type: 'rain' })"
       />
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        :title="i18n.admin_sensorPressureTitle"
+        :title="i18n.momentData_pressureSensorTitle"
         :sensors="pressureSensor"
+        :value="pressureValue"
+        :editable="true"
+        @select-item="changeMainSensorHandler({ name: $event, type: 'pressure' })"
       />
     </div>
     <div class="col-12 mb-5">
@@ -57,13 +69,13 @@
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        :title="i18n.admin_sensorWind2Title"
+        :title="i18n.momentData_windSensorTitle"
         :sensors="windSensor.minute2"
       />
     </div>
     <div class="col-12">
       <AdminDeviceSection
-        :title="i18n.admin_sensorWind10Title"
+        :title="i18n.statData_windTitle"
         :sensors="windSensor.minute10"
       />
     </div>
@@ -73,10 +85,13 @@
 <script>
   import get from 'lodash/get';
   import { DateTime } from 'luxon';
-  import { mapGetters } from 'vuex';
-  import { REFERENCES, ADMIN } from '~/store/types';
+  import { mapGetters, mapActions } from 'vuex';
+  import { ADMIN, AUTH, PRELOADER, REFERENCES } from '~/store/types';
+  import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
 
   import AdminDeviceSection from './AdminDeviceSection';
+
+  const PRELOADER_KEY = 'setDefaultSensor';
 
   export default {
     name: 'AdminDeviceInfo',
@@ -142,6 +157,48 @@
       batterySensor2() {
         const { sensors } = this;
         return get(sensors, 'power.battery[1]', {});
+      },
+      humidityValue() {
+        const { sensors } = this;
+        return get(sensors, 'humidity.main', null);
+      },
+      pressureValue() {
+        const { sensors } = this;
+        return get(sensors, 'pressure.main', null);
+      },
+      rainValue() {
+        const { sensors } = this;
+        return get(sensors, 'rain.main', null);
+      },
+      temperatureValue() {
+        const { sensors } = this;
+        return get(sensors, 'temperature.main', null);
+      },
+    },
+    methods: {
+      ...mapActions('admin', {
+        changeMainSensor: ADMIN.CHANGE_MAIN_SENSOR,
+        fetchStatData: ADMIN.FETCH_DATA,
+      }),
+      ...mapActions('preloader', {
+        showPreloader: PRELOADER.SHOW_PRELOADER,
+        hidePreloader: PRELOADER.HIDE_PRELOADER,
+      }),
+      ...mapActions('auth', {
+        logoutHandler: AUTH.LOGOUT_HANDLER,
+      }),
+      async changeMainSensorHandler({ name, type }) {
+        this.showPreloader(PRELOADER_KEY);
+        const changeSensorResponse = await this.changeMainSensor({ name, type });
+        const fetchSensorResponse = await this.fetchStatData();
+        this.hidePreloader(PRELOADER_KEY);
+        if (!changeSensorResponse.successes || !fetchSensorResponse.successes) {
+          this.logoutAction();
+        }
+      },
+      async logoutAction() {
+        await this.logoutHandler();
+        this.$router.push({ name: AUTH_ROUTE_NAMES.auth });
       },
     },
   };

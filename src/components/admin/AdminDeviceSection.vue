@@ -1,5 +1,8 @@
 <template>
-  <div class="admin-device-section">
+  <div
+    class="admin-device-section"
+    :class="editable && 'admin-device-section_editable'"
+  >
     <div class="row">
       <div class="col-12 mb-4">
         <div class="admin-device-section__title">
@@ -13,7 +16,11 @@
         :key="index"
         class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3"
       >
-        <div class="admin-device-section__item">
+        <div
+          class="admin-device-section__item"
+          :class="value === item && 'admin-device-section__item_selected'"
+          @click="itemClickHandler(sensors[item])"
+        >
           <div class="admin-device-section__item-title">
             {{ item }}
           </div>
@@ -32,6 +39,10 @@
   export default {
     name: 'AdminDeviceSection',
     props: {
+      editable: {
+        type: Boolean,
+        default: false,
+      },
       title: {
         type: String,
         default: '',
@@ -39,6 +50,10 @@
       sensors: {
         type: Object,
         default: () => ({}),
+      },
+      value: {
+        default: '',
+        validator: (prop) => ['string'].includes(typeof prop) || prop === null,
       },
     },
     computed: {
@@ -51,7 +66,13 @@
       getSensorValue(item) {
         const { sensors } = this;
         const value = get(sensors, item, 0);
-        return value.toFixed(2);
+        return value.toFixed(3);
+      },
+      itemClickHandler(name) {
+        const { editable } = this;
+        if (editable) {
+          this.$emit('select-item', name);
+        }
       },
     },
   };
@@ -67,11 +88,34 @@
     color: $color-gray-01;
   }
   .admin-device-section__item {
+    position: relative;
     display: block;
     padding: 25px;
     background: $color-gray-06;
     box-shadow: 0 8px 24px $sensor-shadow-color;
     border-radius: 5px;
+  }
+  .admin-device-section_editable .admin-device-section__item {
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .admin-device-section_editable .admin-device-section__item:before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    border-left: transparent;
+    transition: background-color $animation-time-01 $animation-easing, border $animation-time-01 $animation-easing;
+  }
+  .admin-device-section_editable .admin-device-section__item:not(.admin-device-section__item_selected):hover:before {
+    background-color: rgba($color-green-01, 0.3);
+  }
+  .admin-device-section_editable .admin-device-section__item_selected:before {
+    background-color: rgba($color-green-01, 0.5);
+    border-left: 2px solid $color-green-01;
   }
   .admin-device-section__item-title {
     display: block;
@@ -88,8 +132,8 @@
     width: 100%;
     text-align: right;
     font-weight: 600;
-    font-size: 28px;
-    line-height: 38px;
+    font-size: 20px;
+    line-height: 30px;
     color: $color-gray-01;
     white-space: nowrap;
     overflow: hidden;
@@ -97,8 +141,8 @@
   }
   @media (min-width: $screen-md) {
     .admin-device-section__item-value {
-      font-size: 48px;
-      line-height: 48px;
+      font-size: 28px;
+      line-height: 28px;
     }
   }
 </style>

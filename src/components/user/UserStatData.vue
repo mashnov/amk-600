@@ -15,9 +15,9 @@
               <div class="row">
                 <div class="col-12 col-sm-6 col-md-3 mb-4 mb-md-0">
                   <UserStatDataItem
-                    :title="i18n.statData_windSpeedTitle"
+                    :title="i18n.momentData_windSpeedTitle"
                     :value="statData.windSpeed"
-                    :unit="i18n.statData_windSpeedUnit"
+                    :unit="i18n.momentData_windSpeedUnit"
                   />
                 </div>
                 <div class="col-12 col-sm-6 col-md-3 mb-4 mb-md-0">
@@ -36,9 +36,9 @@
                 </div>
                 <div class="col-12 col-sm-6 col-md-3 mb-4 mb-sm-0">
                   <UserStatDataItem
-                    :title="i18n.statData_windDirectionTitle"
+                    :title="i18n.momentData_windDirectionTitle"
                     :value="statData.windDirection"
-                    :unit="i18n.statData_windDirectionUnit"
+                    :unit="i18n.momentData_windDirectionUnit"
                   />
                 </div>
               </div>

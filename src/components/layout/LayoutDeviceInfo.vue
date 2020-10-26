@@ -47,7 +47,7 @@
             >
               <TemperatureIcon />
               <span>
-                {{ i18n.deviceStatus_temperatureTitle }}: {{ deviceData.temperature1 }}{{ i18n.deviceStatus_temperatureUnit }} | {{ deviceData.temperature2 }}{{ i18n.deviceStatus_temperatureUnit }}
+                {{ i18n.momentData_temperatureSensorTitle }}: {{ deviceData.temperature1 }}{{ i18n.momentData_temperatureSensorUnit }} | {{ deviceData.temperature2 }}{{ i18n.momentData_temperatureSensorUnit }}
               </span>
             </div>
           </div>
