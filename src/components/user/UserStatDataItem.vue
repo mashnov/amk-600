@@ -58,6 +58,7 @@
     line-height: 48px;
     color: $color-gray-01;
     text-align: right;
+    white-space: nowrap;
   }
   .user-stat-data-item__value span {
     display: inline-block;

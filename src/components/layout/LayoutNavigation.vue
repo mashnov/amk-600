@@ -86,6 +86,7 @@
 
   const PRELOADER_KEY = 'logout';
   const ADMIN_USER_TYPE = 'admin';
+  const USER_USER_TYPE = 'user';
 
   export default {
     name: 'LayoutNavigation',
@@ -110,6 +111,14 @@
       userIsAdmin() {
         const { userType } = this;
         return userType === ADMIN_USER_TYPE;
+      },
+    },
+    watch: {
+      userType: {
+        immediate: true,
+        handler() {
+          this.userLoginHandler();
+        },
       },
     },
     methods: {
@@ -139,6 +148,12 @@
           component: LayoutReportSelect,
           position: 'bottom',
         });
+      },
+      userLoginHandler() {
+        const { userType } = this;
+        if (userType === USER_USER_TYPE) {
+          this.showDeviceModal();
+        }
       },
       async logoutClickHandler() {
         this.showPreloader(PRELOADER_KEY);

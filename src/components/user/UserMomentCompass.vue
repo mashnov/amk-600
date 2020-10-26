@@ -72,7 +72,6 @@
     transform-origin: 50% 100%;
     background: #79BFE9;
     border-radius: 100% 100% 0 0;
-    transition: transform $animation-time-03 $animation-easing;
   }
   .user-moment-compass__arrow:before {
     content: '';
