@@ -3,13 +3,13 @@
     <div class="col-12 mb-5">
       <div class="admin-sensor-default__header">
         <div class="admin-sensor-default__title">
-          Sensors default
+          {{ i18n.admin_sensorDefault_title }}
         </div>
       </div>
     </div>
     <div class="col-12 mb-5">
       <AdminSensorSection
-        title="humidity"
+        :title="i18n.admin_sensorHumidityTitle"
         :sensors="humiditySensors"
         :value="humidityValue"
         @select-item="changeMainSensorHandler({ name: $event, type: 'humidity' })"
@@ -17,7 +17,7 @@
     </div>
     <div class="col-12 mb-5">
       <AdminSensorSection
-        title="pressure"
+        :title="i18n.admin_sensorPressureTitle"
         :sensors="pressureSensors"
         :value="pressureValue"
         @select-item="changeMainSensorHandler({ name: $event, type: 'pressure' })"
@@ -25,7 +25,7 @@
     </div>
     <div class="col-12 mb-5">
       <AdminSensorSection
-        title="rain"
+        :title="i18n.admin_sensorRainTitle"
         :sensors="rainSensors"
         :value="rainValue"
         @select-item="changeMainSensorHandler({ name: $event, type: 'rain' })"
@@ -33,7 +33,7 @@
     </div>
     <div class="col-12 mb-5">
       <AdminSensorSection
-        title="temperature"
+        :title="i18n.admin_sensorTemperatureTitle"
         :sensors="temperatureSensors"
         :value="temperatureValue"
         @select-item="changeMainSensorHandler({ name: $event, type: 'temperature' })"
@@ -45,7 +45,7 @@
 <script>
   import get from 'lodash/get';
   import { mapGetters, mapActions } from 'vuex';
-  import { ADMIN, AUTH, PRELOADER } from '~/store/types';
+  import { ADMIN, AUTH, PRELOADER, REFERENCES } from '~/store/types';
   import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
 
   import AdminSensorSection from './AdminSensorSection';
@@ -60,6 +60,9 @@
     computed: {
       ...mapGetters('admin', {
         deviceData: ADMIN.GET_DEVICE_DATA,
+      }),
+      ...mapGetters('references', {
+        i18n: REFERENCES.GET_I18N,
       }),
       sensors() {
         const { deviceData } = this;

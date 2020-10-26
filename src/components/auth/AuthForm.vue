@@ -84,11 +84,10 @@
       AmkInput,
       AmkButton,
     },
-    //TODO: REMOVE USERNAME & PASSWORD
     data: () => ({
       loginError: false,
-      username: 'VeyDlin',
-      password: 'VeyDlin',
+      username: '',
+      password: '',
     }),
     computed: {
       ...mapGetters('references', {

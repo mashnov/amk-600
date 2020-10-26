@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-12 col-md-10 md-4 md-md-0">
           <div class="admin-user-list__title">
-            User list
+            {{ i18n.admin_userList_title }}
           </div>
         </div>
         <div class="col-12 col-md-2 d-md-flex">

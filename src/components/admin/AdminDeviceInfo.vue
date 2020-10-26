@@ -3,67 +3,67 @@
     <div class="col-12 mb-5">
       <div class="admin-device-info__header">
         <div class="admin-device-info__title">
-          Sensors data
+          {{ i18n.admin_sensorData_title }}
         </div>
       </div>
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        title="GPS"
+        :title="i18n.admin_sensorGPSTitle"
         :sensors="sensors.GPS"
       />
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        title="compass"
+        :title="i18n.admin_sensorCompassTitle"
         :sensors="sensors.compass"
       />
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        title="humidity"
+        :title="i18n.admin_sensorHumidityTitle"
         :sensors="humiditySensor"
       />
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        title="temperature"
+        :title="i18n.admin_sensorTemperatureTitle"
         :sensors="temperatureSensor"
       />
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        title="rain"
+        :title="i18n.admin_sensorRainTitle"
         :sensors="rainSensor"
       />
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        title="pressure"
+        :title="i18n.admin_sensorPressureTitle"
         :sensors="pressureSensor"
       />
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        title="battery 1"
+        :title="i18n.admin_sensorBattery1Title"
         :sensors="batterySensor1"
       />
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        title="battery 2"
+        :title="i18n.admin_sensorBattery2Title"
         :sensors="batterySensor2"
       />
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        title="wind 2"
-        :sensors="windSensor.minute10"
+        :title="i18n.admin_sensorWind2Title"
+        :sensors="windSensor.minute2"
       />
     </div>
     <div class="col-12">
       <AdminDeviceSection
-        title="wind 10"
+        :title="i18n.admin_sensorWind10Title"
         :sensors="windSensor.minute10"
       />
     </div>
@@ -86,6 +86,7 @@
     computed: {
       ...mapGetters('references', {
         currentLanguage: REFERENCES.GET_LANGUAGE_ID,
+        i18n: REFERENCES.GET_I18N,
       }),
       ...mapGetters('admin', {
         deviceData: ADMIN.GET_DEVICE_DATA,

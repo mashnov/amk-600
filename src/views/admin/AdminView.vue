@@ -26,6 +26,9 @@
     mixins: [
       storeMixin,
     ],
+    data: () => ({
+      requestTimer: null,
+    }),
     created() {
       this.$_registerStoreModule(adminModule);
     },
@@ -65,11 +68,17 @@
         this.$router.push({ name: AUTH_ROUTE_NAMES.auth });
       },
       startFetchInterval() {
-        //TODO: ADD TIMER
-        console.log(FETCH_INTERVAL);
+        const { requestTimer } = this;
+        if (requestTimer) {
+          this.stopFetchInterval();
+        }
+        this.requestTimer = setInterval(() => {
+          console.log(FETCH_INTERVAL);
+        }, FETCH_INTERVAL);
       },
       stopFetchInterval() {
-        //TODO: REMOVE TIMER
+        const { requestTimer } = this;
+        clearInterval(requestTimer);
       },
     },
   };

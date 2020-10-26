@@ -3,7 +3,7 @@
     <div class="col-12 mb-5">
       <div class="admin-sensor-list__header">
         <div class="admin-sensor-list__title">
-          Sensors status
+          {{ i18n.admin_sensorStatus_title }}
         </div>
       </div>
     </div>
@@ -11,43 +11,43 @@
       <div class="row">
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3">
           <AdminSensorItem
-            title="GPS"
+            :title="i18n.admin_sensorGPSTitle"
             :status="modulesStatus.GPS"
           />
         </div>
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3">
           <AdminSensorItem
-            title="battery 1"
+            :title="i18n.admin_sensorBattery1Title"
             :status="batteryStatus.battery1"
           />
         </div>
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3">
           <AdminSensorItem
-            title="battery 2"
+            :title="i18n.admin_sensorBattery2Title"
             :status="batteryStatus.battery2"
           />
         </div>
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3">
           <AdminSensorItem
-            title="compass"
+            :title="i18n.admin_sensorCompassTitle"
             :status="modulesStatus.compass"
           />
         </div>
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3">
           <AdminSensorItem
-            title="rain"
+            :title="i18n.admin_sensorRainTitle"
             :status="modulesStatus.rain"
           />
         </div>
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3">
           <AdminSensorItem
-            title="weather"
+            :title="i18n.admin_sensorWeatherTitle"
             :status="modulesStatus.weather"
           />
         </div>
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3">
           <AdminSensorItem
-            title="wind"
+            :title="i18n.admin_sensorWindTitle"
             :status="modulesStatus.wind"
           />
         </div>
@@ -59,7 +59,7 @@
 <script>
   import get from 'lodash/get';
   import { mapGetters } from 'vuex';
-  import { ADMIN } from '~/store/types';
+  import { ADMIN, REFERENCES } from '~/store/types';
 
   import AdminSensorItem from './AdminSensorItem';
 
@@ -71,6 +71,9 @@
     computed: {
       ...mapGetters('admin', {
         deviceData: ADMIN.GET_DEVICE_DATA,
+      }),
+      ...mapGetters('references', {
+        i18n: REFERENCES.GET_I18N,
       }),
       modulesStatus() {
         const { deviceData } = this;
