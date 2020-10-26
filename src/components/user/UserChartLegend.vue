@@ -12,6 +12,7 @@
     >
       <div
         class="user-chart-legend__item"
+        :class="fetchIsLock && 'user-chart-legend__item_disabled'"
         @click="itemClickHandler(chartType)"
       >
         <span
@@ -58,6 +59,9 @@
       ...mapGetters('references', {
         i18n: REFERENCES.GET_I18N,
       }),
+      ...mapGetters('reports', {
+        fetchIsLock: REPORTS.GET_FETCH_IS_LOCK,
+      }),
     },
     methods: {
       ...mapActions('reports', {
@@ -82,6 +86,10 @@
         return i18n[translationKey] || translationKey;
       },
       async itemClickHandler(reportType) {
+        const { fetchIsLock } = this;
+        if (fetchIsLock) {
+          return;
+        }
         this.showPreloader(PRELOADER_KEY);
         this.setReportTypes(reportType);
         const { successes } = await this.fetchChartData();
@@ -105,7 +113,11 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: transform $animation-time-01 $animation-easing;
+    transition: transform $animation-time-01 $animation-easing, opacity $animation-time-01 $animation-easing;
+  }
+  .user-chart-legend__item_disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
   }
   .user-chart-legend__item:hover {
     transform: scale(1.1);

@@ -17,6 +17,7 @@
       <div class="col-12 mb-5">
         <UserChartPeriodSelect
           :value="chartPeriod"
+          :disabled="fetchIsLock"
           @select-period="setReportPeriod"
         />
       </div>
@@ -56,6 +57,7 @@
         i18n: REFERENCES.GET_I18N,
       }),
       ...mapGetters('reports', {
+        fetchIsLock: REPORTS.GET_FETCH_IS_LOCK,
         reportTypes: REPORTS.GET_REPORT_TYPES,
         chartData: REPORTS.GET_CHART_DATA,
         chartPeriod: REPORTS.GET_REPORT_RANGE,

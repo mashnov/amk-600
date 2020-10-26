@@ -9,6 +9,7 @@
               :unit="i18n.momentData_temperatureSensorUnit"
               :value="momentData.temperature"
               :is-active="reportTypes.includes('temperature')"
+              :disabled="fetchIsLock"
               @select-item="selectReportItem('temperature')"
             />
           </div>
@@ -18,6 +19,7 @@
               :unit="i18n.momentData_humiditySensorUnit"
               :value="momentData.humidity"
               :is-active="reportTypes.includes('humidity')"
+              :disabled="fetchIsLock"
               @select-item="selectReportItem('humidity')"
             />
           </div>
@@ -29,6 +31,7 @@
               :unit="i18n.momentData_pressureSensorUnit"
               :value="momentData.pressure"
               :is-active="reportTypes.includes('pressure')"
+              :disabled="fetchIsLock"
               @select-item="selectReportItem('pressure')"
             />
           </div>
@@ -38,6 +41,7 @@
               :unit="i18n.momentData_rainSensorUnit"
               :value="momentData.rainfall"
               :is-active="reportTypes.includes('rain')"
+              :disabled="fetchIsLock"
               @select-item="selectReportItem('rain')"
             />
           </div>
@@ -74,6 +78,7 @@
         momentData: USER.GET_MOMENT_DATA,
       }),
       ...mapGetters('reports', {
+        fetchIsLock: REPORTS.GET_FETCH_IS_LOCK,
         reportTypes: REPORTS.GET_REPORT_TYPES,
       }),
     },

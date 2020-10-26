@@ -10,4 +10,7 @@ export default {
   [MODULE.MUTATE_REPORT_RANGE]: (state, reportRange) => {
     state.reportRange = reportRange;
   },
+  [MODULE.MUTATE_FETCH_IS_LOCK]: (state, fetchIsLock) => {
+    state.fetchIsLock = fetchIsLock;
+  },
 };

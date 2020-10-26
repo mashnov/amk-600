@@ -1,4 +1,5 @@
 export default {
+  fetchIsLock: false,
   reportTypes: ['temperature', 'humidity'],
   reportRange: 'day',
   chartData: {

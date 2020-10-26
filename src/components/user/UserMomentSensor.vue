@@ -1,7 +1,10 @@
 <template>
   <div
     class="user-moment-sensor"
-    :class="isActive && 'user-moment-sensor_active'"
+    :class="[
+      isActive && 'user-moment-sensor_active',
+      disabled && 'user-moment-sensor_disabled',
+    ]"
     @click="itemClickHandler"
   >
     <div class="user-moment-sensor__title">
@@ -31,6 +34,10 @@
         default: false,
         required: true,
       },
+      disabled: {
+        type: Boolean,
+        default: false,
+      },
       title: {
         default: null,
         required: true,
@@ -49,7 +56,10 @@
     },
     methods: {
       itemClickHandler() {
-        this.$emit('select-item');
+        const { disabled } = this;
+        if (!disabled) {
+          this.$emit('select-item');
+        }
       },
     },
   };
@@ -71,12 +81,16 @@
     background: $color-gray-06;
     box-shadow: 0 8px 24px $sensor-shadow-color;
     border-radius: 5px;
-    transition: background-color $animation-time-01 $animation-easing, box-shadow $animation-time-01 $animation-easing;
+    transition: background-color $animation-time-01 $animation-easing, box-shadow $animation-time-01 $animation-easing, opacity $animation-time-01 $animation-easing;
     cursor: pointer;
   }
   .user-moment-sensor_active .user-moment-sensor__wrapper {
     background: $color-gray-05;
     box-shadow: inset 0 0 10px $sensor-shadow-color;
+  }
+  .user-moment-sensor_disabled .user-moment-sensor__wrapper {
+    opacity: 0.8;
+    cursor: not-allowed;
   }
   .user-moment-sensor__wrapper:hover {
     background: $color-gray-05;

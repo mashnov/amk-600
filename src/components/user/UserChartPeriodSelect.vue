@@ -9,7 +9,10 @@
       >
         <div
           class="user-chart-period-select__option"
-          :class="period === value && 'user-chart-period-select__option_selected'"
+          :class="[
+            period === value && 'user-chart-period-select__option_selected',
+            disabled && 'user-chart-period-select__option_disabled',
+          ]"
           @click="itemClickEvent(period)"
         >
           {{ getItemName(period) }}
@@ -35,6 +38,10 @@
         required: true,
         validator: (prop) => ['string'].includes(typeof prop) || prop === null,
       },
+      disabled: {
+        type: Boolean,
+        default: false,
+      },
     },
     data: () => ({
       options: CHART_PERIOD_TYPES,
@@ -51,8 +58,8 @@
         return i18n[translationKey] || translationKey;
       },
       itemClickEvent(period) {
-        const { value } = this;
-        if (value !== period) {
+        const { value, disabled } = this;
+        if (value !== period && !disabled) {
           this.$emit('select-period', period);
         }
       },
@@ -74,7 +81,7 @@
     color: $color-gray-01;
     padding: 25px 0;
     font-size: 11px;
-    transition: background-color $animation-time-01 $animation-easing, box-shadow $animation-time-01 $animation-easing;
+    transition: opacity $animation-time-01 $animation-easing,background-color $animation-time-01 $animation-easing, box-shadow $animation-time-01 $animation-easing;
     cursor: pointer;
   }
   .user-chart-period-select__option:hover {
@@ -85,6 +92,10 @@
     background: $color-gray-05;
     box-shadow: inset 0 0 10px $sensor-shadow-color;
     cursor: default;
+  }
+  .user-chart-period-select__option_disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
   }
   @media (min-width: $screen-md) {
     .user-chart-period-select__option {

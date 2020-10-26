@@ -31,7 +31,9 @@ export default {
   },
   async [MODULE.FETCH_CHART_DATA]({ rootGetters, state: { reportTypes, reportRange }, dispatch, commit }) {
     const userToken = rootGetters[USER_TOKEN_GETTER_KEY];
+    commit(MODULE.MUTATE_FETCH_IS_LOCK, true);
     const { successes, token, data } = await Api.FETCH_CHART_DATA({ userToken, reportTypes, reportRange });
+    commit(MODULE.MUTATE_FETCH_IS_LOCK, false);
     if (successes) {
       commit(MODULE.MUTATE_CHART_DATA, data);
       dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
