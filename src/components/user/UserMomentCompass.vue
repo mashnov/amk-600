@@ -49,29 +49,38 @@
   .user-moment-compass:after {
     content: '';
     position: absolute;
-    width: 50px;
-    height: 50px;
-    top: calc(50% - 23px);
-    left: calc(50% - 25px);
-    background-color: $color-violet-02;
+    width: 40%;
+    height: 40%;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    background-color: rgba($color-violet-02, 0.7);
     border-radius: 100%;
-    z-index: -1;
+    z-index: 1;
+  }
+  .user-moment-compass__image{
+    position: relative;
+    z-index: 2;
   }
   .user-moment-compass__image svg {
+    position: relative;
     display: block;
     width: 100%;
     margin: 0;
     color: $color-gray-01;
+    background-color: transparent;
   }
   .user-moment-compass__arrow {
     position: absolute;
     height: 30%;
     left: calc(50% - 1px);
-    top: calc(20% + 4px);
+    top: calc(20% - 1px);
     width: 4px;
     transform-origin: 50% 100%;
     background: #79BFE9;
     border-radius: 100% 100% 0 0;
+    transition: transform 0.15s linear;
+    z-index: 3;
   }
   .user-moment-compass__arrow:before {
     content: '';
