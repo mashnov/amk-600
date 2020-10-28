@@ -34,6 +34,7 @@
       },
     },
     mounted() {
+      console.log(0);
       this.fetchAdminData();
       this.startFetchInterval();
     },
@@ -66,14 +67,12 @@
         this.$router.push({ name: AUTH_ROUTE_NAMES.auth });
       },
       startFetchInterval() {
-        const { requestTimer, requestIsPending } = this;
+        const { requestTimer } = this;
         if (requestTimer) {
           this.stopFetchInterval();
         }
         this.requestTimer = setInterval(() => {
-          if (!requestIsPending) {
-            this.fetchStatDataHandler();
-          }
+          this.fetchStatDataHandler();
         }, FETCH_INTERVAL);
       },
       fetchStatDataHandler() {

@@ -34,8 +34,8 @@
       },
     },
     mounted() {
-     this.fetchUserData();
-     this.startFetchInterval();
+      this.fetchUserData();
+      this.startFetchInterval();
     },
     beforeDestroy() {
       this.stopFetchInterval();
