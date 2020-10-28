@@ -56,13 +56,12 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import { REFERENCES, PRELOADER, USER, REPORTS, AUTH } from '~/store/types';
+  import { REFERENCES, USER, REPORTS, AUTH } from '~/store/types';
   import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
 
   import UserMomentSensor from './UserMomentSensor';
   import UserMomentWind from './UserMomentWind';
 
-  const PRELOADER_KEY = 'userFetchChartData';
 
   export default {
     name: 'UserMomentData',
@@ -87,18 +86,12 @@
         setReportTypes: REPORTS.SET_REPORT_TYPES,
         fetchChartData: REPORTS.FETCH_CHART_DATA,
       }),
-      ...mapActions('preloader', {
-        showPreloader: PRELOADER.SHOW_PRELOADER,
-        hidePreloader: PRELOADER.HIDE_PRELOADER,
-      }),
       ...mapActions('auth', {
         logoutHandler: AUTH.LOGOUT_HANDLER,
       }),
       async selectReportItem(reportType) {
-        this.showPreloader(PRELOADER_KEY);
         this.setReportTypes(reportType);
         const { successes } = await this.fetchChartData();
-        this.hidePreloader(PRELOADER_KEY);
         if (!successes) {
           this.logoutAction();
         }

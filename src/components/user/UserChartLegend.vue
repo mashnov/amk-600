@@ -26,7 +26,7 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import { REFERENCES, PRELOADER, REPORTS, AUTH } from '~/store/types';
+  import { REFERENCES, REPORTS, AUTH } from '~/store/types';
   import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
   import { replaceCurly } from '~/helpers/system';
 
@@ -35,7 +35,6 @@
   const PRESSURE_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_PRESSURE_COLOR;
   const RAIN_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_RAIN_COLOE;
   const TYPE_TRANSLATION_KEY = '{chartType}Title';
-  const PRELOADER_KEY = 'userLegendFetchChartData';
 
   const CHART_BACKGROUND_MAPPER = {
     temperature: `rgb(${TEMPERATURE_BASE_COLOR})`,
@@ -66,10 +65,6 @@
         setReportTypes: REPORTS.SET_REPORT_TYPES,
         fetchChartData: REPORTS.FETCH_CHART_DATA,
       }),
-      ...mapActions('preloader', {
-        showPreloader: PRELOADER.SHOW_PRELOADER,
-        hidePreloader: PRELOADER.HIDE_PRELOADER,
-      }),
       ...mapActions('auth', {
         logoutHandler: AUTH.LOGOUT_HANDLER,
       }),
@@ -88,10 +83,8 @@
         if (fetchIsLock) {
           return;
         }
-        this.showPreloader(PRELOADER_KEY);
         this.setReportTypes(reportType);
         const { successes } = await this.fetchChartData();
-        this.hidePreloader(PRELOADER_KEY);
         if (!successes) {
           this.logoutAction();
         }

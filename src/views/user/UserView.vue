@@ -11,8 +11,6 @@
   import { USER, REPORTS, PRELOADER, AUTH, LOGGER } from '~/store/types';
   import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
 
-  import storeMixin from '~/mixins/storeMixin';
-  import userModule from '~/store/user';
   import UserPage from '~/components/user/UserPage';
 
   const FETCH_INTERVAL = process.env.VUE_APP_USER_DATA_FETCH_INTERVAL;
@@ -23,9 +21,6 @@
     components: {
       UserPage,
     },
-    mixins: [
-      storeMixin,
-    ],
     data: () => ({
       requestTimer: null,
     }),
@@ -38,18 +33,12 @@
         return !!requestList.length;
       },
     },
-    created() {
-      this.$_registerStoreModule(userModule);
-    },
     mounted() {
      this.fetchUserData();
      this.startFetchInterval();
     },
     beforeDestroy() {
       this.stopFetchInterval();
-    },
-    destroyed() {
-      this.$_unRegisterStoreModule(userModule);
     },
     methods: {
       ...mapActions('user', {
@@ -68,8 +57,8 @@
       async fetchUserData() {
         this.showPreloader(PRELOADER_KEY);
         const statResponse = await this.fetchStatData();
-        const chartResponse = await this.fetchChartData();
         this.hidePreloader(PRELOADER_KEY);
+        const chartResponse = await this.fetchChartData();
         if (!statResponse.successes || !chartResponse.successes) {
           this.logoutAction();
         }

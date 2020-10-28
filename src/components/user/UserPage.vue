@@ -10,9 +10,22 @@
         />
       </div>
       <div class="col-12 mb-5">
-        <UserChart
-          :chart-data="chartDataSets"
-        />
+        <div class="user-page__chart">
+          <transition
+            appear
+            name="fade-in"
+          >
+            <div
+              v-if="fetchIsLock"
+              class="user-page__chart-loader"
+            >
+              <PreloaderIcon />
+            </div>
+          </transition>
+          <UserChart
+            :chart-data="chartDataSets"
+          />
+        </div>
       </div>
       <div class="col-12 mb-5">
         <UserChartPeriodSelect
@@ -30,7 +43,8 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import { REFERENCES, PRELOADER, REPORTS, AUTH } from '~/store/types';
+  import { REFERENCES, REPORTS, AUTH } from '~/store/types';
+  import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
   import { chartDataTransformer } from '~/helpers/transformers';
 
   import UserMomentData from './UserMomentData';
@@ -38,9 +52,10 @@
   import UserChart from './UserChart';
   import UserChartPeriodSelect from './UserChartPeriodSelect';
   import UserStatData from './UserStatData';
-  import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
+  import PreloaderIcon from '~/assets/svg/preloader-icon.svg';
 
-  const PRELOADER_KEY = 'fetchChartData';
+  //TODO ПЕРЕДЕЛАТЬ ЛЭЙАУТ
+  //TODO ПЕРЕНЕСТИ ЛОАДЕР НА ГРАФФИК
 
   export default {
     name: 'UserPage',
@@ -50,6 +65,7 @@
       UserChart,
       UserChartPeriodSelect,
       UserStatData,
+      PreloaderIcon,
     },
     computed: {
       ...mapGetters('references', {
@@ -72,18 +88,12 @@
         setReportRange: REPORTS.SET_REPORT_RANGE,
         fetchChartData: REPORTS.FETCH_CHART_DATA,
       }),
-      ...mapActions('preloader', {
-        showPreloader: PRELOADER.SHOW_PRELOADER,
-        hidePreloader: PRELOADER.HIDE_PRELOADER,
-      }),
       ...mapActions('auth', {
         logoutHandler: AUTH.LOGOUT_HANDLER,
       }),
       async setReportPeriod(period) {
-        this.showPreloader(PRELOADER_KEY);
         this.setReportRange(period);
         const { successes } = await this.fetchChartData();
-        this.hidePreloader(PRELOADER_KEY);
         if (!successes) {
           this.logoutAction();
         }
@@ -99,6 +109,27 @@
 <style lang="scss" scoped>
   .user-page {
     padding: 20px 10px;
+  }
+  .user-page__chart {
+    position: relative;
+  }
+  .user-page__chart-loader {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+  .user-page__chart-loader svg {
+    display: block;
+    width: 80px;
+    margin: 0 auto;
+    color: $color-gray-01;
+    will-change: transform;
+    animation: preloader 3s linear infinite;
   }
   @media (min-width: $screen-lg) {
     .user-page {

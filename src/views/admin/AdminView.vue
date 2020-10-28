@@ -11,8 +11,6 @@
   import { ADMIN, PRELOADER, AUTH, LOGGER } from '~/store/types';
   import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
 
-  import storeMixin from '~/mixins/storeMixin';
-  import adminModule from '~/store/admin';
   import AdminPage from '~/components/admin/AdminPage';
 
   const FETCH_INTERVAL = process.env.VUE_APP_USER_DATA_FETCH_INTERVAL;
@@ -23,9 +21,6 @@
     components: {
       AdminPage,
     },
-    mixins: [
-      storeMixin,
-    ],
     data: () => ({
       requestTimer: null,
     }),
@@ -38,18 +33,12 @@
         return !!requestList.length;
       },
     },
-    created() {
-      this.$_registerStoreModule(adminModule);
-    },
     mounted() {
       this.fetchAdminData();
       this.startFetchInterval();
     },
     beforeDestroy() {
       this.stopFetchInterval();
-    },
-    destroyed() {
-      this.$_unRegisterStoreModule(adminModule);
     },
     methods: {
       ...mapActions('admin', {
