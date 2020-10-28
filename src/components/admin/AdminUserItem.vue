@@ -55,8 +55,8 @@
     text-transform: uppercase;
   }
   .admin-user-item__title svg {
-    width: 30px;
-    margin-right: 20px;
+    width: 16px;
+    margin-right: 8px;
     color: rgba($color-green-01, 0.7);
   }
   .admin-user-item__title span {
