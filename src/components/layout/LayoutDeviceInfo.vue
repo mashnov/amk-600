@@ -2,7 +2,7 @@
   <div
     class="user-device-info"
     :class="[
-      !inline && 'col-11 col-sm-8 col-md-7 col-lg-9 col-xl-6',
+      !inline && 'col-11 col-sm-9 col-lg-8 col-xl-6',
       inline && 'col-12',
     ]"
   >
@@ -22,7 +22,7 @@
               {{ deviceData.name }}
             </div>
           </div>
-          <div class="col-12 col-lg-6 col-xl-12 mb-4">
+          <div class="col-12 col-md-6 mb-4">
             <div class="layout-devise-info__status-item">
               <GeolocationIcon />
               <span>
@@ -30,12 +30,12 @@
                   :href="googleMapsLink"
                   target="_blank"
                 >
-                  {{ deviceData.positionN }}N {{ deviceData.positionW }}W
+                  {{ deviceData.positionN }} | {{ deviceData.positionW }}
                 </a>
               </span>
             </div>
           </div>
-          <div class="col-12 col-lg-6 col-xl-12 mb-4">
+          <div class="col-12 col-md-6 mb-4">
             <div class="layout-devise-info__status-item">
               <TimeIcon />
               <span>
@@ -43,7 +43,7 @@
               </span>
             </div>
           </div>
-          <div class="col-12 col-lg-6 col-xl-12 mb-4">
+          <div class="col-12 col-md-6 mb-4">
             <div class="layout-devise-info__status-item">
               <CalendarIcon />
               <span>
@@ -51,7 +51,7 @@
               </span>
             </div>
           </div>
-          <div class="col-12 col-lg-6 col-xl-12 mb-4">
+          <div class="col-12 col-md-6 mb-4">
             <div
               class="layout-devise-info__status-item"
               :class="[
@@ -61,11 +61,11 @@
             >
               <TemperatureIcon />
               <span>
-                {{ i18n.temperatureTitle }}: {{ deviceData.temperature1 }}{{ i18n.celsiusUnit }} | {{ deviceData.temperature2 }}{{ i18n.celsiusUnit }}
+                {{ i18n.temperatureShortTitle }}: {{ deviceData.temperature1 }} | {{ deviceData.temperature2 }} {{ i18n.celsiusUnit }}
               </span>
             </div>
           </div>
-          <div class="col-12 col-lg-6 col-xl-12 mb-4">
+          <div class="col-12 col-md-6 mb-4">
             <div
               class="layout-devise-info__status-item"
               :class="[
@@ -75,11 +75,11 @@
             >
               <PowerIcon />
               <span>
-                {{ i18n.powerTitle }}: {{ deviceData.power1 }} {{ i18n.percentUnit }} | {{ deviceData.power2 }} {{ i18n.percentUnit }}
+                {{ i18n.powerTitle }}: {{ deviceData.power1 }} | {{ deviceData.power2 }} {{ i18n.percentUnit }}
               </span>
             </div>
           </div>
-          <div class="col-12 col-lg-6 col-xl-12 mb-4">
+          <div class="col-12 col-md-6 mb-4">
             <div
               class="layout-devise-info__status-item"
               :class="[
@@ -89,14 +89,14 @@
             >
               <VoltageIcon />
               <span>
-                {{ i18n.voltageTitle }}: {{ deviceData.voltage1 }}{{ i18n.voltUnit }} | {{ deviceData.voltage2 }}{{ i18n.voltUnit }}
+                {{ i18n.voltageTitle }}: {{ deviceData.voltage1 }} | {{ deviceData.voltage2 }} {{ i18n.voltUnit }}
               </span>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-12 position-relative">
-            <div class="d-none d-lg-block user-device-info__image">
+            <div class="d-none d-md-block user-device-info__image">
               <img
                 src="/images/device.png"
                 :alt="deviceData.name"
@@ -127,17 +127,6 @@
               </div>
               <div
                 class="layout-devise-info__sensor-status-item"
-                :class="!sensorData.gpsIsOnLine && 'layout-devise-info__sensor-status-item_red'"
-              >
-                <span
-                  v-html="i18n.gps"
-                />
-                <span>
-                  {{ sensorData.gpsIsOnLine ? i18n.connected : i18n.disconnected }}
-                </span>
-              </div>
-              <div
-                class="layout-devise-info__sensor-status-item"
                 :class="!sensorData.weatherIsOnLine && 'layout-devise-info__sensor-status-item_red'"
               >
                 <span
@@ -145,6 +134,17 @@
                 />
                 <span>
                   {{ sensorData.weatherIsOnLine ? i18n.connected : i18n.disconnected }}
+                </span>
+              </div>
+              <div
+                class="layout-devise-info__sensor-status-item"
+                :class="!sensorData.gpsIsOnLine && 'layout-devise-info__sensor-status-item_red'"
+              >
+                <span
+                  v-html="i18n.gps"
+                />
+                <span>
+                  {{ sensorData.gpsIsOnLine ? i18n.connected : i18n.disconnected }}
                 </span>
               </div>
               <div
@@ -227,14 +227,15 @@
         const deviceTime = deviceData.time || '00:00:00';
         const inputFormat = 'hh:mm:ss';
         const luxonDate = DateTime.fromFormat(deviceTime, inputFormat);
-        return luxonDate.setLocale(currentLanguage).toFormat('tt');
+        return luxonDate.setLocale(currentLanguage).toFormat('t');
       },
       formattedDate() {
         const { deviceData, currentLanguage } = this;
         const deviceDate = deviceData.date || '0000:000:00';
         const inputFormat = 'yyyy:LL:dd';
         const luxonDate = DateTime.fromFormat(deviceDate, inputFormat);
-        return luxonDate.setLocale(currentLanguage).toFormat('DDDD');
+        const localDate = luxonDate.setLocale(currentLanguage);
+        return `${localDate.toFormat('ccc')}, ${localDate.toFormat('DD')}`;
       },
       temperatureIsOrange() {
         const { deviceData } = this;
@@ -282,6 +283,7 @@
   }
   .layout-devise-info__status-item svg {
     display: inline-block;
+    vertical-align: middle;
     width: 100%;
     max-width: 18px;
     max-height: 18px;
@@ -296,6 +298,7 @@
   }
   .layout-devise-info__status-item span {
     display: inline-block;
+    vertical-align: middle;
     font-weight: 300;
     font-size: 16px;
     line-height: 24px;
@@ -321,8 +324,8 @@
   .layout-devise-info__sensor-status-item span:first-child {
     display: block;
     font-weight: 500;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 15px;
+    line-height: 18px;
     margin-bottom: 10px;
     color: $color-gray-01;
     text-transform: uppercase;
@@ -330,9 +333,9 @@
   .layout-devise-info__sensor-status-item span:last-child {
     display: block;
     font-weight: 300;
-    font-size: 12px;
+    font-size: 13px;
     line-height: 15px;
-    color: $color-green-01;
+    color: $color-gray-01;
     text-transform: uppercase;
     text-align: right;
     transition: color $animation-time-01 $animation-easing;
@@ -340,43 +343,77 @@
   .layout-devise-info__sensor-status-item_red span:last-child {
     color: $color-red-02;
   }
-  @media (min-width: $screen-lg) {
+  @media (min-width: $screen-sm) {
+    .layout-devise-info__sensor-status-item {
+      display: inline-block;
+      vertical-align: top;
+      width: calc(50% - 10px);
+    }
+    .layout-devise-info__sensor-status-item:nth-child(2n-1) {
+      margin-right: 20px;
+    }
+  }
+  @media (min-width: $screen-md) {
     .user-device-info__image {
       position: relative;
       display: block;
-      width: 400px;
+      width: 350px;
       margin-left: auto;
+      margin-right: auto;
     }
     .user-device-info__image img {
       display: block;
       width: 100%;
       margin: 0;
     }
+    .layout-devise-info__sensor-status-wrapper {
+      position: absolute;
+      height: 100%;
+      width: 550px;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+    }
     .layout-devise-info__sensor-status-item {
       position: absolute;
-      width: 210px;
-      left: 0;
+      width: 150px;
     }
     .layout-devise-info__sensor-status-item:not(:last-child) {
       margin-bottom: 0;
     }
     .layout-devise-info__sensor-status-item:nth-child(1) {
-      top: 0;
+      top: 40px;
+      left: 40px;
     }
     .layout-devise-info__sensor-status-item:nth-child(2) {
       top: 110px;
+      right: 30px;
     }
     .layout-devise-info__sensor-status-item:nth-child(3) {
-      top: 220px;
+      top: 190px;
+      right: 30px;
     }
     .layout-devise-info__sensor-status-item:nth-child(4) {
-      top: 330px;
+      top: 235px;
+      left: 120px;
     }
     .layout-devise-info__sensor-status-item:nth-child(5) {
-      top: 480px;
+      top: 310px;
+      left: 120px;
     }
     .layout-devise-info__sensor-status-item:nth-child(6) {
-      top: 640px;
+      top: 520px;
+      right: 20px;
+    }
+    .layout-devise-info__sensor-status-item span:first-child {
+      font-size: 11px;
+      line-height: 13px;
+    }
+    .layout-devise-info__sensor-status-item span:last-child {
+      font-size: 10px;
+      line-height: 10px;
+      text-transform: lowercase;
+      text-align: left;
     }
   }
 </style>

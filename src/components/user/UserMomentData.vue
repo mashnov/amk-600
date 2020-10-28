@@ -62,7 +62,6 @@
   import UserMomentSensor from './UserMomentSensor';
   import UserMomentWind from './UserMomentWind';
 
-
   export default {
     name: 'UserMomentData',
     components: {

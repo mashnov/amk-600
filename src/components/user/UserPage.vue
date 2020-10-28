@@ -44,10 +44,12 @@
         </div>
       </div>
       <div class="user-page__device">
-        <LayoutDeviceInfo
-          :inline="true"
-          v-if="deviceInfoIsLayout"
-        />
+        <div class="user-page__device-wrapper">
+          <LayoutDeviceInfo
+            v-if="deviceInfoIsLayout"
+            :inline="true"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -161,7 +163,7 @@
     .user-page__wrapper {
       display: flex;
       flex-wrap: wrap;
-      align-items: flex-start;
+      align-items: stretch;
     }
     .user-page__content {
       display: block;
@@ -171,6 +173,11 @@
       display: block;
       width: 580px;
       margin-left: 50px;
+    }
+    .user-page__device-wrapper {
+      position: sticky;
+      top: 50px;
+      bottom: 50px;
     }
   }
 </style>
