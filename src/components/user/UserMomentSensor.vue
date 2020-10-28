@@ -111,8 +111,26 @@
     width: 100%;
     text-align: right;
     font-weight: 600;
-    font-size: 48px;
-    line-height: 48px;
+    font-size: 28px;
+    line-height: 28px;
     color: $color-gray-01;
+  }
+  @media (min-width: $screen-sm) {
+    .user-moment-sensor__value {
+      font-size: 30px;
+      line-height: 30px;
+    }
+  }
+  @media (min-width: $screen-md) {
+    .user-moment-sensor__value {
+      font-size: 40px;
+      line-height: 40px;
+    }
+  }
+  @media (min-width: $screen-lg) {
+    .user-moment-sensor__value {
+      font-size: 35px;
+      line-height: 35px;
+    }
   }
 </style>

@@ -1,17 +1,28 @@
 <template>
-  <div class="col-11 col-sm-8 col-md-7 col-lg-9 col-xl-6 user-device-info">
+  <div
+    class="user-device-info"
+    :class="[
+      !inline && 'col-11 col-sm-8 col-md-7 col-lg-9 col-xl-6',
+      inline && 'col-12',
+    ]"
+  >
     <div
       v-if="deviceDataIsReady"
       class="row"
     >
-      <div class="col-12 col-sm-10 offset-sm-1">
+      <div
+        class="col-12"
+        :class="[
+          !inline && 'col-sm-10 offset-sm-1',
+        ]"
+      >
         <div class="row mb-5">
           <div class="col-12 mb-5">
             <div class="layout-devise-info__title">
               {{ deviceData.name }}
             </div>
           </div>
-          <div class="col-12 col-lg-6 mb-4">
+          <div class="col-12 col-lg-6 col-xl-12 mb-4">
             <div class="layout-devise-info__status-item">
               <GeolocationIcon />
               <span>
@@ -24,7 +35,7 @@
               </span>
             </div>
           </div>
-          <div class="col-12 col-lg-6 mb-4">
+          <div class="col-12 col-lg-6 col-xl-12 mb-4">
             <div class="layout-devise-info__status-item">
               <TimeIcon />
               <span>
@@ -32,7 +43,7 @@
               </span>
             </div>
           </div>
-          <div class="col-12 col-lg-6 mb-4">
+          <div class="col-12 col-lg-6 col-xl-12 mb-4">
             <div class="layout-devise-info__status-item">
               <CalendarIcon />
               <span>
@@ -40,7 +51,7 @@
               </span>
             </div>
           </div>
-          <div class="col-12 col-lg-6 mb-4">
+          <div class="col-12 col-lg-6 col-xl-12 mb-4">
             <div
               class="layout-devise-info__status-item"
               :class="[
@@ -54,7 +65,7 @@
               </span>
             </div>
           </div>
-          <div class="col-12 col-lg-6 mb-4">
+          <div class="col-12 col-lg-6 col-xl-12 mb-4">
             <div
               class="layout-devise-info__status-item"
               :class="[
@@ -68,7 +79,7 @@
               </span>
             </div>
           </div>
-          <div class="col-12 col-lg-6 mb-4">
+          <div class="col-12 col-lg-6 col-xl-12 mb-4">
             <div
               class="layout-devise-info__status-item"
               :class="[
@@ -192,6 +203,12 @@
       TimeIcon,
       VoltageIcon,
     },
+    props: {
+      inline: {
+        type: Boolean,
+        default: false,
+      },
+    },
     computed: {
       ...mapGetters('references', {
         currentLanguage: REFERENCES.GET_LANGUAGE_ID,
@@ -221,27 +238,27 @@
       },
       temperatureIsOrange() {
         const { deviceData } = this;
-        return parseInt(deviceData.temperature1) >= 55 || parseInt(deviceData.temperature2) >= 55;
+        return parseInt(deviceData.realTemperature1) >= 55 || parseInt(deviceData.realTemperature1) >= 55;
       },
       temperatureIsRed() {
         const { deviceData } = this;
-        return parseInt(deviceData.temperature1) >= 65 || parseInt(deviceData.temperature2) >= 65;
+        return parseInt(deviceData.realTemperature2) >= 65 || parseInt(deviceData.realTemperature2) >= 65;
       },
       powerIsOrange() {
         const { deviceData } = this;
-        return parseInt(deviceData.power1) <= 40 || parseInt(deviceData.power2) <= 40;
+        return parseInt(deviceData.realPower1) <= 40 || parseInt(deviceData.realPower2) <= 40;
       },
       powerIsRed() {
         const { deviceData } = this;
-        return parseInt(deviceData.power1) <= 20 || parseInt(deviceData.power2) <= 20;
+        return parseInt(deviceData.realPower1) <= 20 || parseInt(deviceData.realPower2) <= 20;
       },
       voltageIsOrange() {
         const { deviceData } = this;
-        return parseInt(deviceData.voltage1) <= 21 || parseInt(deviceData.voltage1) <= 21;
+        return parseInt(deviceData.realVoltage1) <= 21 || parseInt(deviceData.realVoltage2) <= 21;
       },
       voltageIsRed() {
         const { deviceData } = this;
-        return parseInt(deviceData.voltage1) <= 20 || parseInt(deviceData.voltage1) <= 20;
+        return parseInt(deviceData.realVoltage1) <= 20 || parseInt(deviceData.realVoltage2) <= 20;
       },
       googleMapsLink() {
         const { deviceData } = this;

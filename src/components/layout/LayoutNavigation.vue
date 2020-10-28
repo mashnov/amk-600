@@ -39,7 +39,7 @@
           <ReportIcon />
         </div>
         <div
-          v-if="userIsAuthed && !userIsAdmin"
+          v-if="!deviceInfoIsLayout && userIsAuthed && !userIsAdmin"
           key="device"
           class="layout-navigation_item"
           @click="showDeviceModal"
@@ -69,7 +69,7 @@
 <script>
   import isNull from 'lodash/isNull';
   import { mapGetters, mapActions } from 'vuex';
-  import { MODAL, AUTH, PRELOADER } from '~/store/types';
+  import { MODAL, AUTH, PRELOADER, VIEWPORT } from '~/store/types';
   import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
 
   import LayoutLanguageSelect from './LayoutLanguageSelect';
@@ -88,6 +88,8 @@
   const ADMIN_USER_TYPE = 'admin';
   const USER_USER_TYPE = 'user';
 
+  const DEVICE_INFO_IS_LAYOUT_FROM = 1640;
+
   export default {
     name: 'LayoutNavigation',
     components: {
@@ -104,6 +106,13 @@
         userType: AUTH.GET_USER_TYPE,
         userToken: AUTH.GET_USER_TOKEN,
       }),
+      ...mapGetters('viewport', {
+        viewportWidth: VIEWPORT.GET_VIEWPORT_WIDTH,
+      }),
+      deviceInfoIsLayout() {
+        const { viewportWidth } = this;
+        return viewportWidth >= DEVICE_INFO_IS_LAYOUT_FROM;
+      },
       userIsAuthed() {
         const { userToken } = this;
         return !isNull(userToken);
@@ -150,8 +159,8 @@
         });
       },
       userLoginHandler() {
-        const { userType } = this;
-        if (userType === USER_USER_TYPE) {
+        const { deviceInfoIsLayout, userType } = this;
+        if (!deviceInfoIsLayout && userType === USER_USER_TYPE) {
           this.showDeviceModal();
         }
       },

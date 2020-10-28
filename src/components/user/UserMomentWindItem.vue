@@ -54,8 +54,8 @@
     display: block;
     width: 100%;
     font-weight: 600;
-    font-size: 48px;
-    line-height: 48px;
+    font-size: 28px;
+    line-height: 28px;
     color: $color-gray-01;
     text-align: right;
     white-space: nowrap;
@@ -74,6 +74,24 @@
     }
     .user-moment-wind-item__value {
       text-align: left;
+    }
+  }
+  @media (min-width: $screen-sm) {
+    .user-moment-wind-item__value {
+      font-size: 30px;
+      line-height: 30px;
+    }
+  }
+  @media (min-width: $screen-md) {
+    .user-moment-wind-item__value {
+      font-size: 40px;
+      line-height: 40px;
+    }
+  }
+  @media (min-width: $screen-lg) {
+    .user-moment-wind-item__value {
+      font-size: 35px;
+      line-height: 35px;
     }
   }
 </style>

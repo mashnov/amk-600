@@ -54,8 +54,8 @@
     display: block;
     width: 100%;
     font-weight: 600;
-    font-size: 48px;
-    line-height: 48px;
+    font-size: 28px;
+    line-height: 28px;
     color: $color-gray-01;
     text-align: right;
     white-space: nowrap;
@@ -67,5 +67,17 @@
     font-size: 16px;
     line-height: 20px;
     color: $color-gray-01;
+  }
+  @media (min-width: $screen-sm) {
+    .user-stat-data-item__value {
+      font-size: 30px;
+      line-height: 30px;
+    }
+  }
+  @media (min-width: $screen-lg) {
+    .user-stat-data-item__value {
+      font-size: 35px;
+      line-height: 35px;
+    }
   }
 </style>

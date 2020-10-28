@@ -1,51 +1,65 @@
 <template>
-  <div class="row user-page">
-    <div class="col-12 mb-5">
-      <UserMomentData />
-    </div>
-    <template v-if="reportTypes.length">
-      <div class="col-12 mb-5">
-        <UserChartLegend
-          :list="reportTypes"
-        />
-      </div>
-      <div class="col-12 mb-5">
-        <div class="user-page__chart">
-          <transition
-            appear
-            name="fade-in"
-          >
-            <div
-              v-if="fetchIsLock"
-              class="user-page__chart-loader"
-            >
-              <PreloaderIcon />
+  <div class="user-page">
+    <div class="user-page__wrapper">
+      <div class="user-page__content">
+        <div class="row">
+          <div class="col-12 mb-5">
+            <UserMomentData />
+          </div>
+          <template v-if="reportTypes.length">
+            <div class="col-12 mb-5">
+              <UserChartLegend
+                :list="reportTypes"
+              />
             </div>
-          </transition>
-          <UserChart
-            :chart-data="chartDataSets"
-          />
+            <div class="col-12 mb-5">
+              <div class="user-page__chart">
+                <transition
+                  appear
+                  name="fade-in"
+                >
+                  <div
+                    v-if="fetchIsLock"
+                    class="user-page__chart-loader"
+                  >
+                    <PreloaderIcon />
+                  </div>
+                </transition>
+                <UserChart
+                  :chart-data="chartDataSets"
+                />
+              </div>
+            </div>
+            <div class="col-12 mb-5">
+              <UserChartPeriodSelect
+                :value="chartPeriod"
+                :disabled="fetchIsLock"
+                @select-period="setReportPeriod"
+              />
+            </div>
+          </template>
+          <div class="col-12">
+            <UserStatData />
+          </div>
         </div>
       </div>
-      <div class="col-12 mb-5">
-        <UserChartPeriodSelect
-          :value="chartPeriod"
-          :disabled="fetchIsLock"
-          @select-period="setReportPeriod"
+      <div class="user-page__device">
+        <LayoutDeviceInfo
+          :inline="true"
+          v-if="deviceInfoIsLayout"
         />
       </div>
-    </template>
-    <div class="col-12">
-      <UserStatData />
     </div>
   </div>
 </template>
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import { REFERENCES, REPORTS, AUTH } from '~/store/types';
+  import { REFERENCES, REPORTS, AUTH, VIEWPORT } from '~/store/types';
   import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
   import { chartDataTransformer } from '~/helpers/transformers';
+
+  import LayoutDeviceInfo from '~/components/layout/LayoutDeviceInfo';
 
   import UserMomentData from './UserMomentData';
   import UserChartLegend from './UserChartLegend';
@@ -54,8 +68,7 @@
   import UserStatData from './UserStatData';
   import PreloaderIcon from '~/assets/svg/preloader-icon.svg';
 
-  //TODO ПЕРЕДЕЛАТЬ ЛЭЙАУТ
-  //TODO ПЕРЕНЕСТИ ЛОАДЕР НА ГРАФФИК
+  const DEVICE_INFO_IS_LAYOUT_FROM = 1640;
 
   export default {
     name: 'UserPage',
@@ -65,6 +78,7 @@
       UserChart,
       UserChartPeriodSelect,
       UserStatData,
+      LayoutDeviceInfo,
       PreloaderIcon,
     },
     computed: {
@@ -78,6 +92,13 @@
         chartData: REPORTS.GET_CHART_DATA,
         chartPeriod: REPORTS.GET_REPORT_RANGE,
       }),
+      ...mapGetters('viewport', {
+        viewportWidth: VIEWPORT.GET_VIEWPORT_WIDTH,
+      }),
+      deviceInfoIsLayout() {
+        const { viewportWidth } = this;
+        return viewportWidth >= DEVICE_INFO_IS_LAYOUT_FROM;
+      },
       chartDataSets() {
         const { reportTypes, chartData, chartPeriod, i18n, currentLanguage } = this;
         return chartDataTransformer({ reportTypes, chartData, chartPeriod, i18n, currentLanguage });
@@ -135,11 +156,21 @@
     .user-page {
       padding: 50px;
     }
+  }
+  @media (min-width: 1640px) {
+    .user-page__wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+    .user-page__content {
+      display: block;
+      width: calc(100% - 580px - 50px);
+    }
     .user-page__device {
-      position: sticky;
-      top: 50px;
-      bottom: 50px;
-      padding: 0 50px;
+      display: block;
+      width: 580px;
+      margin-left: 50px;
     }
   }
 </style>

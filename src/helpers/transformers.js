@@ -56,10 +56,16 @@ export const userDataTransformer = (data) => {
     time: get(data, 'sensors.time', null),
     temperature1: numberTransformer(get(data, 'sensors.power.battery[0].temperatureInsideEquipment', 0)),
     temperature2: numberTransformer(get(data, 'sensors.power.battery[0].temperatureInsideEquipment', 0)),
+    realTemperature1: get(data, 'sensors.power.battery[0].temperatureInsideEquipment', 0),
+    realTemperature2: get(data, 'sensors.power.battery[0].temperatureInsideEquipment', 0),
     power1: numberTransformer(get(data, 'sensors.power.battery[0].batteryPower', 0)),
     power2: numberTransformer(get(data, 'sensors.power.battery[1].batteryPower', 0)),
+    realPower1: get(data, 'sensors.power.battery[0].batteryPower', 0),
+    realPower2: get(data, 'sensors.power.battery[1].batteryPower', 0),
     voltage1: numberTransformer(get(data, 'sensors.power.battery[0].batteryVoltage', 0)),
     voltage2: numberTransformer(get(data, 'sensors.power.battery[1].batteryVoltage', 0)),
+    realVoltage1: get(data, 'sensors.power.battery[0].batteryVoltage', 0),
+    realVoltage2: get(data, 'sensors.power.battery[1].batteryVoltage', 0),
   };
   const statData = {
     windSpeed: numberTransformer(get(data, 'sensors.wind.minute10.vertical', 0)),
