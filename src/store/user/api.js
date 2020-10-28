@@ -4,7 +4,7 @@ import MODULE from './types';
 import { user } from '~/store/request-url';
 
 export default {
-  async [MODULE.FETCH_DATA]({ userToken }) {
+  async [MODULE.FETCH_USER_DATA]({ userToken }) {
     const apiUrl = user.fetchData;
     try {
       const response = await axios.post(apiUrl, { token: userToken });

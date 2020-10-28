@@ -16,4 +16,7 @@ export default {
   [MODULE.MUTATE_IS_AD_BLOCK]: (state, isAdBlock) => {
     state.isAdBlock = isAdBlock;
   },
+  [MODULE.MUTATE_REQUEST_LIST]: (state, requests) => {
+    state.requests = requests;
+  },
 };

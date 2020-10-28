@@ -9,6 +9,8 @@
       :class="[
         isDefaultPosition && 'modal_padded',
         isBottom && 'modal_bottom',
+        blurIsSupport && 'modal_blur',
+        !blurIsSupport && 'modal_opacity',
       ]"
       @click="overlayClickHandler"
     >
@@ -50,7 +52,7 @@
   import cloneDeep from 'lodash/cloneDeep';
   import isNull from 'lodash/isNull';
   import { mapGetters, mapActions } from 'vuex';
-  import { MODAL } from '~/store/types';
+  import { MODAL, LOGGER } from '~/store/types';
   import { sleep } from '~/helpers/system';
 
   export default {
@@ -67,6 +69,9 @@
         modalPosition: MODAL.GET_POSITION,
         modalComponent: MODAL.GET_COMPONENT,
         closable: MODAL.GET_CLOSABLE,
+      }),
+      ...mapGetters('logger', {
+        blurIsSupport: LOGGER.GET_BLUR_IS_SUPPORT,
       }),
       isVisible() {
         const { component } = this;
@@ -144,8 +149,6 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    background-color: $color-overlay;
-    backdrop-filter: blur(10px);
     top: 0;
     left: 0;
     width: 100%;
@@ -154,6 +157,13 @@
     overflow: hidden;
     transition: opacity $animation-time-02 $animation-easing;
   }
+  .modal_blur {
+    backdrop-filter: blur(10px);
+    background-color: rgba($color-black-01, 0.4);
+  }
+  .modal_opacity {
+    background-color: rgba($color-black-01, 0.8);
+  }
   .modal_bottom {
     align-items: flex-end;
   }
@@ -161,11 +171,16 @@
     padding: 12px 0;
   }
   .modal__container {
-    background: $modal-background;
     padding-top: 48px;
     padding-bottom: 48px;
     border-radius: 10px;
     box-shadow: $modal-box-shadow;
+  }
+  .modal_blur .modal__container {
+    background: rgba($color-gray-05, 0.4);
+  }
+  .modal_opacity .modal__container {
+    background: rgba($color-gray-05, 0.8);
   }
   .modal__container_bottom {
     border-radius: 10px 10px 0 0;

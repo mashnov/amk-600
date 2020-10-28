@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-12">
             <div class="user-stat-data__title">
-              {{ i18n.statData_windTitle }}
+              {{ i18n.windData10 }}
             </div>
           </div>
         </div>
@@ -15,30 +15,30 @@
               <div class="row">
                 <div class="col-12 col-sm-6 col-md-3 mb-4 mb-md-0">
                   <UserStatDataItem
-                    :title="i18n.momentData_windSpeedTitle"
+                    :title="i18n.verticalSpeedTitle"
                     :value="statData.windSpeed"
-                    :unit="i18n.momentData_windSpeedUnit"
+                    :unit="i18n.windUnit"
                   />
                 </div>
                 <div class="col-12 col-sm-6 col-md-3 mb-4 mb-md-0">
                   <UserStatDataItem
-                    :title="i18n.statData_windHorizontalTitle"
+                    :title="i18n.horizontalSpeedTitle"
                     :value="statData.windHorizontalSpeed"
-                    :unit="i18n.statData_windHorizontalUnit"
+                    :unit="i18n.windUnit"
                   />
                 </div>
                 <div class="col-12 col-sm-6 col-md-3 mb-4 mb-sm-0">
                   <UserStatDataItem
-                    :title="i18n.statData_windMaxTitle"
+                    :title="i18n.maxWindTitle"
                     :value="statData.windMaxSpeed"
-                    :unit="i18n.statData_windMaxUnit"
+                    :unit="i18n.windUnit"
                   />
                 </div>
                 <div class="col-12 col-sm-6 col-md-3 mb-4 mb-sm-0">
                   <UserStatDataItem
-                    :title="i18n.momentData_windDirectionTitle"
+                    :title="i18n.directionTitle"
                     :value="statData.windDirection"
-                    :unit="i18n.momentData_windDirectionUnit"
+                    :unit="i18n.degreeUnit"
                   />
                 </div>
               </div>
@@ -50,7 +50,7 @@
         <div class="row">
           <div class="col-12">
             <div class="user-stat-data__title">
-              {{ i18n.statData_DewPointTitle }}
+              {{ i18n.dewPointTitle }}
             </div>
           </div>
         </div>
@@ -60,9 +60,9 @@
               <div class="row">
                 <div class="col-12">
                   <UserStatDataItem
-                    :title="i18n.statData_DewPointTitle"
+                    :title="i18n.dewPointTitle"
                     :value="statData.dewPoint"
-                    :unit="i18n.statData_DewPointUnit"
+                    :unit="i18n.degreeUnit"
                   />
                 </div>
               </div>

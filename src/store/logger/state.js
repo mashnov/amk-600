@@ -4,4 +4,5 @@ export default {
   userOs: null,
   isMobile: null,
   isAdBlock: null,
+  requests: [],
 };

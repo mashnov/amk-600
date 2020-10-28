@@ -28,7 +28,7 @@
   import { replaceCurly } from '~/helpers/system';
 
   const CHART_PERIOD_TYPES = ['day', 'week', 'month', 'year'];
-  const PERIOD_TRANSLATION_KEY = 'userChart_{period}PeriodTitle';
+  const PERIOD_TRANSLATION_KEY = '{period}Period';
 
   export default {
     name: 'UserChartPeriodSelect',

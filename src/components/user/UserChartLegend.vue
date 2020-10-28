@@ -15,9 +15,7 @@
         :class="fetchIsLock && 'user-chart-legend__item_disabled'"
         @click="itemClickHandler(chartType)"
       >
-        <span
-          :style="getItemStyle(chartType)"
-        />
+        <span :style="getItemStyle(chartType)" />
         <span>
           {{ getItemName(chartType) }}
         </span>
@@ -36,7 +34,7 @@
   const HUMIDITY_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_HUMIDITY_COLOR;
   const PRESSURE_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_PRESSURE_COLOR;
   const RAIN_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_RAIN_COLOE;
-  const TYPE_TRANSLATION_KEY = 'momentData_{chartType}SensorTitle';
+  const TYPE_TRANSLATION_KEY = '{chartType}Title';
   const PRELOADER_KEY = 'userLegendFetchChartData';
 
   const CHART_BACKGROUND_MAPPER = {

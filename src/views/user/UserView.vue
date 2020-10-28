@@ -7,8 +7,8 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex';
-  import { USER, REPORTS, PRELOADER, AUTH } from '~/store/types';
+  import { mapGetters, mapActions } from 'vuex';
+  import { USER, REPORTS, PRELOADER, AUTH, LOGGER } from '~/store/types';
   import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
 
   import storeMixin from '~/mixins/storeMixin';
@@ -29,6 +29,15 @@
     data: () => ({
       requestTimer: null,
     }),
+    computed: {
+      ...mapGetters('logger', {
+        requestList: LOGGER.GET_REQUEST_LIST,
+      }),
+      requestIsPending() {
+        const { requestList } = this;
+        return !!requestList.length;
+      },
+    },
     created() {
       this.$_registerStoreModule(userModule);
     },
@@ -44,7 +53,7 @@
     },
     methods: {
       ...mapActions('user', {
-        fetchStatData: USER.FETCH_DATA,
+        fetchStatData: USER.FETCH_USER_DATA,
       }),
       ...mapActions('reports', {
         fetchChartData: REPORTS.FETCH_CHART_DATA,
@@ -75,8 +84,14 @@
           this.stopFetchInterval();
         }
         this.requestTimer = setInterval(() => {
-          this.fetchStatData();
+          this.fetchStatDataHandler();
         }, FETCH_INTERVAL);
+      },
+      fetchStatDataHandler() {
+        const { requestIsPending } = this;
+        if (!requestIsPending) {
+          this.fetchStatData();
+        }
       },
       stopFetchInterval() {
         const { requestTimer } = this;

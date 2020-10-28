@@ -7,7 +7,7 @@
       class="admin-sensor-item__status"
       :class="!status && 'admin-sensor-item__status_red'"
     >
-      {{ status ? i18n.deviceStatus_sensorStatusCorrect : i18n.deviceStatus_sensorStatusError }}
+      {{ status ? i18n.connected : i18n.disconnected }}
     </div>
   </div>
 </template>

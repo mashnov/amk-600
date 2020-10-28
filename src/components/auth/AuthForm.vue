@@ -10,11 +10,11 @@
     <div class="row mb-3">
       <div class="col-12">
         <span class="auth-form__label">
-          {{ i18n.loginForm_username }}
+          {{ i18n.username }}
         </span>
         <AmkInput
           :value="username"
-          :placeholder="i18n.loginForm_username"
+          :placeholder="i18n.username"
           @input="username = $event.target.value"
           @enter-press="submitClickHandler"
           @focus="loginError = false"
@@ -24,11 +24,11 @@
     <div class="row">
       <div class="col-12">
         <span class="auth-form__label">
-          {{ i18n.loginForm_password }}
+          {{ i18n.password }}
         </span>
         <AmkInput
           :value="password"
-          :placeholder="i18n.loginForm_password"
+          :placeholder="i18n.password"
           type="password"
           @input="password = $event.target.value"
           @enter-press="submitClickHandler"
@@ -46,7 +46,7 @@
       >
         <div class="col-12">
           <p class="auth-form__error-message">
-            {{ i18n.loginForm_errorMessage }}
+            {{ i18n.loginErrorMessage }}
           </p>
         </div>
       </div>
@@ -57,7 +57,7 @@
           :disabled="formIsDisabled"
           @click="submitClickHandler"
         >
-          {{ i18n.loginForm_submit }}
+          {{ i18n.submit }}
         </AmkButton>
       </div>
     </div>

@@ -50,8 +50,8 @@ export const userDataTransformer = (data) => {
   };
   const deviceData = {
     name: get(data, 'deviceName', null),
-    positionN: get(data, 'sensors.GPS.N', null),
-    positionW: get(data, 'sensors.GPS.W', null),
+    positionN: numberTransformer(get(data, 'sensors.GPS.N', 0), '0,0.000000'),
+    positionW: numberTransformer(get(data, 'sensors.GPS.W', 0), '0,0.000000'),
     date: get(data, 'sensors.date', null),
     time: get(data, 'sensors.time', null),
     temperature1: numberTransformer(get(data, 'sensors.power.battery[0].temperatureInsideEquipment', 0)),

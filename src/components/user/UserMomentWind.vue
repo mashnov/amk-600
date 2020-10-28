@@ -1,7 +1,7 @@
 <template>
   <div class="user-moment-wind">
     <div class="user-moment-wind__title">
-      {{ i18n.momentData_windSensorTitle }}
+      {{ i18n.windData2 }}
     </div>
     <div class="user-moment-wind__wrapper">
       <div class="row d-sm-flex align-items-center">
@@ -14,27 +14,27 @@
           <div class="row mb-4">
             <div class="col-12">
               <UserMomentWindItem
-                :title="i18n.momentData_windVerticalTitle"
+                :title="i18n.verticalSpeedTitle"
                 :value="momentData.windVerticalSpeed"
-                :unit="i18n.momentData_windVerticalUnit"
+                :unit="i18n.windUnit"
               />
             </div>
           </div>
           <div class="row mb-4">
             <div class="col-12">
               <UserMomentWindItem
-                :title="i18n.momentData_windSpeedTitle"
+                :title="i18n.horizontalSpeedTitle"
                 :value="momentData.windSpeed"
-                :unit="i18n.momentData_windSpeedUnit"
+                :unit="i18n.windUnit"
               />
             </div>
           </div>
           <div class="row">
             <div class="col-12">
               <UserMomentWindItem
-                :title="i18n.momentData_windDirectionTitle"
+                :title="i18n.directionTitle"
                 :value="momentData.windDirection"
-                :unit="i18n.momentData_windDirectionUnit"
+                :unit="i18n.degreeUnit"
               />
             </div>
           </div>

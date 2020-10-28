@@ -14,7 +14,7 @@ export const replaceCurly = (string = '', from = [], to = []) => {
   return resultString;
 };
 
-export const numberTransformer = (value) => {
+export const numberTransformer = (value, format = '0,0.00') => {
   const number = numeral(value);
-  return number.format('0,0');
+  return number.format(format);
 };

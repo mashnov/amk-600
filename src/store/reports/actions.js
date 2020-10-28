@@ -1,5 +1,7 @@
 import cloneDeep from 'lodash/cloneDeep';
-import { AUTH } from '~/store/types';
+
+import { AUTH, LOGGER } from '~/store/types';
+
 import {
   getUserReportTypes,
   setUserReportTypes,
@@ -15,6 +17,9 @@ import Api from './api';
 
 const USER_TOKEN_GETTER_KEY = `auth/${AUTH.GET_USER_TOKEN}`;
 const UPDATE_USER_TOKEN_KEY = `auth/${AUTH.SET_USER_TOKEN}`;
+
+const REQUEST_LOGGER_START = `logger/${LOGGER.REQUEST_START}`;
+const REQUEST_LOGGER_STOP = `logger/${LOGGER.REQUEST_STOP}`;
 
 const getDefaultState = () => (cloneDeep(defaultState));
 
@@ -32,7 +37,9 @@ export default {
   async [MODULE.FETCH_CHART_DATA]({ rootGetters, state: { reportTypes, reportRange }, dispatch, commit }) {
     const userToken = rootGetters[USER_TOKEN_GETTER_KEY];
     commit(MODULE.MUTATE_FETCH_IS_LOCK, true);
+    dispatch(REQUEST_LOGGER_START, MODULE.FETCH_CHART_DATA, { root: true });
     const { successes, token, data } = await Api.FETCH_CHART_DATA({ userToken, reportTypes, reportRange });
+    dispatch(REQUEST_LOGGER_STOP, MODULE.FETCH_CHART_DATA, { root: true });
     commit(MODULE.MUTATE_FETCH_IS_LOCK, false);
     if (successes) {
       commit(MODULE.MUTATE_CHART_DATA, data);

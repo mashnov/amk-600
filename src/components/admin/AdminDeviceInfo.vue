@@ -3,25 +3,25 @@
     <div class="col-12 mb-5">
       <div class="admin-device-info__header">
         <div class="admin-device-info__title">
-          {{ i18n.admin_sensorData_title }}
+          {{ i18n.sensorData }}
         </div>
       </div>
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        :title="i18n.admin_sensorGPSTitle"
+        :title="i18n.gps"
         :sensors="sensors.GPS"
       />
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        :title="i18n.deviceStatus_sensorCompassTitle"
+        :title="i18n.compass"
         :sensors="sensors.compass"
       />
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        :title="i18n.momentData_humiditySensorTitle"
+        :title="i18n.humidityTitle"
         :sensors="humiditySensor"
         :value="humidityValue"
         :editable="true"
@@ -30,7 +30,7 @@
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        :title="i18n.momentData_temperatureSensorTitle"
+        :title="i18n.temperatureTitle"
         :sensors="temperatureSensor"
         :value="temperatureValue"
         :editable="true"
@@ -39,7 +39,7 @@
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        :title="i18n.deviceStatus_sensorRainTitle"
+        :title="i18n.rain"
         :sensors="rainSensor"
         :value="rainValue"
         :editable="true"
@@ -48,7 +48,7 @@
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        :title="i18n.momentData_pressureSensorTitle"
+        :title="i18n.pressureTitle"
         :sensors="pressureSensor"
         :value="pressureValue"
         :editable="true"
@@ -57,25 +57,25 @@
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        :title="i18n.admin_sensorBattery1Title"
+        :title="i18n.battery1"
         :sensors="batterySensor1"
       />
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        :title="i18n.admin_sensorBattery2Title"
+        :title="i18n.battery2"
         :sensors="batterySensor2"
       />
     </div>
     <div class="col-12 mb-5">
       <AdminDeviceSection
-        :title="i18n.momentData_windSensorTitle"
+        :title="i18n.windData2"
         :sensors="windSensor.minute2"
       />
     </div>
     <div class="col-12">
       <AdminDeviceSection
-        :title="i18n.statData_windTitle"
+        :title="i18n.windData10"
         :sensors="windSensor.minute10"
       />
     </div>

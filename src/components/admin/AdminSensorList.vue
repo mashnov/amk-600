@@ -3,7 +3,7 @@
     <div class="col-12 mb-5">
       <div class="admin-sensor-list__header">
         <div class="admin-sensor-list__title">
-          {{ i18n.admin_sensorStatus_title }}
+          {{ i18n.sensorStatus }}
         </div>
       </div>
     </div>
@@ -11,43 +11,43 @@
       <div class="row">
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3">
           <AdminSensorItem
-            :title="i18n.admin_sensorGPSTitle"
+            :title="i18n.gps"
             :status="modulesStatus.GPS"
           />
         </div>
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3">
           <AdminSensorItem
-            :title="i18n.admin_sensorBattery1Title"
+            :title="i18n.battery1"
             :status="batteryStatus.battery1"
           />
         </div>
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3">
           <AdminSensorItem
-            :title="i18n.admin_sensorBattery2Title"
+            :title="i18n.battery2"
             :status="batteryStatus.battery2"
           />
         </div>
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3">
           <AdminSensorItem
-            :title="i18n.deviceStatus_sensorCompassTitle"
+            :title="i18n.compass"
             :status="modulesStatus.compass"
           />
         </div>
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3">
           <AdminSensorItem
-            :title="i18n.deviceStatus_sensorRainTitle"
+            :title="i18n.rain"
             :status="modulesStatus.rain"
           />
         </div>
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3">
           <AdminSensorItem
-            :title="i18n.admin_sensorWeatherTitle"
+            :title="i18n.weather"
             :status="modulesStatus.weather"
           />
         </div>
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3">
           <AdminSensorItem
-            :title="i18n.admin_sensorWindTitle"
+            :title="i18n.wind"
             :status="modulesStatus.wind"
           />
         </div>

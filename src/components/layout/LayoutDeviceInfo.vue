@@ -50,7 +50,7 @@
             >
               <TemperatureIcon />
               <span>
-                {{ i18n.momentData_temperatureSensorTitle }}: {{ deviceData.temperature1 }}{{ i18n.momentData_temperatureSensorUnit }} | {{ deviceData.temperature2 }}{{ i18n.momentData_temperatureSensorUnit }}
+                {{ i18n.temperatureTitle }}: {{ deviceData.temperature1 }}{{ i18n.celsiusUnit }} | {{ deviceData.temperature2 }}{{ i18n.celsiusUnit }}
               </span>
             </div>
           </div>
@@ -64,7 +64,7 @@
             >
               <PowerIcon />
               <span>
-                {{ i18n.deviceStatus_powerTitle }}: {{ deviceData.power1 }} {{ i18n.deviceStatus_powerUnit }} | {{ deviceData.power2 }} {{ i18n.deviceStatus_powerUnit }}
+                {{ i18n.powerTitle }}: {{ deviceData.power1 }} {{ i18n.percentUnit }} | {{ deviceData.power2 }} {{ i18n.percentUnit }}
               </span>
             </div>
           </div>
@@ -78,7 +78,7 @@
             >
               <VoltageIcon />
               <span>
-                {{ i18n.deviceStatus_voltageTitle }}: {{ deviceData.voltage1 }}{{ i18n.deviceStatus_voltageUnit }} | {{ deviceData.voltage2 }}{{ i18n.deviceStatus_voltageUnit }}
+                {{ i18n.voltageTitle }}: {{ deviceData.voltage1 }}{{ i18n.voltUnit }} | {{ deviceData.voltage2 }}{{ i18n.voltUnit }}
               </span>
             </div>
           </div>
@@ -97,10 +97,10 @@
                 :class="!sensorData.windIsOnLine && 'layout-devise-info__sensor-status-item_red'"
               >
                 <span
-                  v-html="i18n.deviceStatus_sensorWindTitle"
+                  v-html="i18n.wind"
                 />
                 <span>
-                  {{ sensorData.windIsOnLine ? i18n.deviceStatus_sensorStatusCorrect : i18n.deviceStatus_sensorStatusError }}
+                  {{ sensorData.windIsOnLine ? i18n.connected : i18n.disconnected }}
                 </span>
               </div>
               <div
@@ -108,10 +108,10 @@
                 :class="!sensorData.rainIsOnLine && 'layout-devise-info__sensor-status-item_red'"
               >
                 <span
-                  v-html="i18n.deviceStatus_sensorRainTitle"
+                  v-html="i18n.rain"
                 />
                 <span>
-                  {{ sensorData.rainIsOnLine ? i18n.deviceStatus_sensorStatusCorrect : i18n.deviceStatus_sensorStatusError }}
+                  {{ sensorData.rainIsOnLine ? i18n.connected : i18n.disconnected }}
                 </span>
               </div>
               <div
@@ -119,10 +119,10 @@
                 :class="!sensorData.gpsIsOnLine && 'layout-devise-info__sensor-status-item_red'"
               >
                 <span
-                  v-html="i18n.deviceStatus_sensorGeoTitle"
+                  v-html="i18n.gps"
                 />
                 <span>
-                  {{ sensorData.gpsIsOnLine ? i18n.deviceStatus_sensorStatusCorrect : i18n.deviceStatus_sensorStatusError }}
+                  {{ sensorData.gpsIsOnLine ? i18n.connected : i18n.disconnected }}
                 </span>
               </div>
               <div
@@ -130,10 +130,10 @@
                 :class="!sensorData.weatherIsOnLine && 'layout-devise-info__sensor-status-item_red'"
               >
                 <span
-                  v-html="i18n.deviceStatus_sensorWeatherTitle"
+                  v-html="i18n.weatherSensors"
                 />
                 <span>
-                  {{ sensorData.weatherIsOnLine ? i18n.deviceStatus_sensorStatusCorrect : i18n.deviceStatus_sensorStatusError }}
+                  {{ sensorData.weatherIsOnLine ? i18n.connected : i18n.disconnected }}
                 </span>
               </div>
               <div
@@ -141,10 +141,10 @@
                 :class="!sensorData.compassIsOnLine && 'layout-devise-info__sensor-status-item_red'"
               >
                 <span
-                  v-html="i18n.deviceStatus_sensorCompassTitle"
+                  v-html="i18n.compass"
                 />
                 <span>
-                  {{ sensorData.compassIsOnLine ? i18n.deviceStatus_sensorStatusCorrect : i18n.deviceStatus_sensorStatusError }}
+                  {{ sensorData.compassIsOnLine ? i18n.connected : i18n.disconnected }}
                 </span>
               </div>
               <div
@@ -152,10 +152,10 @@
                 :class="!sensorData.battery1IsOnLine && sensorData.battery2IsOnLine && 'layout-devise-info__sensor-status-item_red'"
               >
                 <span
-                  v-html="i18n.deviceStatus_sensorPowerTitle"
+                  v-html="i18n.powerSupply"
                 />
                 <span>
-                  {{ sensorData.battery1IsOnLine && sensorData.battery2IsOnLine ? i18n.deviceStatus_sensorStatusCorrect : i18n.deviceStatus_sensorStatusError }}
+                  {{ sensorData.battery1IsOnLine && sensorData.battery2IsOnLine ? i18n.connected : i18n.disconnected }}
                 </span>
               </div>
             </div>

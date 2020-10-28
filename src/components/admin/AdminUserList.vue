@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-12 col-md-10 md-4 md-md-0">
           <div class="admin-user-list__title">
-            {{ i18n.admin_userList_title }}
+            {{ i18n.userList }}
           </div>
         </div>
         <div class="col-12 col-md-2 d-md-flex">
@@ -12,7 +12,7 @@
             class="ml-auto"
             @click="showNewUserModal"
           >
-            {{ i18n.admin_addUser }}
+            {{ i18n.addUser }}
           </AmkButton>
         </div>
       </div>

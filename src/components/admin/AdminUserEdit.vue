@@ -11,7 +11,7 @@
       <div class="col-12">
         <AmkInput
           :value="username"
-          :placeholder="i18n.admin_userModalUserNamePlaceholder"
+          :placeholder="i18n.username"
           @input="username = $event.target.value"
         />
       </div>
@@ -32,7 +32,7 @@
           :value="isAdmin"
           @input="isAdmin = $event"
         >
-          {{ i18n.admin_addUserModalAdminCheckbox }}
+          {{ i18n.userIsAdmin }}
         </AmkCheckbox>
       </div>
     </div>
@@ -55,7 +55,7 @@
           :disabled="submitIsDisabled"
           @click="removeClickHandler"
         >
-          {{ i18n.admin_removeUserModalTitle }}
+          {{ i18n.removeUser }}
         </AmkButton>
       </div>
     </div>
@@ -99,15 +99,15 @@
       }),
       passwordPlaceholder() {
         const { i18n, isNewUser } = this;
-        return isNewUser ? i18n.admin_userModalPasswordPlaceholder : i18n.admin_userModalPasswordOptionalPlaceholder;
+        return isNewUser ? i18n.password : i18n.passwordOptional;
       },
       submitButtonText() {
         const { i18n, isNewUser } = this;
-        return isNewUser ? i18n.admin_addUserModalButton : i18n.admin_editUserModalButton;
+        return isNewUser ? i18n.addUser : i18n.saveChanges;
       },
       modalTitle() {
         const { i18n, isNewUser } = this;
-        return isNewUser ? i18n.admin_addUserModalTitle : i18n.admin_editUserModalTitle;
+        return isNewUser ? i18n.addUser : i18n.editUser;
       },
       submitIsDisabled() {
         const { isNewUser, username, password } = this;

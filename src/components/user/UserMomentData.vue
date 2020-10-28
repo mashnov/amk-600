@@ -5,8 +5,8 @@
         <div class="row mb-lg-4">
           <div class="col-12 col-sm-6 mb-4 mb-lg-0">
             <UserMomentSensor
-              :title="i18n.momentData_temperatureSensorTitle"
-              :unit="i18n.momentData_temperatureSensorUnit"
+              :title="i18n.temperatureTitle"
+              :unit="i18n.celsiusUnit"
               :value="momentData.temperature"
               :is-active="reportTypes.includes('temperature')"
               :disabled="fetchIsLock"
@@ -15,8 +15,8 @@
           </div>
           <div class="col-12 col-sm-6 mb-4 mb-lg-0">
             <UserMomentSensor
-              :title="i18n.momentData_humiditySensorTitle"
-              :unit="i18n.momentData_humiditySensorUnit"
+              :title="i18n.humidityTitle"
+              :unit="i18n.percentUnit"
               :value="momentData.humidity"
               :is-active="reportTypes.includes('humidity')"
               :disabled="fetchIsLock"
@@ -27,8 +27,8 @@
         <div class="row">
           <div class="col-12 col-sm-6 mb-4 mb-lg-0">
             <UserMomentSensor
-              :title="i18n.momentData_pressureSensorTitle"
-              :unit="i18n.momentData_pressureSensorUnit"
+              :title="i18n.pressureTitle"
+              :unit="i18n.pascalUnit"
               :value="momentData.pressure"
               :is-active="reportTypes.includes('pressure')"
               :disabled="fetchIsLock"
@@ -37,8 +37,8 @@
           </div>
           <div class="col-12 col-sm-6 mb-4 mb-lg-0">
             <UserMomentSensor
-              :title="i18n.momentData_rainSensorTitle"
-              :unit="i18n.momentData_rainSensorUnit"
+              :title="i18n.rainTitle"
+              :unit="i18n.rainUnit"
               :value="momentData.rainfall"
               :is-active="reportTypes.includes('rain')"
               :disabled="fetchIsLock"
