@@ -34,7 +34,7 @@
   const PRELOADER_KEY = 'adminClearLogs';
 
   export default {
-    name: 'AdminDeviceInfo.vue',
+    name: 'AdminDeviceInfoVue',
     components: {
       AmkButton,
     },

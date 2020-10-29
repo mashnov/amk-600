@@ -160,7 +160,7 @@
               </div>
               <div
                 class="layout-devise-info__sensor-status-item"
-                :class="!sensorData.battery1IsOnLine && sensorData.battery2IsOnLine && 'layout-devise-info__sensor-status-item_red'"
+                :class="!sensorData.battery1IsOnLine || !sensorData.battery2IsOnLine && 'layout-devise-info__sensor-status-item_red'"
               >
                 <span
                   v-html="i18n.powerSupply"
