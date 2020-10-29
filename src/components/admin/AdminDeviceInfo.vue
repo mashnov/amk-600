@@ -3,81 +3,21 @@
     <div class="col-12 mb-5">
       <div class="admin-device-info__header">
         <div class="admin-device-info__title">
-          {{ i18n.sensorData }}
+          {{ deviceName }}
+        </div>
+        <div class="admin-device-info__sub-title">
+          {{ deviceDateTime }}<br />
+          {{ i18n.signalTitle }}: {{ deviceSignal }}
         </div>
       </div>
     </div>
-    <div class="col-12 mb-5">
-      <AdminDeviceSection
-        :title="i18n.gps"
-        :sensors="sensors.GPS"
-      />
-    </div>
-    <div class="col-12 mb-5">
-      <AdminDeviceSection
-        :title="i18n.compass"
-        :sensors="sensors.compass"
-      />
-    </div>
-    <div class="col-12 mb-5">
-      <AdminDeviceSection
-        :title="i18n.humidityTitle"
-        :sensors="humiditySensor"
-        :value="humidityValue"
-        :editable="true"
-        @select-item="changeMainSensorHandler({ name: $event, type: 'humidity' })"
-      />
-    </div>
-    <div class="col-12 mb-5">
-      <AdminDeviceSection
-        :title="i18n.temperatureTitle"
-        :sensors="temperatureSensor"
-        :value="temperatureValue"
-        :editable="true"
-        @select-item="changeMainSensorHandler({ name: $event, type: 'temperature' })"
-      />
-    </div>
-    <div class="col-12 mb-5">
-      <AdminDeviceSection
-        :title="i18n.rain"
-        :sensors="rainSensor"
-        :value="rainValue"
-        :editable="true"
-        @select-item="changeMainSensorHandler({ name: $event, type: 'rain' })"
-      />
-    </div>
-    <div class="col-12 mb-5">
-      <AdminDeviceSection
-        :title="i18n.pressureTitle"
-        :sensors="pressureSensor"
-        :value="pressureValue"
-        :editable="true"
-        @select-item="changeMainSensorHandler({ name: $event, type: 'pressure' })"
-      />
-    </div>
-    <div class="col-12 mb-5">
-      <AdminDeviceSection
-        :title="i18n.battery1"
-        :sensors="batterySensor1"
-      />
-    </div>
-    <div class="col-12 mb-5">
-      <AdminDeviceSection
-        :title="i18n.battery2"
-        :sensors="batterySensor2"
-      />
-    </div>
-    <div class="col-12 mb-5">
-      <AdminDeviceSection
-        :title="i18n.windData2"
-        :sensors="windSensor.minute2"
-      />
-    </div>
-    <div class="col-12">
-      <AdminDeviceSection
-        :title="i18n.windData10"
-        :sensors="windSensor.minute10"
-      />
+    <div class="col-12 mb-4">
+      <AmkButton @click="clearLogsHandler">
+        {{ i18n.clearLogs }}
+      </AmkButton>
+      <AmkButton @click="restartCpu">
+        {{ i18n.restartCpu }}
+      </AmkButton>
     </div>
   </div>
 </template>
@@ -86,17 +26,17 @@
   import get from 'lodash/get';
   import { DateTime } from 'luxon';
   import { mapGetters, mapActions } from 'vuex';
-  import { ADMIN, AUTH, PRELOADER, REFERENCES } from '~/store/types';
+  import { AUTH, REFERENCES, PRELOADER, ADMIN } from '~/store/types';
   import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
 
-  import AdminDeviceSection from './AdminDeviceSection';
+  import AmkButton from '~/components/form-items/amk-button/AmkButton';
 
-  const PRELOADER_KEY = 'setDefaultSensor';
+  const PRELOADER_KEY = 'adminClearLogs';
 
   export default {
-    name: 'AdminDeviceInfo',
+    name: 'AdminDeviceInfo.vue',
     components: {
-      AdminDeviceSection,
+      AmkButton,
     },
     computed: {
       ...mapGetters('references', {
@@ -130,56 +70,8 @@
         const outputTime = luxonTime.setLocale(currentLanguage).toFormat('tt');
         return `${outputDate} ${outputTime}`;
       },
-      humiditySensor() {
-        const { sensors } = this;
-        return get(sensors, 'humidity.allSensors', {});
-      },
-      temperatureSensor() {
-        const { sensors } = this;
-        return get(sensors, 'temperature.allSensors', {});
-      },
-      rainSensor() {
-        const { sensors } = this;
-        return get(sensors, 'rain.allSensors', {});
-      },
-      pressureSensor() {
-        const { sensors } = this;
-        return get(sensors, 'pressure.allSensors', {});
-      },
-      windSensor() {
-        const { sensors } = this;
-        return get(sensors, 'wind', {});
-      },
-      batterySensor1() {
-        const { sensors } = this;
-        return get(sensors, 'power.battery[0]', {});
-      },
-      batterySensor2() {
-        const { sensors } = this;
-        return get(sensors, 'power.battery[1]', {});
-      },
-      humidityValue() {
-        const { sensors } = this;
-        return get(sensors, 'humidity.main', null);
-      },
-      pressureValue() {
-        const { sensors } = this;
-        return get(sensors, 'pressure.main', null);
-      },
-      rainValue() {
-        const { sensors } = this;
-        return get(sensors, 'rain.main', null);
-      },
-      temperatureValue() {
-        const { sensors } = this;
-        return get(sensors, 'temperature.main', null);
-      },
     },
     methods: {
-      ...mapActions('admin', {
-        changeMainSensor: ADMIN.CHANGE_MAIN_SENSOR,
-        fetchStatData: ADMIN.FETCH_DATA,
-      }),
       ...mapActions('preloader', {
         showPreloader: PRELOADER.SHOW_PRELOADER,
         hidePreloader: PRELOADER.HIDE_PRELOADER,
@@ -187,12 +79,15 @@
       ...mapActions('auth', {
         logoutHandler: AUTH.LOGOUT_HANDLER,
       }),
-      async changeMainSensorHandler({ name, type }) {
+      ...mapActions('admin', {
+        clearLogs: ADMIN.CLEAR_LOGS,
+        restartCpu: ADMIN.RESTART_CPU,
+      }),
+      async clearLogsHandler() {
         this.showPreloader(PRELOADER_KEY);
-        const changeSensorResponse = await this.changeMainSensor({ name, type });
-        const fetchSensorResponse = await this.fetchStatData();
+        const { successes } = await this.clearLogs();
         this.hidePreloader(PRELOADER_KEY);
-        if (!changeSensorResponse.successes || !fetchSensorResponse.successes) {
+        if (!successes) {
           this.logoutAction();
         }
       },
@@ -205,15 +100,25 @@
 </script>
 
 <style lang="scss" scoped>
-  .admin-device-info__header {
-    padding: 0 0 10px 0;
-    border-bottom: 1px solid $color-gray-05;
-  }
   .admin-device-info__title {
     display: block;
     font-weight: 600;
     font-size: 30px;
     line-height: 34px;
     color: $color-gray-01;
+  }
+  .admin-device-info__sub-title {
+    display: block;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 20px;
+    color: $color-gray-01;
+    margin-top: 10px;
+  }
+  @media (min-width: $screen-md) {
+    .admin-device-info__title {
+      font-size: 40px;
+      line-height: 44px;
+    }
   }
 </style>

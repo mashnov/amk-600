@@ -1,8 +1,8 @@
 <template>
-  <div class="row admin-sensor-list">
+  <div class="row admin-sensor-status">
     <div class="col-12 mb-5">
-      <div class="admin-sensor-list__header">
-        <div class="admin-sensor-list__title">
+      <div class="admin-sensor-status__header">
+        <div class="admin-sensor-status__title">
           {{ i18n.sensorStatus }}
         </div>
       </div>
@@ -64,7 +64,7 @@
   import AdminSensorItem from './AdminSensorItem';
 
   export default {
-    name: 'AdminSensorList',
+    name: 'AdminSensorStatus',
     components: {
       AdminSensorItem,
     },
@@ -91,11 +91,11 @@
 </script>
 
 <style lang="scss" scoped>
-  .admin-sensor-list__header {
+  .admin-sensor-status__header {
     padding: 0 0 10px 0;
     border-bottom: 1px solid $color-gray-05;
   }
-  .admin-sensor-list__title {
+  .admin-sensor-status__title {
     display: block;
     font-weight: 600;
     font-size: 30px;

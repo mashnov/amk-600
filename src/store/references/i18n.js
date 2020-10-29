@@ -25,6 +25,7 @@ export default {
     dewPointTitle: 'dew point',
     powerTitle: 'power',
     voltageTitle: 'voltage',
+    signalTitle: 'signal',
     dayPeriod: 'day',
     weekPeriod: 'week',
     monthPeriod: 'month',
