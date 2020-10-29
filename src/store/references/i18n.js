@@ -57,6 +57,7 @@ export default {
     sensorData: 'Sensors data',
     weatherSensors: 'temperature<br>pressure<br>humidity',
     userList: 'User list',
+    orientationWarning: 'To get the most out of our interface, please use the horizontal orientation of your screen',
   },
   ru: {},
   es: {},

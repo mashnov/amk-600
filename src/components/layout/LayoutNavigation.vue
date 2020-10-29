@@ -75,6 +75,7 @@
   import LayoutLanguageSelect from './LayoutLanguageSelect';
   import LayoutReportSelect from './LayoutReportSelect';
   import LayoutDeviceInfo from './LayoutDeviceInfo';
+  import LayoutDevicePosition from './LayoutDevicePosition';
 
   import UserIcon from '~/assets/svg/user-icon.svg';
   import DashboardIcon from '~/assets/svg/dashboard-icon.svg';
@@ -108,7 +109,12 @@
       }),
       ...mapGetters('viewport', {
         viewportWidth: VIEWPORT.GET_VIEWPORT_WIDTH,
+        viewportHeight: VIEWPORT.GET_VIEWPORT_HEIGHT,
       }),
+      screenProportion() {
+        const { viewportWidth, viewportHeight } = this;
+        return Math.floor(viewportWidth / viewportHeight);
+      },
       deviceInfoIsLayout() {
         const { viewportWidth } = this;
         return viewportWidth >= DEVICE_INFO_IS_LAYOUT_FROM;
@@ -128,6 +134,9 @@
         handler() {
           this.userLoginHandler();
         },
+      },
+      screenProportion() {
+        this.showDevicePositionModal();
       },
     },
     methods: {
@@ -159,9 +168,22 @@
         });
       },
       userLoginHandler() {
-        const { deviceInfoIsLayout, userType } = this;
-        if (!deviceInfoIsLayout && userType === USER_USER_TYPE) {
+        const { screenProportion, deviceInfoIsLayout, userType } = this;
+        const isUserInterface = userType === USER_USER_TYPE;
+        const isHorizontalView = screenProportion > 0;
+        if (!deviceInfoIsLayout && isUserInterface && isHorizontalView) {
           this.showDeviceModal();
+        }
+        if (!isHorizontalView) {
+          this.showDevicePositionModal();
+        }
+      },
+      showDevicePositionModal() {
+        const { screenProportion } = this;
+        if (screenProportion < 1) {
+          this.showModal({
+            component: LayoutDevicePosition,
+          });
         }
       },
       async logoutClickHandler() {

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="user-device-info"
+    class="layout-devise-info"
     :class="[
       !inline && 'col-11 col-sm-9 col-lg-8 col-xl-6',
       inline && 'col-12',
@@ -272,7 +272,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .user-device-info {
+  .layout-devise-info {
     min-height: 100vh;
   }
   .layout-devise-info__title {
