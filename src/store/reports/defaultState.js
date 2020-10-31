@@ -1,5 +1,5 @@
-const defaultReportRange = process.env.VUE_APP_DEFAULT_CHART_PERIOD;
-const defaultReportTypes = process.env.VUE_APP_DEFAULT_CHART_TYPES.split(' ');
+const defaultReportRange = process.env.VUE_APP_CHART_DEFAULT_PERIOD;
+const defaultReportTypes = process.env.VUE_APP_CHART_DEFAULT_TYPES.split(' ');
 
 export default {
   fetchIsLock: false,
