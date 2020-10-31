@@ -3,6 +3,8 @@ import get from 'lodash/get';
 import MODULE from './types';
 import { reports } from '~/store/request-url';
 
+const tokenIsEmpty = (userToken = '') => (![null, 'null', 'undefined', ''].includes(userToken));
+
 export default {
   async [MODULE.FETCH_CHART_DATA]({ userToken, reportTypes, reportRange }) {
     const apiUrl = reports.chartData;
@@ -12,6 +14,9 @@ export default {
       query: reportTypes,
       type: 'json',
     };
+    if (tokenIsEmpty) {
+      return { successes: false };
+    }
     try {
       const repsonse = await axios.post(apiUrl, params);
       const successes = get(repsonse, 'data.successes', false);
