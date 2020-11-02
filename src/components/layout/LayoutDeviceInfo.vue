@@ -378,31 +378,34 @@
       position: absolute;
       width: 150px;
     }
+    .layout-devise-info__sensor-status-item:nth-child(2n-1) {
+      margin-right: 0;
+    }
     .layout-devise-info__sensor-status-item:not(:last-child) {
       margin-bottom: 0;
     }
     .layout-devise-info__sensor-status-item:nth-child(1) {
       top: 40px;
-      left: 40px;
+      left: 30px;
     }
     .layout-devise-info__sensor-status-item:nth-child(2) {
       top: 110px;
-      right: 30px;
+      right: 10px;
     }
     .layout-devise-info__sensor-status-item:nth-child(3) {
       top: 190px;
-      right: 30px;
+      right: 10px;
     }
     .layout-devise-info__sensor-status-item:nth-child(4) {
-      top: 235px;
-      left: 120px;
+      top: 225px;
+      left: 100px;
     }
     .layout-devise-info__sensor-status-item:nth-child(5) {
-      top: 310px;
-      left: 120px;
+      top: 300px;
+      left: 100px;
     }
     .layout-devise-info__sensor-status-item:nth-child(6) {
-      top: 520px;
+      top: 530px;
       right: 20px;
     }
     .layout-devise-info__sensor-status-item span:first-child {

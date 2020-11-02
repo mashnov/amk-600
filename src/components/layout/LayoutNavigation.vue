@@ -129,12 +129,6 @@
       },
     },
     watch: {
-      userType: {
-        immediate: true,
-        handler() {
-          this.userLoginHandler();
-        },
-      },
       screenProportion() {
         this.showDevicePositionModal();
       },
@@ -166,17 +160,6 @@
           component: LayoutReportSelect,
           position: 'bottom',
         });
-      },
-      userLoginHandler() {
-        const { screenProportion, deviceInfoIsLayout, userType } = this;
-        const isUserInterface = userType === USER_USER_TYPE;
-        const isHorizontalView = screenProportion > 0;
-        if (!deviceInfoIsLayout && isUserInterface && isHorizontalView) {
-          this.showDeviceModal();
-        }
-        if (!isHorizontalView) {
-          this.showDevicePositionModal();
-        }
       },
       showDevicePositionModal() {
         const { screenProportion } = this;
