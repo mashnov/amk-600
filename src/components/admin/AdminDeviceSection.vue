@@ -19,7 +19,7 @@
         <div
           class="admin-device-section__item"
           :class="value === item && 'admin-device-section__item_selected'"
-          @click="itemClickHandler(sensors[item])"
+          @click="itemClickHandler(item)"
         >
           <div class="admin-device-section__item-title">
             {{ item }}
