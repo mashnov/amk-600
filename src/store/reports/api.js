@@ -2,8 +2,7 @@ import axios from 'axios';
 import get from 'lodash/get';
 import MODULE from './types';
 import { reports } from '~/store/request-url';
-
-const tokenIsEmpty = (userToken = '') => (![null, 'null', 'undefined', ''].includes(userToken));
+import { tokenIsEmpty } from '~/helpers/logger';
 
 export default {
   async [MODULE.FETCH_CHART_DATA]({ userToken, reportTypes, reportRange }) {
@@ -14,7 +13,7 @@ export default {
       query: reportTypes,
       type: 'json',
     };
-    if (tokenIsEmpty) {
+    if (tokenIsEmpty(userToken)) {
       return { successes: false };
     }
     try {

@@ -2,13 +2,12 @@ import axios from 'axios';
 import get from 'lodash/get';
 import MODULE from './types';
 import { auth } from '~/store/request-url';
-
-const tokenIsEmpty = (userToken = '') => (![null, 'null', 'undefined', ''].includes(userToken));
+import { tokenIsEmpty } from '~/helpers/logger';
 
 export default {
   async [MODULE.RE_LOGIN_HANDLER]({ userToken }) {
     const apiUrl = auth.reLogin;
-    if (tokenIsEmpty) {
+    if (tokenIsEmpty(userToken)) {
       return { successes: false };
     }
     try {
@@ -24,9 +23,6 @@ export default {
   },
   async [MODULE.LOGIN_HANDLER]({ username, password }) {
     const apiUrl = auth.login;
-    if (tokenIsEmpty) {
-      return { successes: false };
-    }
     try {
       const { data } = await axios.post(apiUrl, { username, password });
       const successes = get(data, 'successes', false);
@@ -40,7 +36,7 @@ export default {
   },
   async [MODULE.LOGOUT_HANDLER]({ userToken }) {
     const apiUrl = auth.logout;
-    if (tokenIsEmpty) {
+    if (tokenIsEmpty(userToken)) {
       return { successes: false };
     }
     try {

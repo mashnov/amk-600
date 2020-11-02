@@ -2,13 +2,12 @@ import axios from 'axios';
 import get from 'lodash/get';
 import MODULE from './types';
 import { user } from '~/store/request-url';
-
-const tokenIsEmpty = (userToken = '') => (![null, 'null', 'undefined', ''].includes(userToken));
+import { tokenIsEmpty } from '~/helpers/logger';
 
 export default {
   async [MODULE.FETCH_USER_DATA]({ userToken }) {
     const apiUrl = user.fetchData;
-    if (tokenIsEmpty) {
+    if (tokenIsEmpty(userToken)) {
       return { successes: false };
     }
     try {

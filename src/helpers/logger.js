@@ -67,3 +67,4 @@ export const setUserReportRange = (range) => {
 export const removeUserReportRange = () => {
   $cookies.remove(USER_REPORT_RANGE_COOKIE_KEY);
 };
+export const tokenIsEmpty = (userToken = '') => (![null, 'null', 'undefined', ''].includes(userToken));
