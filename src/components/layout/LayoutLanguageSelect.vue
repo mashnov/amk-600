@@ -17,6 +17,9 @@
           >
             <EnLanguageIcon />
           </div>
+          <span class="layout-language-select__option-title">
+            english
+          </span>
         </div>
         <div class="col-12 col-md-4 mb-4 mb-md-0">
           <div
@@ -26,6 +29,9 @@
           >
             <EsLanguageIcon />
           </div>
+          <span class="layout-language-select__option-title">
+            español
+          </span>
         </div>
         <div class="col-12 col-md-4">
           <div
@@ -35,6 +41,9 @@
           >
             <RuLanguageIcon />
           </div>
+          <span class="layout-language-select__option-title">
+            русский
+          </span>
         </div>
       </div>
     </div>
@@ -111,9 +120,22 @@
     display: block;
     width: 100%;
   }
+  .layout-language-select__option-title {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: $color-gray-01;
+    text-transform: uppercase;
+    margin-top: 15px;
+  }
   @media (min-width: $screen-md) {
     .layout-language-select__option {
       max-width: unset;
+    }
+    .layout-report-select__option-title {
+      font-size: 15px;
     }
   }
 </style>

@@ -33,6 +33,7 @@
         <div
           v-if="userIsAuthed"
           key="report"
+          v-tooltip.right="{ content: i18n.downloadReport, offset: 15 }"
           class="layout-navigation_item"
           @click="showReportModal"
         >
@@ -41,6 +42,7 @@
         <div
           v-if="!deviceInfoIsLayout && userIsAuthed && !userIsAdmin"
           key="device"
+          v-tooltip.right="{ content: i18n.deviceInfo, offset: 15 }"
           class="layout-navigation_item"
           @click="showDeviceModal"
         >
@@ -48,6 +50,7 @@
         </div>
         <div
           key="language"
+          v-tooltip.right="{ content: i18n.changeLanguage, offset: 15 }"
           class="layout-navigation_item"
           @click="showLanguageModal"
         >
@@ -56,6 +59,7 @@
         <div
           v-if="userIsAuthed"
           key="logout"
+          v-tooltip.right="{ content: i18n.logout, offset: 15 }"
           class="layout-navigation_item"
           @click="logoutClickHandler"
         >
@@ -69,7 +73,7 @@
 <script>
   import isNull from 'lodash/isNull';
   import { mapGetters, mapActions } from 'vuex';
-  import { MODAL, AUTH, PRELOADER, VIEWPORT } from '~/store/types';
+  import { MODAL, AUTH, REFERENCES, PRELOADER, VIEWPORT } from '~/store/types';
   import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
 
   import LayoutLanguageSelect from './LayoutLanguageSelect';
@@ -87,7 +91,6 @@
 
   const PRELOADER_KEY = 'logout';
   const ADMIN_USER_TYPE = 'admin';
-  const USER_USER_TYPE = 'user';
 
   const DEVICE_INFO_IS_LAYOUT_FROM = 1640;
 
@@ -106,6 +109,9 @@
       ...mapGetters('auth', {
         userType: AUTH.GET_USER_TYPE,
         userToken: AUTH.GET_USER_TOKEN,
+      }),
+      ...mapGetters('references', {
+        i18n: REFERENCES.GET_I18N,
       }),
       ...mapGetters('viewport', {
         viewportWidth: VIEWPORT.GET_VIEWPORT_WIDTH,
