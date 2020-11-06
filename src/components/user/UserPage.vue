@@ -30,13 +30,6 @@
                 />
               </div>
             </div>
-            <div class="col-12 mb-5">
-              <UserChartPeriodSelect
-                :value="chartPeriod"
-                :disabled="fetchIsLock"
-                @select-period="setReportPeriod"
-              />
-            </div>
           </template>
           <div class="col-12">
             <UserStatData />
@@ -56,9 +49,8 @@
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex';
-  import { REFERENCES, REPORTS, AUTH, VIEWPORT } from '~/store/types';
-  import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
+  import { mapGetters } from 'vuex';
+  import { REFERENCES, REPORTS, VIEWPORT } from '~/store/types';
   import { chartDataTransformer } from '~/helpers/transformers';
 
   import LayoutDeviceInfo from '~/components/layout/LayoutDeviceInfo';
@@ -66,7 +58,6 @@
   import UserMomentData from './UserMomentData';
   import UserChartLegend from './UserChartLegend';
   import UserChart from './UserChart';
-  import UserChartPeriodSelect from './UserChartPeriodSelect';
   import UserStatData from './UserStatData';
   import PreloaderIcon from '~/assets/svg/preloader-icon.svg';
 
@@ -78,7 +69,6 @@
       UserMomentData,
       UserChartLegend,
       UserChart,
-      UserChartPeriodSelect,
       UserStatData,
       LayoutDeviceInfo,
       PreloaderIcon,
@@ -104,26 +94,6 @@
       chartDataSets() {
         const { reportTypes, chartData, chartPeriod, i18n, currentLanguage } = this;
         return chartDataTransformer({ reportTypes, chartData, chartPeriod, i18n, currentLanguage });
-      },
-    },
-    methods: {
-      ...mapActions('reports', {
-        setReportRange: REPORTS.SET_REPORT_RANGE,
-        fetchChartData: REPORTS.FETCH_CHART_DATA,
-      }),
-      ...mapActions('auth', {
-        logoutHandler: AUTH.LOGOUT_HANDLER,
-      }),
-      async setReportPeriod(period) {
-        this.setReportRange(period);
-        const { successes } = await this.fetchChartData();
-        if (!successes) {
-          this.logoutAction();
-        }
-      },
-      async logoutAction() {
-        await this.logoutHandler();
-        this.$router.push({ name: AUTH_ROUTE_NAMES.auth });
       },
     },
   };

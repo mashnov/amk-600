@@ -14,27 +14,39 @@
           <div class="row mb-4">
             <div class="col-12">
               <UserMomentWindItem
+                v-tooltip.bottom="{ content: i18n.addWindWSpeedToChart, offset: 15 }"
                 :title="i18n.verticalSpeedTitle"
                 :value="momentData.windVerticalSpeed"
                 :unit="i18n.windUnit"
+                :disabled="fetchIsLock"
+                :is-active="reportTypes.includes('windVSpeed')"
+                @select-item="selectReportItem('windVSpeed')"
               />
             </div>
           </div>
           <div class="row mb-4">
             <div class="col-12">
               <UserMomentWindItem
+                v-tooltip.bottom="{ content: i18n.addWindHSpeedToChart, offset: 15 }"
                 :title="i18n.horizontalSpeedTitle"
                 :value="momentData.windSpeed"
                 :unit="i18n.windUnit"
+                :disabled="fetchIsLock"
+                :is-active="reportTypes.includes('windHSpeed')"
+                @select-item="selectReportItem('windHSpeed')"
               />
             </div>
           </div>
           <div class="row">
             <div class="col-12">
               <UserMomentWindItem
+                v-tooltip.bottom="{ content: i18n.addWindDirectionToChart, offset: 15 }"
                 :title="i18n.directionTitle"
                 :value="momentData.windDirection"
                 :unit="i18n.degreeUnit"
+                :disabled="fetchIsLock"
+                :is-active="reportTypes.includes('windDirection')"
+                @select-item="selectReportItem('windDirection')"
               />
             </div>
           </div>
@@ -45,8 +57,9 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
-  import { REFERENCES, USER } from '~/store/types';
+  import { mapGetters, mapActions } from 'vuex';
+  import { REFERENCES, USER, REPORTS, AUTH } from '~/store/types';
+  import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
 
   import UserMomentWindItem from './UserMomentWindItem';
   import UserMomentCompass from './UserMomentCompass';
@@ -64,6 +77,30 @@
       ...mapGetters('user', {
         momentData: USER.GET_MOMENT_DATA,
       }),
+      ...mapGetters('reports', {
+        fetchIsLock: REPORTS.GET_FETCH_IS_LOCK,
+        reportTypes: REPORTS.GET_REPORT_TYPES,
+      }),
+    },
+    methods: {
+      ...mapActions('reports', {
+        setReportTypes: REPORTS.SET_REPORT_TYPES,
+        fetchChartData: REPORTS.FETCH_CHART_DATA,
+      }),
+      ...mapActions('auth', {
+        logoutHandler: AUTH.LOGOUT_HANDLER,
+      }),
+      async selectReportItem(reportType) {
+        this.setReportTypes(reportType);
+        const { successes } = await this.fetchChartData();
+        if (!successes) {
+          this.logoutAction();
+        }
+      },
+      async logoutAction() {
+        await this.logoutHandler();
+        this.$router.push({ name: AUTH_ROUTE_NAMES.auth });
+      },
     },
   };
 </script>

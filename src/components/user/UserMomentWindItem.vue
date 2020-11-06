@@ -1,5 +1,12 @@
 <template>
-  <div class="user-moment-wind-item">
+  <div
+    class="user-moment-wind-item"
+    :class="[
+      isActive && 'user-moment-wind-item_active',
+      disabled && 'user-moment-wind-item_disabled',
+    ]"
+    @click="itemClickHandler"
+  >
     <div class="user-moment-wind-item__title">
       {{ title }}
     </div>
@@ -35,11 +42,45 @@
         required: true,
         validator: (prop) => VALUE_TYPES.includes(typeof prop) || prop === null,
       },
+      disabled: {
+        type: Boolean,
+        default: false,
+      },
+      isActive: {
+        type: Boolean,
+        default: false,
+        required: true,
+      },
+    },
+    methods: {
+      itemClickHandler() {
+        const { disabled } = this;
+        if (!disabled) {
+          this.$emit('select-item');
+        }
+      },
     },
   };
 </script>
 
 <style lang="scss" scoped>
+  .user-moment-wind-item {
+    transform: scale(0.9);
+    opacity: 0.5;
+    transition: transform $animation-time-01 $animation-easing, opacity $animation-time-01 $animation-easing;
+    cursor: pointer;
+  }
+  .user-moment-wind-item:hover {
+    opacity: 0.9;
+  }
+  .user-moment-wind-item_active {
+    transform: scale(1);
+    opacity: 1;
+  }
+  .user-moment-wind-item_disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+  }
   .user-moment-wind-item__title {
     display: block;
     font-weight: 300;

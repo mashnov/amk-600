@@ -5,6 +5,7 @@
         <div class="row mb-lg-4">
           <div class="col-12 col-sm-6 mb-4 mb-lg-0">
             <UserMomentSensor
+              v-tooltip.bottom="{ content: i18n.addTemperatureToChart, offset: 15 }"
               :title="i18n.temperatureTitle"
               :unit="i18n.celsiusUnit"
               :value="momentData.temperature"
@@ -15,6 +16,7 @@
           </div>
           <div class="col-12 col-sm-6 mb-4 mb-lg-0">
             <UserMomentSensor
+              v-tooltip.bottom="{ content: i18n.addHumidityToChart, offset: 15 }"
               :title="i18n.humidityTitle"
               :unit="i18n.percentUnit"
               :value="momentData.humidity"
@@ -27,6 +29,7 @@
         <div class="row">
           <div class="col-12 col-sm-6 mb-4 mb-lg-0">
             <UserMomentSensor
+              v-tooltip.bottom="{ content: i18n.addPressureToChart, offset: 15 }"
               :title="i18n.pressureTitle"
               :unit="i18n.pascalUnit"
               :value="momentData.pressure"
@@ -37,6 +40,7 @@
           </div>
           <div class="col-12 col-sm-6 mb-4 mb-lg-0">
             <UserMomentSensor
+              v-tooltip.bottom="{ content: i18n.addRainToChart, offset: 15 }"
               :title="i18n.rainTitle"
               :unit="i18n.rainUnit"
               :value="momentData.rainfall"

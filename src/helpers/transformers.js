@@ -5,7 +5,10 @@ import { replaceCurly, numberTransformer } from '~/helpers/system';
 const TEMPERATURE_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_TEMPERATURE_COLOR;
 const HUMIDITY_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_HUMIDITY_COLOR;
 const PRESSURE_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_PRESSURE_COLOR;
-const RAIN_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_RAIN_COLOE;
+const RAIN_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_RAIN_COLOR;
+const WIND_W_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_WIND_W_COLOR;
+const WIND_H_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_WIND_H_COLOR;
+const WIND_D_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_WIND_D_COLOR;
 const SENSOR_TRANSLATION_KEY = 'momentData_{chartType}SensorTitle';
 
 const CHART_BACKGROUND_MAPPER = {
@@ -13,18 +16,30 @@ const CHART_BACKGROUND_MAPPER = {
   humidity: `rgba(${HUMIDITY_BASE_COLOR}, 0.4)`,
   pressure: `rgba(${PRESSURE_BASE_COLOR}, 0.4)`,
   rain: `rgba(${RAIN_BASE_COLOR}, 0.4)`,
+  windDirection: `rgba(${WIND_D_BASE_COLOR}, 0.4)`,
+  windHSpeed: `rgba(${WIND_H_BASE_COLOR}, 0.4)`,
+  windVSpeed: `rgba(${WIND_W_BASE_COLOR}, 0.4)`,
+
 };
 const CHART_BORDER_MAPPER = {
   temperature: `rgba(${TEMPERATURE_BASE_COLOR}, 0.8)`,
   humidity: `rgba(${HUMIDITY_BASE_COLOR}, 0.8)`,
   pressure: `rgba(${PRESSURE_BASE_COLOR}, 0.8)`,
   rain: `rgba(${RAIN_BASE_COLOR}, 0.8)`,
+  windDirection: `rgba(${WIND_D_BASE_COLOR}, 0.8)`,
+  windHSpeed: `rgba(${WIND_H_BASE_COLOR}, 0.8)`,
+  windVSpeed: `rgba(${WIND_W_BASE_COLOR}, 0.8)`,
+
 };
 const CHART_HOVER_MAPPER = {
   temperature: `rgba(${TEMPERATURE_BASE_COLOR}, 1)`,
   humidity: `rgba(${HUMIDITY_BASE_COLOR}, 1)`,
   pressure: `rgba(${PRESSURE_BASE_COLOR}, 1)`,
   rain: `rgba(${RAIN_BASE_COLOR}, 1)`,
+  windDirection: `rgba(${WIND_D_BASE_COLOR}, 1)`,
+  windHSpeed: `rgba(${WIND_H_BASE_COLOR}, 1)`,
+  windVSpeed: `rgba(${WIND_W_BASE_COLOR}, 1)`,
+
 };
 const CHART_PERIOD_LABEL_FORMAT_MAPPER = {
   day: 'HH:mm',
@@ -50,8 +65,8 @@ export const userDataTransformer = (data) => {
   };
   const deviceData = {
     name: get(data, 'deviceName', null),
-    positionN: numberTransformer(get(data, 'sensors.GPS.N', 0), '0,0.00000'),
-    positionW: numberTransformer(get(data, 'sensors.GPS.W', 0), '0,0.00000'),
+    positionN: get(data, 'sensors.GPS.N', 0),
+    positionW: get(data, 'sensors.GPS.W', 0),
     date: get(data, 'sensors.date', null),
     time: get(data, 'sensors.time', null),
     temperature1: numberTransformer(get(data, 'sensors.power.battery[0].temperatureInsideEquipment', 0)),

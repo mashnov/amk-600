@@ -1,50 +1,92 @@
 <template>
-  <transition-group
-    class="row"
-    name="fade-in"
-    mode="out-in"
-    tag="div"
+  <div
+    class="user-chart-legend"
+    :class="fetchIsLock && 'user-chart-legend_disabled'"
   >
-    <div
-      v-for="(chartType, index) in list"
-      :key="index"
-      class="col-12 col-sm-6 col-md-3 mb-3 mb-md-0"
+    <transition-group
+      class="row"
+      name="fade-in"
+      mode="out-in"
+      tag="div"
     >
       <div
-        class="user-chart-legend__item"
-        :class="fetchIsLock && 'user-chart-legend__item_disabled'"
-        @click="itemClickHandler(chartType)"
+        v-for="(chartType, index) in list"
+        :key="`select-item${index}`"
+        class="col-3 col-md-3 col-lg-1 mb-3"
       >
-        <span :style="getItemStyle(chartType)" />
-        <span>
-          {{ getItemName(chartType) }}
-        </span>
+        <div
+          v-tooltip="{ content: getIconTitle(chartType), offset: 15 }"
+          class="user-chart-legend__icon"
+          :style="getItemStyle(chartType)"
+          @click="itemClickHandler(chartType)"
+        >
+          <Component :is="getIconName(chartType)" />
+        </div>
       </div>
-    </div>
-  </transition-group>
+      <div
+        class="col-12 col-lg-2 ml-lg-auto"
+        key="select"
+      >
+        <UserChartPeriodSelect />
+      </div>
+    </transition-group>
+  </div>
 </template>
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
   import { REFERENCES, REPORTS, AUTH } from '~/store/types';
   import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
-  import { replaceCurly } from '~/helpers/system';
+
+  import UserChartPeriodSelect from './UserChartPeriodSelect';
+  import temperatureIcon from '~/assets/svg/temperature-icon.svg';
+  import rainIcon from '~/assets/svg/rain-icon.svg';
+  import humidityIcon from '~/assets/svg/humidity-icon.svg';
+  import pressureIcon from '~/assets/svg/pressure-icon.svg';
+  import windDirectionIcon from '~/assets/svg/wind-d-icon.svg';
+  import windHSpeedIcon from '~/assets/svg/wind-h-icon.svg';
+  import windVSpeedIcon from '~/assets/svg/wind-v-icon.svg';
 
   const TEMPERATURE_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_TEMPERATURE_COLOR;
   const HUMIDITY_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_HUMIDITY_COLOR;
   const PRESSURE_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_PRESSURE_COLOR;
-  const RAIN_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_RAIN_COLOE;
-  const TYPE_TRANSLATION_KEY = '{chartType}Title';
+  const RAIN_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_RAIN_COLOR;
+  const WIND_W_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_WIND_W_COLOR;
+  const WIND_H_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_WIND_H_COLOR;
+  const WIND_D_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_WIND_D_COLOR;
 
   const CHART_BACKGROUND_MAPPER = {
     temperature: `rgb(${TEMPERATURE_BASE_COLOR})`,
     humidity: `rgb(${HUMIDITY_BASE_COLOR})`,
     pressure: `rgb(${PRESSURE_BASE_COLOR})`,
     rain: `rgb(${RAIN_BASE_COLOR})`,
+    windDirection: `rgb(${WIND_D_BASE_COLOR})`,
+    windHSpeed: `rgb(${WIND_H_BASE_COLOR})`,
+    windVSpeed: `rgb(${WIND_W_BASE_COLOR})`,
+  };
+
+  const ICON_NAME_MAPPER = {
+    temperature: 'temperatureTitle',
+    humidity: 'humidityTitle',
+    pressure: 'pressureTitle',
+    rain: 'rainTitle',
+    windVSpeed: 'verticalSpeedTitle',
+    windHSpeed: 'horizontalSpeedTitle',
+    windDirection: 'directionTitle',
   };
 
   export default {
     name: 'UserChartLegend',
+    components: {
+      UserChartPeriodSelect,
+      temperatureIcon,
+      rainIcon,
+      humidityIcon,
+      pressureIcon,
+      windDirectionIcon,
+      windHSpeedIcon,
+      windVSpeedIcon,
+    },
     props: {
       list: {
         type: Array,
@@ -70,13 +112,16 @@
       }),
       getItemStyle(chartType) {
         return {
-          backgroundColor: CHART_BACKGROUND_MAPPER[chartType],
+          color: CHART_BACKGROUND_MAPPER[chartType],
         };
       },
-      getItemName(chartType) {
+      getIconName(chartType) {
+        return `${chartType}Icon`;
+      },
+      getIconTitle(chartType) {
         const { i18n } = this;
-        const translationKey = replaceCurly(TYPE_TRANSLATION_KEY, ['chartType'], [chartType]);
-        return i18n[translationKey] || translationKey;
+        const iconKey = ICON_NAME_MAPPER[chartType];
+        return i18n[iconKey];
       },
       async itemClickHandler(reportType) {
         const { fetchIsLock } = this;
@@ -98,44 +143,26 @@
 </script>
 
 <style lang="scss" scoped>
-  .user-chart-legend__item {
+  .user-chart-legend_disabled {
+    cursor: not-allowed;
+  }
+  .user-chart-legend__icon {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
     cursor: pointer;
-    transition: transform $animation-time-01 $animation-easing, opacity $animation-time-01 $animation-easing;
   }
-  .user-chart-legend__item_disabled {
-    opacity: 0.8;
-    cursor: not-allowed;
-  }
-  .user-chart-legend__item:hover {
-    transform: scale(1.1);
-  }
-  .user-chart-legend__item span:first-child {
+  .user-chart-legend__icon svg {
     display: block;
-    width: 10px;
-    height: 10px;
-    margin-right: 5px;
-    border-radius: 100%;
+    max-width: 100%;
+    height: 40px;
+    margin: auto;
+    transform: scale(0.9);
+    opacity: 0.7;
+    transition: opacity $animation-time-01 $animation-easing, transform $animation-time-01 $animation-easing;
   }
-  .user-chart-legend__item span:last-child {
-    display: block;
-    font-weight: 300;
-    font-size: 13px;
-    line-height: 20px;
-    color: $color-gray-01;
-    text-transform: uppercase;
-  }
-  @media (min-width: $screen-md) {
-    .user-chart-legend__item span:last-child {
-      font-size: 13px;
-    }
-  }
-  @media (min-width: $screen-lg) {
-    .user-chart-legend__item span:last-child {
-      font-size: 16px;
-    }
+  .user-chart-legend__icon:hover svg {
+    transform: scale(1);
+    opacity: 1;
   }
 </style>

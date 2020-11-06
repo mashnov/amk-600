@@ -1,5 +1,6 @@
 export default {
   en: {
+    adventLogoTitle: 'Adwent',
     loginForm_title: 'Login form',
     username: 'Username',
     password: 'Password',
@@ -62,6 +63,13 @@ export default {
     deviceInfo: 'Device info',
     changeLanguage: 'Change language',
     logout: 'Log out',
+    addTemperatureToChart: 'Show temperature line on chart',
+    addHumidityToChart: 'Show humidity line on chart',
+    addPressureToChart: 'Show pressure line on chart',
+    addRainToChart: 'Show rain line on chart',
+    addWindWSpeedToChart: 'Show wind W speed line on chart',
+    addWindHSpeedToChart: 'Show wind H speed line on chart',
+    addWindDirectionToChart: 'Show wind direction line on chart',
     orientationWarning: 'To get the most out of our interface, please use the horizontal orientation of your screen',
   },
   ru: {},

@@ -18,8 +18,16 @@
       >
         <div class="row mb-5">
           <div class="col-12 mb-5">
-            <div class="layout-devise-info__title">
-              {{ deviceData.name }}
+            <div class="layout-devise-info__header">
+              <div class="layout-devise-info__title">
+                {{ deviceData.name }}
+              </div>
+              <div class="layout-devise-info__logo">
+                <AdwentLogo />
+                <span>
+                  {{ i18n.adventLogoTitle }}
+                </span>
+              </div>
             </div>
           </div>
           <div class="col-12 col-md-6 mb-4">
@@ -190,6 +198,7 @@
   import TemperatureIcon from '~/assets/svg/temperature-icon.svg';
   import TimeIcon from '~/assets/svg/time-icon.svg';
   import VoltageIcon from '~/assets/svg/voltage-icon.svg';
+  import AdwentLogo from '~/assets/svg/adwent-logo.svg';
 
   const GOOGLE_MAPS_LINK = 'http://www.google.com/maps/place/{positionN},{positionW}';
 
@@ -202,6 +211,7 @@
       TemperatureIcon,
       TimeIcon,
       VoltageIcon,
+      AdwentLogo,
     },
     props: {
       inline: {
@@ -275,11 +285,40 @@
   .layout-devise-info {
     min-height: 100vh;
   }
+  .layout-devise-info__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
   .layout-devise-info__title {
+    display: block;
+    width: calc(100% - 100px);
     font-weight: 600;
     font-size: 36px;
     line-height: 44px;
     color: $color-gray-01;
+  }
+  .layout-devise-info__logo {
+    display: block;
+    width: 100px;
+  }
+  .layout-devise-info__logo svg {
+    display: block;
+    width: 100%;
+    margin: auto;
+    color: $color-gray-01;
+  }
+  .layout-devise-info__logo:hover svg {
+    animation: rotate3d $animation-time-04 $animation-easing infinite;
+  }
+  .layout-devise-info__logo span {
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+    font-size: 15px;
+    line-height: 20px;
+    color: $color-gray-01;
+    text-transform: uppercase;
   }
   .layout-devise-info__status-item svg {
     display: inline-block;
