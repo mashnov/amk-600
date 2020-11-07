@@ -14,19 +14,6 @@
           <div class="row mb-4">
             <div class="col-12">
               <UserMomentWindItem
-                v-tooltip.bottom="{ content: i18n.addWindWSpeedToChart, offset: 15 }"
-                :title="i18n.verticalSpeedTitle"
-                :value="momentData.windVerticalSpeed"
-                :unit="i18n.windUnit"
-                :disabled="fetchIsLock"
-                :is-active="reportTypes.includes('windVSpeed')"
-                @select-item="selectReportItem('windVSpeed')"
-              />
-            </div>
-          </div>
-          <div class="row mb-4">
-            <div class="col-12">
-              <UserMomentWindItem
                 v-tooltip.bottom="{ content: i18n.addWindHSpeedToChart, offset: 15 }"
                 :title="i18n.horizontalSpeedTitle"
                 :value="momentData.windSpeed"
@@ -37,7 +24,7 @@
               />
             </div>
           </div>
-          <div class="row">
+          <div class="row mb-4">
             <div class="col-12">
               <UserMomentWindItem
                 v-tooltip.bottom="{ content: i18n.addWindDirectionToChart, offset: 15 }"
@@ -47,6 +34,19 @@
                 :disabled="fetchIsLock"
                 :is-active="reportTypes.includes('windDirection')"
                 @select-item="selectReportItem('windDirection')"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <UserMomentWindItem
+                v-tooltip.bottom="{ content: i18n.addWindWSpeedToChart, offset: 15 }"
+                :title="i18n.verticalSpeedTitle"
+                :value="momentData.windVerticalSpeed"
+                :unit="i18n.windUnit"
+                :disabled="fetchIsLock"
+                :is-active="reportTypes.includes('windVSpeed')"
+                @select-item="selectReportItem('windVSpeed')"
               />
             </div>
           </div>

@@ -7,7 +7,7 @@
             <UserMomentData />
           </div>
           <template v-if="reportTypes.length">
-            <div class="col-12 mb-5">
+            <div class="col-12 mb-4">
               <UserChartLegend
                 :list="reportTypes"
               />

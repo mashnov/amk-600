@@ -27,7 +27,14 @@
         class="col-12 col-lg-2 ml-lg-auto"
         key="select"
       >
-        <UserChartPeriodSelect />
+        <AmkButton
+          v-tooltip="{ content: i18n.changeChartPeriod, offset: 15 }"
+          :block="true"
+          :disabled="fetchIsLock"
+          @click="showPeriodModal"
+        >
+          {{ chartPeriod }}
+        </AmkButton>
       </div>
     </transition-group>
   </div>
@@ -35,10 +42,11 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import { REFERENCES, REPORTS, AUTH } from '~/store/types';
+  import { REFERENCES, REPORTS, AUTH, MODAL } from '~/store/types';
   import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
 
   import UserChartPeriodSelect from './UserChartPeriodSelect';
+  import AmkButton from '~/components/form-items/amk-button/AmkButton';
   import temperatureIcon from '~/assets/svg/temperature-icon.svg';
   import rainIcon from '~/assets/svg/rain-icon.svg';
   import humidityIcon from '~/assets/svg/humidity-icon.svg';
@@ -51,7 +59,7 @@
   const HUMIDITY_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_HUMIDITY_COLOR;
   const PRESSURE_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_PRESSURE_COLOR;
   const RAIN_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_RAIN_COLOR;
-  const WIND_W_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_WIND_W_COLOR;
+  const WIND_W_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_WIND_V_COLOR;
   const WIND_H_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_WIND_H_COLOR;
   const WIND_D_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_WIND_D_COLOR;
 
@@ -78,7 +86,7 @@
   export default {
     name: 'UserChartLegend',
     components: {
-      UserChartPeriodSelect,
+      AmkButton,
       temperatureIcon,
       rainIcon,
       humidityIcon,
@@ -100,6 +108,7 @@
       }),
       ...mapGetters('reports', {
         fetchIsLock: REPORTS.GET_FETCH_IS_LOCK,
+        chartPeriod: REPORTS.GET_REPORT_RANGE,
       }),
     },
     methods: {
@@ -109,6 +118,9 @@
       }),
       ...mapActions('auth', {
         logoutHandler: AUTH.LOGOUT_HANDLER,
+      }),
+      ...mapActions('modal', {
+        showModal: MODAL.SHOW_MODAL,
       }),
       getItemStyle(chartType) {
         return {
@@ -122,6 +134,11 @@
         const { i18n } = this;
         const iconKey = ICON_NAME_MAPPER[chartType];
         return i18n[iconKey];
+      },
+      showPeriodModal() {
+        this.showModal({
+          component: UserChartPeriodSelect,
+        });
       },
       async itemClickHandler(reportType) {
         const { fetchIsLock } = this;

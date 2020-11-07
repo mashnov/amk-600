@@ -56,6 +56,10 @@
     filter: brightness(0.96);
     transition: filter $animation-time-01 $animation-easing, transform $animation-time-01 $animation-easing;
   }
+  .amk-button_block {
+    display: block;
+    width: 100%;
+  }
   .amk-button:not(.amk-button_disabled):hover {
     transform: scale(0.98);
     filter: brightness(0.98);
