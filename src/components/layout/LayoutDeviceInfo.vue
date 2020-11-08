@@ -51,7 +51,7 @@
             <div class="layout-devise-info__status-item">
               <TimeIcon />
               <span>
-                {{ formattedTime }}
+                {{ formattedTime }} GMT+0
               </span>
             </div>
           </div>
@@ -65,7 +65,7 @@
           </div>
           <div class="col-12 col-md-6 mb-4">
             <div
-              class="layout-devise-info__status-item"
+              class="layout-devise-info__status-item layout-devise-info__status-item_no-text-transform"
               :class="[
                 temperatureIsOrange && 'layout-devise-info__status-item_orange',
                 temperatureIsRed && 'layout-devise-info__status-item_red',
@@ -254,7 +254,9 @@
         const inputFormat = 'yyyy:LL:dd';
         const luxonDate = DateTime.fromFormat(deviceDate, inputFormat);
         const localDate = luxonDate.setLocale(currentLanguage);
-        return `${localDate.toFormat('ccc')}, ${localDate.toFormat('DD')}`;
+        const isRussian = currentLanguage === 'ru';
+        const dateString = `${localDate.toFormat('ccc')}, ${localDate.toFormat('DD')}`;
+        return !isRussian ? dateString : dateString.slice(0, -2);
       },
       temperatureIsOrange() {
         const { deviceData } = this;
@@ -361,6 +363,9 @@
   }
   .layout-devise-info__status-item span a:hover {
     text-decoration: underline;
+  }
+  .layout-devise-info__status-item_no-text-transform span {
+    text-transform: none;
   }
   .layout-devise-info__sensor-status-item {
     display: block;

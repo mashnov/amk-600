@@ -93,7 +93,7 @@ export default {
     windData10: '10 минутный ветер',
     windData2: '2 минутный ветер',
     temperatureTitle: 'температура',
-    temperatureShortTitle: 'тем-ра',
+    temperatureShortTitle: 'Вн t°',
     humidityTitle: 'влажность',
     pressureTitle: 'давление',
     rainTitle: 'объём осадков',
