@@ -21,7 +21,7 @@
           :class="[
             value === item && 'admin-device-section__item_selected',
             getIsBatteryCharging(item) === 1 && 'admin-device-section__item_blue',
-            !getIsBatteryCharging(item) === 0 && 'admin-device-section__item_red',
+            getIsBatteryCharging(item) === 0 && 'admin-device-section__item_red',
           ]"
           @click="itemClickHandler(item)"
         >
