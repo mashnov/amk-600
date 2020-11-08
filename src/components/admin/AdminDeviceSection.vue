@@ -66,7 +66,8 @@
       getSensorValue(item) {
         const { sensors } = this;
         const value = get(sensors, item, 0);
-        return value.toFixed(3);
+        const fixedTypes = ['number'];
+        return fixedTypes.includes(typeof (value)) ? value.toFixed(3) : value;
       },
       itemClickHandler(name) {
         const { editable } = this;

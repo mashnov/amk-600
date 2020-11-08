@@ -81,6 +81,8 @@ export const userDataTransformer = (data) => {
     voltage2: numberTransformer(get(data, 'sensors.power.battery[1].batteryVoltage', 0)),
     realVoltage1: get(data, 'sensors.power.battery[0].batteryVoltage', 0),
     realVoltage2: get(data, 'sensors.power.battery[1].batteryVoltage', 0),
+    battery1Charging: get(data, 'sensors.power.battery[0].isBatteryCharging', false),
+    battery2Charging: get(data, 'sensors.power.battery[1].isBatteryCharging', false),
   };
   const statData = {
     windSpeed: numberTransformer(get(data, 'sensors.wind.minute10.vertical', 0)),

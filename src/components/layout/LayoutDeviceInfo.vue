@@ -23,7 +23,7 @@
                 {{ deviceData.name }}
               </div>
               <div class="layout-devise-info__logo">
-                <AdwentLogo />
+                <AdventLogo />
                 <span>
                   {{ i18n.adventLogoTitle }}
                 </span>
@@ -170,12 +170,15 @@
                 class="layout-devise-info__sensor-status-item"
                 :class="!sensorData.battery1IsOnLine || !sensorData.battery2IsOnLine && 'layout-devise-info__sensor-status-item_red'"
               >
-                <span
-                  v-html="i18n.powerSupply"
-                />
-                <span>
-                  {{ sensorData.battery1IsOnLine && sensorData.battery2IsOnLine ? i18n.connected : i18n.disconnected }}
-                </span>
+                <ChargeIcon v-if="deviceData.battery1Charging || deviceData.battery2Charging" />
+                <div>
+                  <span
+                    v-html="i18n.powerSupply"
+                  />
+                  <span>
+                    {{ sensorData.battery1IsOnLine && sensorData.battery2IsOnLine ? i18n.connected : i18n.disconnected }}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -198,7 +201,8 @@
   import TemperatureIcon from '~/assets/svg/temperature-icon.svg';
   import TimeIcon from '~/assets/svg/time-icon.svg';
   import VoltageIcon from '~/assets/svg/voltage-icon.svg';
-  import AdwentLogo from '~/assets/svg/adwent-logo.svg';
+  import ChargeIcon from '~/assets/svg/charge-icon.svg';
+  import AdventLogo from '~/assets/svg/adwent-logo.svg';
 
   const GOOGLE_MAPS_LINK = 'http://www.google.com/maps/place/{positionN},{positionW}';
 
@@ -211,7 +215,8 @@
       TemperatureIcon,
       TimeIcon,
       VoltageIcon,
-      AdwentLogo,
+      ChargeIcon,
+      AdventLogo,
     },
     props: {
       inline: {
@@ -381,6 +386,14 @@
   }
   .layout-devise-info__sensor-status-item_red span:last-child {
     color: $color-red-02;
+  }
+  .layout-devise-info__sensor-status-item svg {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    bottom: 10px;
+    right: 5px;
+    color: $color-orange-01;
   }
   @media (min-width: $screen-sm) {
     .layout-devise-info__sensor-status-item {
