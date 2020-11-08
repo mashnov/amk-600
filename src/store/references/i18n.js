@@ -75,6 +75,7 @@ export default {
     addWindHSpeedToChart: 'Show wind H speed line on chart',
     addWindDirectionToChart: 'Show wind direction line on chart',
     orientationWarning: 'To get the most out of our interface, please use the horizontal orientation of your screen',
+    adventPageLink: 'http://www.adventspb.ru/',
   },
   ru: {
     adventLogoTitle: 'Адвент',
@@ -152,6 +153,7 @@ export default {
     SelectChartPeriod: 'Выбрать период',
     changeChartAxis: 'Изменить оси',
     changeChartFill: 'Изменить заливку',
+    adventPageLink: 'http://www.adventspb.ru/',
   },
   es: {
     adventLogoTitle: 'Advent',
@@ -229,5 +231,6 @@ export default {
     SelectChartPeriod: 'Select period',
     changeChartAxis: 'Change axis',
     changeChartFill: 'Change fill',
+    adventPageLink: 'http://www.adventspb.ru/',
   },
 };

@@ -22,12 +22,16 @@
               <div class="layout-devise-info__title">
                 {{ deviceData.name }}
               </div>
-              <div class="layout-devise-info__logo">
+              <a
+                class="layout-devise-info__logo"
+                :href="i18n.adventPageLink"
+                target="_blank"
+              >
                 <AdventLogo />
                 <span>
                   {{ i18n.adventLogoTitle }}
                 </span>
-              </div>
+              </a>
             </div>
           </div>
           <div class="col-12 col-md-6 mb-4">
@@ -314,6 +318,9 @@
     color: $color-gray-01;
   }
   .layout-devise-info__logo:hover svg {
+    animation: rotate3d $animation-time-05 $animation-easing infinite;
+  }
+  .layout-devise-info__logo:active svg {
     animation: rotate3d $animation-time-04 $animation-easing infinite;
   }
   .layout-devise-info__logo span {
