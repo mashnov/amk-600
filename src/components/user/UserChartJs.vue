@@ -52,6 +52,7 @@
 
   };
   const CHART_PERIOD_LABEL_FORMAT_MAPPER = {
+    hour: 'HH:mm',
     day: 'HH:mm',
     week: 'dd MMM',
     month: 'dd.MM',

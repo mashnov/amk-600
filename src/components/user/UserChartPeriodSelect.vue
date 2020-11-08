@@ -35,7 +35,7 @@
 
   import AmkButton from '~/components/form-items/amk-button/AmkButton';
 
-  const CHART_PERIOD_TYPES = ['day', 'week', 'month', 'year'];
+  const CHART_PERIOD_TYPES = ['hour', 'day', 'week', 'month', 'year'];
   const PERIOD_TRANSLATION_KEY = '{period}Period';
 
   export default {
