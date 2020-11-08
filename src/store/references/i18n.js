@@ -148,6 +148,10 @@ export default {
     restartCpu: 'Перезагрузить комплекс',
     addUser: 'Добавить пользователя',
     removeUser: 'Удалить пользователя',
+    changeChartPeriod: 'Change period',
+    SelectChartPeriod: 'Select period',
+    changeChartAxis: 'Change axis',
+    changeChartFill: 'Change fill',
   },
   es: {
     adventLogoTitle: 'Advent',
@@ -221,5 +225,9 @@ export default {
     restartCpu: 'Reiniciar complejo',
     addUser: 'Agregar usuario',
     removeUser: 'Eliminar usuario',
+    changeChartPeriod: 'Change period',
+    SelectChartPeriod: 'Select period',
+    changeChartAxis: 'Change axis',
+    changeChartFill: 'Change fill',
   },
 };
