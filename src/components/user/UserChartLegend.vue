@@ -34,7 +34,7 @@
             :disabled="fetchIsLock"
             @click="showPeriodModal"
           >
-            {{ chartPeriod }}
+            {{ periodTranslation }}
           </AmkButton>
           <AmkButton
             v-tooltip="{ content: i18n.changeChartAxis, offset: 15 }"
@@ -62,6 +62,7 @@
   import { mapGetters, mapActions } from 'vuex';
   import { REFERENCES, REPORTS, AUTH, MODAL } from '~/store/types';
   import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
+  import { replaceCurly } from '~/helpers/system';
 
   import UserChartPeriodSelect from './UserChartPeriodSelect';
   import AmkButton from '~/components/form-items/amk-button/AmkButton';
@@ -82,6 +83,7 @@
   const WIND_W_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_WIND_V_COLOR;
   const WIND_H_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_WIND_H_COLOR;
   const WIND_D_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_WIND_D_COLOR;
+  const PERIOD_TRANSLATION_KEY = '{period}Period';
 
   const CHART_BACKGROUND_MAPPER = {
     temperature: `rgb(${TEMPERATURE_BASE_COLOR})`,
@@ -132,6 +134,11 @@
         fetchIsLock: REPORTS.GET_FETCH_IS_LOCK,
         chartPeriod: REPORTS.GET_REPORT_RANGE,
       }),
+      periodTranslation() {
+        const { i18n, chartPeriod } = this;
+        const translationKey = replaceCurly(PERIOD_TRANSLATION_KEY, ['period'], [chartPeriod]);
+        return i18n[translationKey] || translationKey;
+      },
     },
     methods: {
       ...mapActions('reports', {

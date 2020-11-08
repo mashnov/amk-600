@@ -87,7 +87,7 @@
         const { filteredChartDataSet, chartIsScaled } = this;
         return {
           responsive: true,
-          stacked: false,
+          stacked: true,
           legend: false,
           hoverMode: 'index',
           scales: chartIsScaled ? {
@@ -141,6 +141,9 @@
       },
     },
     watch: {
+      currentLanguage() {
+        this.changeChartJs();
+      },
       chartIsFilled() {
         this.changeChartJs();
       },
@@ -160,7 +163,7 @@
     methods: {
       getLabelName(item) {
         const { i18n } = this;
-        return get(i18n, `momentData_${item.chartType}SensorTitle`, item.chartType);
+        return get(i18n, `${item.chartType}Title`, item.chartType);
       },
       initChartJs() {
         const canvas = this.$refs.chart;
