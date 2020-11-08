@@ -25,9 +25,7 @@
                     <PreloaderIcon />
                   </div>
                 </transition>
-                <UserChart
-                  :chart-data="chartDataSets"
-                />
+                <UserChartJs />
               </div>
             </div>
           </template>
@@ -51,13 +49,11 @@
 <script>
   import { mapGetters } from 'vuex';
   import { REFERENCES, REPORTS, VIEWPORT } from '~/store/types';
-  import { chartDataTransformer } from '~/helpers/transformers';
 
   import LayoutDeviceInfo from '~/components/layout/LayoutDeviceInfo';
-
   import UserMomentData from './UserMomentData';
   import UserChartLegend from './UserChartLegend';
-  import UserChart from './UserChart';
+  import UserChartJs from './UserChartJs';
   import UserStatData from './UserStatData';
   import PreloaderIcon from '~/assets/svg/preloader-icon.svg';
 
@@ -68,7 +64,7 @@
     components: {
       UserMomentData,
       UserChartLegend,
-      UserChart,
+      UserChartJs,
       UserStatData,
       LayoutDeviceInfo,
       PreloaderIcon,
@@ -81,8 +77,6 @@
       ...mapGetters('reports', {
         fetchIsLock: REPORTS.GET_FETCH_IS_LOCK,
         reportTypes: REPORTS.GET_REPORT_TYPES,
-        chartData: REPORTS.GET_CHART_DATA,
-        chartPeriod: REPORTS.GET_REPORT_RANGE,
       }),
       ...mapGetters('viewport', {
         viewportWidth: VIEWPORT.GET_VIEWPORT_WIDTH,
@@ -90,10 +84,6 @@
       deviceInfoIsLayout() {
         const { viewportWidth } = this;
         return viewportWidth >= DEVICE_INFO_IS_LAYOUT_FROM;
-      },
-      chartDataSets() {
-        const { reportTypes, chartData, chartPeriod, i18n, currentLanguage } = this;
-        return chartDataTransformer({ reportTypes, chartData, chartPeriod, i18n, currentLanguage });
       },
     },
   };

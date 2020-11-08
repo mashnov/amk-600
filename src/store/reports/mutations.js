@@ -13,4 +13,10 @@ export default {
   [MODULE.MUTATE_FETCH_IS_LOCK]: (state, fetchIsLock) => {
     state.fetchIsLock = fetchIsLock;
   },
+  [MODULE.MUTATE_CHART_FILL]: (state, isFill) => {
+    state.isFill = isFill;
+  },
+  [MODULE.MUTATE_CHART_SCALED]: (state, isScaled) => {
+    state.isScaled = isScaled;
+  },
 };

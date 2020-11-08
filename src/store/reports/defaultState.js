@@ -3,6 +3,8 @@ const defaultReportTypes = process.env.VUE_APP_CHART_DEFAULT_TYPES.split(' ');
 
 export default {
   fetchIsLock: false,
+  isFill: true,
+  isScaled: true,
   reportTypes: defaultReportTypes,
   reportRange: defaultReportRange,
   chartData: {

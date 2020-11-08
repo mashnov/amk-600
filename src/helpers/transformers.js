@@ -1,52 +1,5 @@
 import get from 'lodash/get';
-import { DateTime } from 'luxon';
-import { replaceCurly, numberTransformer } from '~/helpers/system';
-
-const TEMPERATURE_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_TEMPERATURE_COLOR;
-const HUMIDITY_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_HUMIDITY_COLOR;
-const PRESSURE_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_PRESSURE_COLOR;
-const RAIN_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_RAIN_COLOR;
-const WIND_W_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_WIND_V_COLOR;
-const WIND_H_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_WIND_H_COLOR;
-const WIND_D_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_WIND_D_COLOR;
-const SENSOR_TRANSLATION_KEY = 'momentData_{chartType}SensorTitle';
-
-const CHART_BACKGROUND_MAPPER = {
-  temperature: `rgba(${TEMPERATURE_BASE_COLOR}, 0.4)`,
-  humidity: `rgba(${HUMIDITY_BASE_COLOR}, 0.4)`,
-  pressure: `rgba(${PRESSURE_BASE_COLOR}, 0.4)`,
-  rain: `rgba(${RAIN_BASE_COLOR}, 0.4)`,
-  windDirection: `rgba(${WIND_D_BASE_COLOR}, 0.4)`,
-  windHSpeed: `rgba(${WIND_H_BASE_COLOR}, 0.4)`,
-  windVSpeed: `rgba(${WIND_W_BASE_COLOR}, 0.4)`,
-
-};
-const CHART_BORDER_MAPPER = {
-  temperature: `rgba(${TEMPERATURE_BASE_COLOR}, 0.8)`,
-  humidity: `rgba(${HUMIDITY_BASE_COLOR}, 0.8)`,
-  pressure: `rgba(${PRESSURE_BASE_COLOR}, 0.8)`,
-  rain: `rgba(${RAIN_BASE_COLOR}, 0.8)`,
-  windDirection: `rgba(${WIND_D_BASE_COLOR}, 0.8)`,
-  windHSpeed: `rgba(${WIND_H_BASE_COLOR}, 0.8)`,
-  windVSpeed: `rgba(${WIND_W_BASE_COLOR}, 0.8)`,
-
-};
-const CHART_HOVER_MAPPER = {
-  temperature: `rgba(${TEMPERATURE_BASE_COLOR}, 1)`,
-  humidity: `rgba(${HUMIDITY_BASE_COLOR}, 1)`,
-  pressure: `rgba(${PRESSURE_BASE_COLOR}, 1)`,
-  rain: `rgba(${RAIN_BASE_COLOR}, 1)`,
-  windDirection: `rgba(${WIND_D_BASE_COLOR}, 1)`,
-  windHSpeed: `rgba(${WIND_H_BASE_COLOR}, 1)`,
-  windVSpeed: `rgba(${WIND_W_BASE_COLOR}, 1)`,
-
-};
-const CHART_PERIOD_LABEL_FORMAT_MAPPER = {
-  day: 'HH:mm',
-  week: 'dd MMM',
-  month: 'dd.MM',
-  year: 'MMM yyyy',
-};
+import { numberTransformer } from '~/helpers/system';
 
 export const userDataTransformer = (data) => {
   const temperatureMainSensor = get(data, 'sensors.temperature.main', null);
@@ -103,41 +56,14 @@ export const userDataTransformer = (data) => {
   return { momentData, statData, deviceData, sensorData };
 };
 
-export const chartDataTransformer = ({ reportTypes, chartData, chartPeriod, i18n, currentLanguage }) => {
-  const chartDataTypes = Object.keys(chartData);
-  const filteredChartTypes = chartDataTypes.filter((chartType) => (reportTypes.includes(chartType)));
-  const mappedChartData = filteredChartTypes.map((chartType) => {
-    const chartTypeData = get(chartData, `${chartType}.${chartPeriod}`, []);
-    const translationKey = replaceCurly(SENSOR_TRANSLATION_KEY, ['chartType'], [chartType]);
-    return {
-      label: get(i18n, translationKey, chartType),
-      data: chartTypeData.map((item) => (numberTransformer(get(item, 'y', 0)))),
-      dataLabel: chartTypeData.map((item) => (item.time)),
-      pointBorderColor: CHART_BORDER_MAPPER[chartType],
-      pointHoverBorderColor: CHART_HOVER_MAPPER[chartType],
-      pointBackgroundColor: CHART_BACKGROUND_MAPPER[chartType],
-      pointHoverBackgroundColor: CHART_HOVER_MAPPER[chartType],
-      backgroundColor: CHART_BACKGROUND_MAPPER[chartType],
-      borderColor: CHART_BORDER_MAPPER[chartType],
-      borderWidth: 1,
-      pointHoverRadius: 8,
-    };
-  });
-  const sortedDataItems = mappedChartData.sort((chartData1, chartData2) => {
-    const data1 = get(chartData1, 'data', []);
-    const data2 = get(chartData2, 'data', []);
-    const sum1 = data1.reduce((a, b) => (a + b), 0) / data1.length;
-    const sum2 = data2.reduce((a, b) => (a + b), 0) / data2.length;
-    return sum1 - sum2;
-  });
-  const chartDataTimes = get(mappedChartData, '[0].dataLabel', []);
-  const chartDataLabels = chartDataTimes.map((timestamp) => {
-    const outputFormat = CHART_PERIOD_LABEL_FORMAT_MAPPER[chartPeriod];
-    const luxonTime = DateTime.fromSeconds(timestamp);
-    return luxonTime.setLocale(currentLanguage).toFormat(outputFormat);
-  });
+export const chartDataTransformer = ({ chartData, chartPeriod }) => {
   return {
-    datasets: sortedDataItems,
-    labels: chartDataLabels,
+    temperature: get(chartData, `temperature.${chartPeriod}`, []),
+    humidity: get(chartData, `humidity.${chartPeriod}`, []),
+    pressure: get(chartData, `pressure.${chartPeriod}`, []),
+    rain: get(chartData, `rain.${chartPeriod}`, []),
+    windVSpeed: get(chartData, `windVSpeed.${chartPeriod}`, []),
+    windDirection: get(chartData, `windDirection.${chartPeriod}`, []),
+    windHSpeed: get(chartData, `windHSpeed.${chartPeriod}`, []),
   };
 };

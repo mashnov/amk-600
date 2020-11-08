@@ -24,17 +24,35 @@
         </div>
       </div>
       <div
-        class="col-12 col-lg-2 ml-lg-auto"
         key="select"
+        class="col-12 col-lg-3 ml-lg-auto"
       >
-        <AmkButton
-          v-tooltip="{ content: i18n.changeChartPeriod, offset: 15 }"
-          :block="true"
-          :disabled="fetchIsLock"
-          @click="showPeriodModal"
-        >
-          {{ chartPeriod }}
-        </AmkButton>
+        <div class="user-chart-legend__button-wrapper">
+          <AmkButton
+            v-tooltip="{ content: i18n.changeChartPeriod, offset: 15 }"
+            class="user-chart-legend__button user-chart-legend__button_text"
+            :disabled="fetchIsLock"
+            @click="showPeriodModal"
+          >
+            {{ chartPeriod }}
+          </AmkButton>
+          <AmkButton
+            v-tooltip="{ content: i18n.changeChartAxis, offset: 15 }"
+            class="user-chart-legend__button user-chart-legend__button_icon"
+            :disabled="fetchIsLock"
+            @click="axisButtonClickHandler"
+          >
+            <AxisIcon />
+          </AmkButton>
+          <AmkButton
+            v-tooltip="{ content: i18n.changeChartFill, offset: 15 }"
+            class="user-chart-legend__button user-chart-legend__button_icon"
+            :disabled="fetchIsLock"
+            @click="fillButtonClickHandler"
+          >
+            <FillIcon />
+          </AmkButton>
+        </div>
       </div>
     </transition-group>
   </div>
@@ -54,6 +72,8 @@
   import windDirectionIcon from '~/assets/svg/wind-d-icon.svg';
   import windHSpeedIcon from '~/assets/svg/wind-h-icon.svg';
   import windVSpeedIcon from '~/assets/svg/wind-v-icon.svg';
+  import AxisIcon from '~/assets/svg/axis-icon.svg';
+  import FillIcon from '~/assets/svg/fill-icon.svg';
 
   const TEMPERATURE_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_TEMPERATURE_COLOR;
   const HUMIDITY_BASE_COLOR = process.env.VUE_APP_CHART_STYLE_HUMIDITY_COLOR;
@@ -94,6 +114,8 @@
       windDirectionIcon,
       windHSpeedIcon,
       windVSpeedIcon,
+      AxisIcon,
+      FillIcon,
     },
     props: {
       list: {
@@ -115,6 +137,8 @@
       ...mapActions('reports', {
         setReportTypes: REPORTS.SET_REPORT_TYPES,
         fetchChartData: REPORTS.FETCH_CHART_DATA,
+        axisButtonClickHandler: REPORTS.SET_CHART_SCALED,
+        fillButtonClickHandler: REPORTS.SET_CHART_FILL,
       }),
       ...mapActions('auth', {
         logoutHandler: AUTH.LOGOUT_HANDLER,
@@ -181,5 +205,27 @@
   .user-chart-legend__icon:hover svg {
     transform: scale(1);
     opacity: 1;
+  }
+  .user-chart-legend__button-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .user-chart-legend__button {
+    display: block;
+  }
+  .user-chart-legend__button_text {
+    width: calc(100% - 66px);
+  }
+  .user-chart-legend__button svg {
+    display: block;
+    width: 100%;
+    margin: auto;
+  }
+  .user-chart-legend__button::v-deep button span {
+    padding: 5px;
+  }
+  .user-chart-legend__button_icon::v-deep button span {
+    width: 30px;
   }
 </style>

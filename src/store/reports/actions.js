@@ -63,6 +63,12 @@ export default {
     commit(MODULE.MUTATE_REPORT_RANGE, reportRange);
     setUserReportRange(reportRange);
   },
+  [MODULE.SET_CHART_SCALED]({ commit, state: { isScaled } }) {
+    commit(MODULE.MUTATE_CHART_SCALED, !isScaled);
+  },
+  [MODULE.SET_CHART_FILL]({ commit, state: { isFill } }) {
+    commit(MODULE.MUTATE_CHART_FILL, !isFill);
+  },
   [MODULE.RESET_STATE]({ commit }) {
     const { reportRange, reportTypes, chartData } = getDefaultState();
     commit(MODULE.MUTATE_REPORT_RANGE, reportRange);

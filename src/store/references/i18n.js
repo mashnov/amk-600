@@ -64,6 +64,8 @@ export default {
     changeLanguage: 'Change language',
     changeChartPeriod: 'Change period',
     SelectChartPeriod: 'Select period',
+    changeChartAxis: 'Change axis',
+    changeChartFill: 'Change fill',
     logout: 'Log out',
     addTemperatureToChart: 'Show temperature line on chart',
     addHumidityToChart: 'Show humidity line on chart',
