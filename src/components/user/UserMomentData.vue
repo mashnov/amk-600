@@ -12,7 +12,11 @@
               :is-active="reportTypes.includes('temperature')"
               :disabled="fetchIsLock"
               @select-item="selectReportItem('temperature')"
-            />
+            >
+              <template slot="icon">
+                <TemperatureIcon />
+              </template>
+            </UserMomentSensor>
           </div>
           <div class="col-12 col-sm-6 mb-4 mb-lg-0">
             <UserMomentSensor
@@ -23,7 +27,11 @@
               :is-active="reportTypes.includes('humidity')"
               :disabled="fetchIsLock"
               @select-item="selectReportItem('humidity')"
-            />
+            >
+              <template slot="icon">
+                <HumidityIcon />
+              </template>
+            </UserMomentSensor>
           </div>
         </div>
         <div class="row">
@@ -36,7 +44,11 @@
               :is-active="reportTypes.includes('pressure')"
               :disabled="fetchIsLock"
               @select-item="selectReportItem('pressure')"
-            />
+            >
+              <template slot="icon">
+                <PressureIcon />
+              </template>
+            </UserMomentSensor>
           </div>
           <div class="col-12 col-sm-6 mb-4 mb-lg-0">
             <UserMomentSensor
@@ -47,7 +59,11 @@
               :is-active="reportTypes.includes('rain')"
               :disabled="fetchIsLock"
               @select-item="selectReportItem('rain')"
-            />
+            >
+              <template slot="icon">
+                <RainIcon />
+              </template>
+            </UserMomentSensor>
           </div>
         </div>
       </div>
@@ -66,11 +82,20 @@
   import UserMomentSensor from './UserMomentSensor';
   import UserMomentWind from './UserMomentWind';
 
+  import TemperatureIcon from '~/assets/svg/temperature-icon.svg';
+  import HumidityIcon from '~/assets/svg/humidity-icon.svg';
+  import PressureIcon from '~/assets/svg/pressure-icon.svg';
+  import RainIcon from '~/assets/svg/rain-icon.svg';
+
   export default {
     name: 'UserMomentData',
     components: {
       UserMomentSensor,
       UserMomentWind,
+      TemperatureIcon,
+      HumidityIcon,
+      PressureIcon,
+      RainIcon,
     },
     computed: {
       ...mapGetters('references', {

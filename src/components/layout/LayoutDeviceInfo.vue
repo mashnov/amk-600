@@ -174,7 +174,14 @@
                 class="layout-devise-info__sensor-status-item"
                 :class="!sensorData.battery1IsOnLine || !sensorData.battery2IsOnLine && 'layout-devise-info__sensor-status-item_red'"
               >
-                <ChargeIcon v-if="deviceData.battery1Charging || deviceData.battery2Charging" />
+                <ChargeIcon
+                  class="layout-devise-info__sensor-status-item-icon layout-devise-info__sensor-status-item-icon_first"
+                  :class="deviceData.battery1Charging && 'layout-devise-info__sensor-status-item-icon_orange'"
+                />
+                <ChargeIcon
+                  class="layout-devise-info__sensor-status-item-icon"
+                  :class="deviceData.battery2Charging && 'layout-devise-info__sensor-status-item-icon_orange'"
+                />
                 <div>
                   <span
                     v-html="i18n.powerSupply"
@@ -399,12 +406,19 @@
   .layout-devise-info__sensor-status-item_red span:last-child {
     color: $color-red-02;
   }
-  .layout-devise-info__sensor-status-item svg {
+  .layout-devise-info__sensor-status-item-icon {
     position: absolute;
     width: 20px;
     height: 20px;
     bottom: 10px;
     right: 5px;
+    color: $color-gray-05;
+    transition: color $animation-time-01 $animation-easing;
+  }
+  .layout-devise-info__sensor-status-item-icon_first {
+    right: 20px;
+  }
+  .layout-devise-info__sensor-status-item-icon_orange {
     color: $color-orange-01;
   }
   @media (min-width: $screen-sm) {

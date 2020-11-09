@@ -1,6 +1,18 @@
 <template>
   <div class="user-moment-wind">
     <div class="user-moment-wind__title">
+      <WindHSpeedIcon
+        class="user-moment-wind__icon"
+        :class="reportTypes.includes('windHSpeed') && 'user-moment-wind__icon_active'"
+      />
+      <WindDirectionIcon
+        class="user-moment-wind__icon"
+        :class="reportTypes.includes('windDirection') && 'user-moment-wind__icon_active'"
+      />
+      <WindVSpeedIcon
+        class="user-moment-wind__icon"
+        :class="reportTypes.includes('windVSpeed') && 'user-moment-wind__icon_active'"
+      />
       {{ i18n.windData2 }}
     </div>
     <div class="user-moment-wind__wrapper">
@@ -64,11 +76,18 @@
   import UserMomentWindItem from './UserMomentWindItem';
   import UserMomentCompass from './UserMomentCompass';
 
+  import WindDirectionIcon from '~/assets/svg/wind-d-icon.svg';
+  import WindHSpeedIcon from '~/assets/svg/wind-h-icon.svg';
+  import WindVSpeedIcon from '~/assets/svg/wind-v-icon.svg';
+
   export default {
     name: 'UserMomentWind',
     components: {
       UserMomentWindItem,
       UserMomentCompass,
+      WindDirectionIcon,
+      WindHSpeedIcon,
+      WindVSpeedIcon,
     },
     computed: {
       ...mapGetters('references', {
@@ -112,13 +131,27 @@
     width: 100%;
   }
   .user-moment-wind__title {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
     font-weight: 300;
     font-size: 16px;
     line-height: 20px;
     color: $color-gray-01;
     text-transform: uppercase;
     margin-bottom: 10px;
+  }
+  .user-moment-wind__icon {
+    display: block;
+    width: 100%;
+    max-width: 20px;
+    max-height: 20px;
+    color: $color-gray-01;
+    margin: 0 10px 0 0;
+    transition: color $animation-easing $animation-time-01;
+  }
+  .user-moment-wind__icon_active {
+    color: $color-violet-03;
   }
   .user-moment-wind__wrapper {
     display: block;

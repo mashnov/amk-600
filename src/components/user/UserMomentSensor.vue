@@ -8,6 +8,7 @@
     @click="itemClickHandler"
   >
     <div class="user-moment-sensor__title">
+      <slot name="icon" />
       {{ title }}
     </div>
     <div class="user-moment-sensor__wrapper">
@@ -67,13 +68,27 @@
 
 <style lang="scss" scoped>
   .user-moment-sensor__title {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
     font-weight: 300;
     font-size: 16px;
     line-height: 20px;
     color: $color-gray-01;
     text-transform: uppercase;
     margin-bottom: 10px;
+  }
+  .user-moment-sensor__title svg {
+    display: block;
+    width: 100%;
+    max-width: 20px;
+    max-height: 20px;
+    color: $color-gray-01;
+    margin: 0 5px 0 0;
+    transition: color $animation-easing $animation-time-01;
+  }
+  .user-moment-sensor_active .user-moment-sensor__title svg {
+    color: $color-violet-03;
   }
   .user-moment-sensor__wrapper {
     display: block;
