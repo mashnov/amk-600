@@ -91,11 +91,12 @@
           stacked: true,
           legend: false,
           hoverMode: 'index',
-          scales: chartIsScaled ? {
+          scales: {
             yAxes: filteredChartDataSet.map((item, index) => ({
               id: `${item.chartType}-id`,
               position: index % 2 ? 'right' : 'left',
               type: 'linear',
+              display: chartIsScaled,
               ticks: {
                 fontColor: CHART_BORDER_MAPPER[item.chartType],
               },
@@ -107,7 +108,7 @@
                 },
               },
             ],
-          } : null,
+          },
         };
       },
       chartLabels() {
@@ -121,7 +122,7 @@
         });
       },
       chartDataSet() {
-        const { filteredChartDataSet, chartLabels, chartIsFilled, chartIsScaled } = this;
+        const { filteredChartDataSet, chartLabels, chartIsFilled } = this;
         return {
           labels: chartLabels,
           datasets: filteredChartDataSet.map((item) => ({
@@ -136,7 +137,7 @@
             fill: chartIsFilled,
             borderWidth: 1,
             pointHoverRadius: 8,
-            yAxisID: chartIsScaled ? `${item.chartType}-id` : null,
+            yAxisID: `${item.chartType}-id`,
           })),
         };
       },
