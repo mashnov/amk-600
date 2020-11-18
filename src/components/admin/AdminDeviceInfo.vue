@@ -18,6 +18,9 @@
       <AmkButton @click="restartCpu">
         {{ i18n.restartCpu }}
       </AmkButton>
+      <AmkButton @click="showChangeDeviceNameModal">
+        {{ i18n.changeName }}
+      </AmkButton>
     </div>
   </div>
 </template>
@@ -26,15 +29,16 @@
   import get from 'lodash/get';
   import { DateTime } from 'luxon';
   import { mapGetters, mapActions } from 'vuex';
-  import { AUTH, REFERENCES, PRELOADER, ADMIN } from '~/store/types';
+  import { AUTH, REFERENCES, PRELOADER, ADMIN, MODAL } from '~/store/types';
   import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
 
+  import AdminDeviceNameEdit from './AdminDeviceNameEdit';
   import AmkButton from '~/components/form-items/amk-button/AmkButton';
 
   const PRELOADER_KEY = 'adminClearLogs';
 
   export default {
-    name: 'AdminDeviceInfoVue',
+    name: 'AdminDeviceInfo',
     components: {
       AmkButton,
     },
@@ -83,6 +87,14 @@
         clearLogs: ADMIN.CLEAR_LOGS,
         restartCpu: ADMIN.RESTART_CPU,
       }),
+      ...mapActions('modal', {
+        showModal: MODAL.SHOW_MODAL,
+      }),
+      showChangeDeviceNameModal() {
+        this.showModal({
+          component: AdminDeviceNameEdit,
+        });
+      },
       async clearLogsHandler() {
         this.showPreloader(PRELOADER_KEY);
         const { successes } = await this.clearLogs();

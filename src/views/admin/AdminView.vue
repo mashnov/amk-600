@@ -34,7 +34,6 @@
       },
     },
     mounted() {
-      console.log(0);
       this.fetchAdminData();
       this.startFetchInterval();
     },

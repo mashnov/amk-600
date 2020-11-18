@@ -84,6 +84,14 @@ export default {
     dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
     return { successes };
   },
+  async [MODULE.SET_DEVICE_NAME]({ rootGetters, dispatch }, deviceName) {
+    const userToken = rootGetters[USER_TOKEN_GETTER_KEY];
+    dispatch(REQUEST_LOGGER_START, MODULE.SET_DEVICE_NAME, { root: true });
+    const { successes, token } = await Api.SET_DEVICE_NAME({ userToken, deviceName });
+    dispatch(REQUEST_LOGGER_STOP, MODULE.SET_DEVICE_NAME, { root: true });
+    dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
+    return { successes };
+  },
   [MODULE.SET_SELECTED_USER]({ commit }, userName) {
     commit(MODULE.MUTATE_SELECTED_USER, userName);
   },
