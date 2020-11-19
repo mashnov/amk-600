@@ -1,18 +1,18 @@
 <template>
-  <div class="col-10 col-sm-7 col-lg-5 col-xl-4 admin-device-name-edit">
+  <div class="col-10 col-sm-7 col-lg-5 col-xl-4 admin-camera-port-edit">
     <div class="row">
       <div class="col-12 mb-5">
-        <div class="admin-device-name-edit__title">
-          {{ i18n.changeName }}
+        <div class="admin-camera-port-edit__title">
+          {{ i18n.setCameraPort }}
         </div>
       </div>
     </div>
     <div class="row mb-4">
       <div class="col-12">
         <AmkInput
-          :value="deviceName"
-          :placeholder="currentDeviceName"
-          @input="deviceName = $event.target.value"
+          :value="cameraPort"
+          :placeholder="currentCameraPort"
+          @input="cameraPort = $event.target.value"
         />
       </div>
     </div>
@@ -49,16 +49,16 @@
   import AmkButton from '~/components/form-items/amk-button/AmkButton';
   import AmkInput from '~/components/form-items/amk-input/AmkInput';
 
-  const PRELOADER_KEY = 'deviceNameEdit';
+  const PRELOADER_KEY = 'cameraPortEdit';
 
   export default {
-    name: 'AdminDeviceNameEdit',
+    name: 'AdminCameraPortEdit',
     components: {
       AmkInput,
       AmkButton,
     },
     data: () => ({
-      deviceName: null,
+      cameraPort: null,
     }),
     computed: {
       ...mapGetters('references', {
@@ -67,14 +67,14 @@
       ...mapGetters('admin', {
         deviceData: ADMIN.GET_DEVICE_DATA,
       }),
-      currentDeviceName() {
+      currentCameraPort() {
         const { deviceData } = this;
-        return get(deviceData, 'deviceName', '');
+        return get(deviceData, 'cameraPort', '');
       },
       submitIsDisabled() {
-        const { deviceName, currentDeviceName } = this;
-        const isDeviceName = (deviceName || '').length;
-        return !isDeviceName || currentDeviceName === deviceName;
+        const { cameraPort, currentCameraPort } = this;
+        const isCameraPort = (cameraPort || '').length;
+        return !isCameraPort || currentCameraPort === cameraPort;
       },
     },
     methods: {
@@ -89,12 +89,12 @@
         hidePreloader: PRELOADER.HIDE_PRELOADER,
       }),
       ...mapActions('admin', {
-        setDeviceName: ADMIN.SET_DEVICE_NAME,
+        setCameraPort: ADMIN.SET_CAMERA_PORT,
       }),
       async submitClickHandler() {
-        const { deviceName } = this;
+        const { cameraPort } = this;
         this.showPreloader(PRELOADER_KEY);
-        const { successes } = await this.setDeviceName(deviceName);
+        const { successes } = await this.setCameraPort(cameraPort);
         this.hidePreloader(PRELOADER_KEY);
         if (!successes) {
           this.logoutAction();
@@ -113,7 +113,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .admin-device-name-edit__title {
+  .admin-camera-port-edit__title {
     display: block;
     font-size: 25px;
     font-weight: 500;

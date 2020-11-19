@@ -21,6 +21,9 @@
       <AmkButton @click="showChangeDeviceNameModal">
         {{ i18n.changeName }}
       </AmkButton>
+      <AmkButton @click="showChangeCameraPortModal">
+        {{ i18n.setCameraPort }}
+      </AmkButton>
     </div>
   </div>
 </template>
@@ -33,6 +36,7 @@
   import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
 
   import AdminDeviceNameEdit from './AdminDeviceNameEdit';
+  import AdminCameraPortEdit from './AdminCameraPortEdit';
   import AmkButton from '~/components/form-items/amk-button/AmkButton';
 
   const PRELOADER_KEY = 'adminClearLogs';
@@ -93,6 +97,11 @@
       showChangeDeviceNameModal() {
         this.showModal({
           component: AdminDeviceNameEdit,
+        });
+      },
+      showChangeCameraPortModal() {
+        this.showModal({
+          component: AdminCameraPortEdit,
         });
       },
       async clearLogsHandler() {

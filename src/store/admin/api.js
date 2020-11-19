@@ -81,6 +81,21 @@ export default {
       return { successes: false };
     }
   },
+  async [MODULE.SET_CAMERA_PORT]({ userToken, cameraPort }) {
+    const apiUrl = admin.setSetting;
+    if (tokenIsEmpty(userToken)) {
+      return { successes: false };
+    }
+    try {
+      const { data } = await axios.post(apiUrl, { token: userToken, val: cameraPort, key: 'cameraPort' });
+      const successes = get(data, 'successes', false);
+      const token = get(data, 'token', null);
+      return { successes, token };
+    }
+    catch {
+      return { successes: false };
+    }
+  },
   async [MODULE.FETCH_USER_LIST]({ userToken }) {
     const apiUrl = admin.fetchUsers;
     if (tokenIsEmpty(userToken)) {
