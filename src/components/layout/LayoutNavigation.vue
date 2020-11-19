@@ -66,7 +66,7 @@
           <UnitIcon />
         </div>
         <a
-          v-if="userIsAuthed"
+          v-if="userIsAuthed && cameraIsVisible"
           key="camera"
           v-tooltip.right="{ content: i18n.camera, offset: 15 }"
           :href="cameraUrl"
@@ -147,6 +147,10 @@
       cameraUrl() {
         const { cameraPort } = this;
         return `:${cameraPort}`;
+      },
+      cameraIsVisible() {
+        const { cameraPort } = this;
+        return (cameraPort || '').trim().length;
       },
       screenProportion() {
         const { viewportWidth, viewportHeight } = this;

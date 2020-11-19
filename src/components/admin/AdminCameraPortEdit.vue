@@ -13,6 +13,7 @@
           :value="cameraPort"
           :placeholder="currentCameraPort"
           @input="cameraPort = $event.target.value"
+          @enter-press="submitClickHandler"
         />
       </div>
     </div>
@@ -92,7 +93,10 @@
         setCameraPort: ADMIN.SET_CAMERA_PORT,
       }),
       async submitClickHandler() {
-        const { cameraPort } = this;
+        const { cameraPort, submitIsDisabled } = this;
+        if (submitIsDisabled) {
+          return;
+        }
         this.showPreloader(PRELOADER_KEY);
         const { successes } = await this.setCameraPort(cameraPort);
         this.hidePreloader(PRELOADER_KEY);

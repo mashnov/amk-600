@@ -13,6 +13,7 @@
           :value="deviceName"
           :placeholder="currentDeviceName"
           @input="deviceName = $event.target.value"
+          @enter-press="submitClickHandler"
         />
       </div>
     </div>
@@ -92,7 +93,10 @@
         setDeviceName: ADMIN.SET_DEVICE_NAME,
       }),
       async submitClickHandler() {
-        const { deviceName } = this;
+        const { deviceName, submitIsDisabled } = this;
+        if (submitIsDisabled) {
+          return;
+        }
         this.showPreloader(PRELOADER_KEY);
         const { successes } = await this.setDeviceName(deviceName);
         this.hidePreloader(PRELOADER_KEY);
