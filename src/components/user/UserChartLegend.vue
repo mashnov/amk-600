@@ -144,8 +144,8 @@
       ...mapActions('reports', {
         setReportTypes: REPORTS.SET_REPORT_TYPES,
         fetchChartData: REPORTS.FETCH_CHART_DATA,
-        axisButtonClickHandler: REPORTS.SET_CHART_SCALED,
         fillButtonClickHandler: REPORTS.SET_CHART_FILL,
+        axisButtonClickHandler: REPORTS.CHANGE_CHART_AXIS,
       }),
       ...mapActions('auth', {
         logoutHandler: AUTH.LOGOUT_HANDLER,

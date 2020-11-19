@@ -63,8 +63,11 @@ export default {
     commit(MODULE.MUTATE_REPORT_RANGE, reportRange);
     setUserReportRange(reportRange);
   },
-  [MODULE.SET_CHART_SCALED]({ commit, state: { isScaled } }) {
-    commit(MODULE.MUTATE_CHART_SCALED, !isScaled);
+  [MODULE.CHANGE_CHART_AXIS]({ commit, state: { reportTypes, axis } }) {
+    const axisLimit = axis.length + 1;
+    const enabledAxis = reportTypes.length;
+    const newAxis = axisLimit > enabledAxis ? [] : reportTypes.slice(0, axisLimit);
+    commit(MODULE.MUTATE_CHART_AXIS, newAxis);
   },
   [MODULE.SET_CHART_FILL]({ commit, state: { isFill } }) {
     commit(MODULE.MUTATE_CHART_FILL, !isFill);

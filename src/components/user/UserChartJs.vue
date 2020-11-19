@@ -74,7 +74,7 @@
         chartTypes: REPORTS.GET_REPORT_TYPES,
         chartData: REPORTS.GET_CHART_DATA,
         chartIsFilled: REPORTS.GET_CHART_FILL,
-        chartIsScaled: REPORTS.GET_CHART_SCALED,
+        axisList: REPORTS.GET_CHART_AXIS,
       }),
       filteredChartDataSet() {
         const { chartData, chartPeriod, chartTypes } = this;
@@ -85,7 +85,7 @@
         }));
       },
       chartOptions() {
-        const { filteredChartDataSet, chartIsScaled } = this;
+        const { filteredChartDataSet, axisList } = this;
         return {
           responsive: true,
           stacked: true,
@@ -99,7 +99,7 @@
               id: `${item.chartType}-id`,
               position: index % 2 ? 'right' : 'left',
               type: 'linear',
-              display: chartIsScaled,
+              display: axisList.includes(item.chartType),
               ticks: {
                 fontColor: CHART_BORDER_MAPPER[item.chartType],
               },
@@ -152,7 +152,7 @@
       chartIsFilled() {
         this.changeChartJs();
       },
-      chartIsScaled() {
+      axisList() {
         this.changeChartJs();
       },
       chartData: {

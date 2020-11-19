@@ -16,7 +16,7 @@ export default {
   [MODULE.MUTATE_CHART_FILL]: (state, isFill) => {
     state.isFill = isFill;
   },
-  [MODULE.MUTATE_CHART_SCALED]: (state, isScaled) => {
-    state.isScaled = isScaled;
+  [MODULE.MUTATE_CHART_AXIS]: (state, axis) => {
+    state.axis = axis;
   },
 };

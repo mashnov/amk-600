@@ -6,5 +6,5 @@ export default {
   [MODULE.GET_CHART_DATA]: ({ chartData }) => chartData,
   [MODULE.GET_FETCH_IS_LOCK]: ({ fetchIsLock }) => fetchIsLock,
   [MODULE.GET_CHART_FILL]: ({ isFill }) => isFill,
-  [MODULE.GET_CHART_SCALED]: ({ isScaled }) => isScaled,
+  [MODULE.GET_CHART_AXIS]: ({ axis }) => axis,
 };
