@@ -21,4 +21,19 @@ export default {
       return { successes: false };
     }
   },
+  async [MODULE.CHANGE_UNIT_SYSTEM]({ userToken, pressureUnit }) {
+    const apiUrl = user.changeUnit;
+    if (tokenIsEmpty(userToken)) {
+      return { successes: false };
+    }
+    try {
+      const response = await axios.post(apiUrl, { token: userToken, key: 'pressure.unit', val: pressureUnit });
+      const successes = get(response, 'data.successes', false);
+      const token = get(response, 'data.token', null);
+      return { successes, token };
+    }
+    catch {
+      return { successes: false };
+    }
+  },
 };

@@ -6,7 +6,6 @@ export const userDataTransformer = (data) => {
   const humidityMainSensor = get(data, 'sensors.humidity.main', null);
   const pressureMainSensor = get(data, 'sensors.pressure.main', null);
   const rainMainSensor = get(data, 'sensors.rain.main', null);
-
   const momentData = {
     temperature: numberTransformer(get(data, `sensors.temperature.allSensors[${temperatureMainSensor}]`, 0)),
     humidity: numberTransformer(get(data, `sensors.humidity.allSensors[${humidityMainSensor}]`, 0)),
@@ -53,7 +52,9 @@ export const userDataTransformer = (data) => {
     battery1IsOnLine: get(data, 'sensors.modulesStatus.battery[0]', false),
     battery2IsOnLine: get(data, 'sensors.modulesStatus.battery[1]', false),
   };
-  return { momentData, statData, deviceData, sensorData };
+  const unitSystem = get(data, 'sensors.pressure.unit', null);
+  const cameraPort = get(data, 'cameraPort', null);
+  return { momentData, statData, deviceData, sensorData, unitSystem, cameraPort };
 };
 
 export const chartDataTransformer = ({ chartData, chartPeriod }) => {

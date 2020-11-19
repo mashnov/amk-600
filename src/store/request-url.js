@@ -7,6 +7,7 @@ export const auth = {
 };
 export const user = {
   fetchData: `${apiUrl}api/info`,
+  changeUnit: `${apiUrl}api/set_user_setting`,
 };
 export const reports = {
   chartData: `${apiUrl}api/logs`,

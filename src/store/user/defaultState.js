@@ -1,4 +1,6 @@
 export default {
+  unitSystem: null,
+  cameraPort: null,
   momentData: {
     temperature: null,
     humidity: null,

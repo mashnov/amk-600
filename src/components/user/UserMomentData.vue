@@ -39,7 +39,7 @@
             <UserMomentSensor
               v-tooltip.bottom="{ content: i18n.addPressureToChart, offset: 15 }"
               :title="i18n.pressureTitle"
-              :unit="i18n.pascalUnit"
+              :unit="pressureUnit"
               :value="momentData.pressure"
               :is-active="reportTypes.includes('pressure')"
               :disabled="fetchIsLock"
@@ -103,11 +103,17 @@
       }),
       ...mapGetters('user', {
         momentData: USER.GET_MOMENT_DATA,
+        unitSystem: USER.GET_UNIT_SYSTEM,
       }),
       ...mapGetters('reports', {
         fetchIsLock: REPORTS.GET_FETCH_IS_LOCK,
         reportTypes: REPORTS.GET_REPORT_TYPES,
       }),
+      pressureUnit() {
+        const { i18n, unitSystem } = this;
+        const unitName = `${unitSystem}Unit`;
+        return i18n[unitName];
+      },
     },
     methods: {
       ...mapActions('reports', {

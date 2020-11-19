@@ -175,10 +175,12 @@
                 :class="!sensorData.battery1IsOnLine || !sensorData.battery2IsOnLine && 'layout-devise-info__sensor-status-item_red'"
               >
                 <ChargeIcon
+                  v-tooltip.left="{ content: getBattery1Tooltip, offset: 15 }"
                   class="layout-devise-info__sensor-status-item-icon layout-devise-info__sensor-status-item-icon_first"
                   :class="deviceData.battery1Charging && 'layout-devise-info__sensor-status-item-icon_orange'"
                 />
                 <ChargeIcon
+                  v-tooltip.left="{ content: getBattery2Tooltip, offset: 15 }"
                   class="layout-devise-info__sensor-status-item-icon"
                   :class="deviceData.battery2Charging && 'layout-devise-info__sensor-status-item-icon_orange'"
                 />
@@ -244,6 +246,16 @@
         sensorData: USER.GET_SENSOR_DATA,
         deviceData: USER.GET_DEVICE_DATA,
       }),
+      getBattery1Tooltip() {
+        const { i18n, deviceData } = this;
+        const isCharging = deviceData.battery1Charging;
+        return `${ i18n.battery1 } ${ isCharging ? i18n.isCharging : i18n.isNotCharging }`;
+      },
+      getBattery2Tooltip() {
+        const { i18n, deviceData } = this;
+        const isCharging = deviceData.battery2Charging;
+        return `${ i18n.battery2 } ${ isCharging ? i18n.isCharging : i18n.isNotCharging }`;
+      },
       deviceDataIsReady() {
         const { deviceData, sensorData } = this;
         return !isEmpty(deviceData) && !isEmpty(sensorData);

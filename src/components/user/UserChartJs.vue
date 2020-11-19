@@ -91,6 +91,9 @@
           stacked: true,
           legend: false,
           hoverMode: 'index',
+          animation: {
+            duration: 300,
+          },
           scales: {
             yAxes: filteredChartDataSet.map((item, index) => ({
               id: `${item.chartType}-id`,

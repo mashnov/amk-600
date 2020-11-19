@@ -57,6 +57,25 @@
           <LanguageIcon />
         </div>
         <div
+          v-if="userIsAuthed && !userIsAdmin"
+          key="unit"
+          v-tooltip.right="{ content: i18n.changeUnitSystem, offset: 15 }"
+          class="layout-navigation_item"
+          @click="changeUnitSystemHandler"
+        >
+          <UnitIcon />
+        </div>
+        <a
+          v-if="userIsAuthed"
+          key="camera"
+          v-tooltip.right="{ content: i18n.camera, offset: 15 }"
+          :href="cameraUrl"
+          target="_blank"
+          class="layout-navigation_item"
+        >
+          <CameraIcon />
+        </a>
+        <div
           v-if="userIsAuthed"
           key="logout"
           v-tooltip.right="{ content: i18n.logout, offset: 15 }"
@@ -73,7 +92,7 @@
 <script>
   import isNull from 'lodash/isNull';
   import { mapGetters, mapActions } from 'vuex';
-  import { MODAL, AUTH, REFERENCES, PRELOADER, VIEWPORT } from '~/store/types';
+  import { MODAL, AUTH, REFERENCES, USER, PRELOADER, VIEWPORT } from '~/store/types';
   import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
 
   import LayoutLanguageSelect from './LayoutLanguageSelect';
@@ -86,10 +105,13 @@
   import SettingsIcon from '~/assets/svg/settings-icon.svg';
   import DeviceIcon from '~/assets/svg/device-icon.svg';
   import LanguageIcon from '~/assets/svg/language-icon.svg';
+  import UnitIcon from '~/assets/svg/unit-icon.svg';
+  import CameraIcon from '~/assets/svg/camera-icon.svg';
   import ReportIcon from '~/assets/svg/report-icon.svg';
   import LogoutIcon from '~/assets/svg/logout-icon.svg';
 
-  const PRELOADER_KEY = 'logout';
+  const PRELOADER_KEY_LOGOUT = 'logout';
+  const PRELOADER_KEY_UNIT = 'unit';
   const ADMIN_USER_TYPE = 'admin';
 
   const DEVICE_INFO_IS_LAYOUT_FROM = 1640;
@@ -102,6 +124,8 @@
       SettingsIcon,
       DeviceIcon,
       LanguageIcon,
+      UnitIcon,
+      CameraIcon,
       ReportIcon,
       LogoutIcon,
     },
@@ -113,10 +137,17 @@
       ...mapGetters('references', {
         i18n: REFERENCES.GET_I18N,
       }),
+      ...mapGetters('user', {
+        cameraPort: USER.GET_CAMERA_PORT,
+      }),
       ...mapGetters('viewport', {
         viewportWidth: VIEWPORT.GET_VIEWPORT_WIDTH,
         viewportHeight: VIEWPORT.GET_VIEWPORT_HEIGHT,
       }),
+      cameraUrl() {
+        const { cameraPort } = this;
+        return `:${cameraPort}`;
+      },
       screenProportion() {
         const { viewportWidth, viewportHeight } = this;
         return Math.floor(viewportWidth / viewportHeight);
@@ -150,6 +181,17 @@
         showPreloader: PRELOADER.SHOW_PRELOADER,
         hidePreloader: PRELOADER.HIDE_PRELOADER,
       }),
+      ...mapActions('user', {
+        changeUnitSystem: USER.CHANGE_UNIT_SYSTEM,
+      }),
+      async changeUnitSystemHandler() {
+        this.showPreloader(PRELOADER_KEY_UNIT);
+        const { successes } = await this.changeUnitSystem();
+        this.hidePreloader(PRELOADER_KEY_LOGOUT);
+        if (!successes) {
+          this.logoutClickHandler();
+        }
+      },
       showDeviceModal() {
         this.showModal({
           component: LayoutDeviceInfo,
@@ -176,9 +218,9 @@
         }
       },
       async logoutClickHandler() {
-        this.showPreloader(PRELOADER_KEY);
+        this.showPreloader(PRELOADER_KEY_LOGOUT);
         const { successes } = await this.logoutHandler();
-        this.hidePreloader(PRELOADER_KEY);
+        this.hidePreloader(PRELOADER_KEY_LOGOUT);
         if (successes) {
           this.$router.push({ name: AUTH_ROUTE_NAMES.auth });
         }
