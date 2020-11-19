@@ -249,12 +249,12 @@
       getBattery1Tooltip() {
         const { i18n, deviceData } = this;
         const isCharging = deviceData.battery1Charging;
-        return `${ i18n.battery1 } ${ isCharging ? i18n.isCharging : i18n.isNotCharging }`;
+        return `${i18n.battery1} ${isCharging ? i18n.isCharging : i18n.isNotCharging}`;
       },
       getBattery2Tooltip() {
         const { i18n, deviceData } = this;
         const isCharging = deviceData.battery2Charging;
-        return `${ i18n.battery2 } ${ isCharging ? i18n.isCharging : i18n.isNotCharging }`;
+        return `${i18n.battery2} ${isCharging ? i18n.isCharging : i18n.isNotCharging}`;
       },
       deviceDataIsReady() {
         const { deviceData, sensorData } = this;
