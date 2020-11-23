@@ -52,8 +52,9 @@ export default {
     dispatch(REQUEST_LOGGER_START, MODULE.CHANGE_UNIT_SYSTEM, { root: true });
     const { successes, token } = await Api.CHANGE_UNIT_SYSTEM({ userToken, pressureUnit });
     dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
+    const response = await dispatch(MODULE.FETCH_USER_DATA);
     dispatch(RELOAD_CHART_DATA_ACTION_NAME, null, { root: true });
     dispatch(REQUEST_LOGGER_STOP, MODULE.CHANGE_UNIT_SYSTEM, { root: true });
-    return { successes };
+    return { successes: successes && response.successes };
   },
 };
