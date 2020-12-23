@@ -69,7 +69,7 @@
           v-if="userIsAuthed && cameraIsVisible"
           key="camera"
           v-tooltip.right="{ content: i18n.camera, offset: 15 }"
-          :href="cameraUrl"
+          :href="cameraLink"
           target="_blank"
           class="layout-navigation_item"
         >
@@ -115,6 +115,7 @@
   const ADMIN_USER_TYPE = 'admin';
 
   const DEVICE_INFO_IS_LAYOUT_FROM = 1640;
+  const CAMERA_LINK = process.env.VUE_APP_CAMERA_LINK;
 
   export default {
     name: 'LayoutNavigation',
@@ -129,6 +130,9 @@
       ReportIcon,
       LogoutIcon,
     },
+    data: () => ({
+      cameraLink: CAMERA_LINK,
+    }),
     computed: {
       ...mapGetters('auth', {
         userType: AUTH.GET_USER_TYPE,
@@ -137,20 +141,13 @@
       ...mapGetters('references', {
         i18n: REFERENCES.GET_I18N,
       }),
-      ...mapGetters('user', {
-        cameraPort: USER.GET_CAMERA_PORT,
-      }),
       ...mapGetters('viewport', {
         viewportWidth: VIEWPORT.GET_VIEWPORT_WIDTH,
         viewportHeight: VIEWPORT.GET_VIEWPORT_HEIGHT,
       }),
-      cameraUrl() {
-        const { cameraPort } = this;
-        return `:${cameraPort}`;
-      },
       cameraIsVisible() {
-        const { cameraPort } = this;
-        return (cameraPort || '').trim().length;
+        const { cameraLink } = this;
+        return (cameraLink || '').trim().length;
       },
       screenProportion() {
         const { viewportWidth, viewportHeight } = this;
