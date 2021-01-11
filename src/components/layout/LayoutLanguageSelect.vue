@@ -51,91 +51,91 @@
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex';
-  import { REFERENCES, MODAL } from '~/store/types';
+import { mapGetters, mapActions } from 'vuex';
+import { REFERENCES, MODAL } from '~/store/types';
 
-  import EnLanguageIcon from '~/assets/svg/languages-en-icon.svg';
-  import EsLanguageIcon from '~/assets/svg/languages-es-icon.svg';
-  import RuLanguageIcon from '~/assets/svg/languages-ru-icon.svg';
+import EnLanguageIcon from '~/assets/svg/languages-en-icon.svg';
+import EsLanguageIcon from '~/assets/svg/languages-es-icon.svg';
+import RuLanguageIcon from '~/assets/svg/languages-ru-icon.svg';
 
-  export default {
-    name: 'LayoutLanguageSelect',
-    components: {
-      EnLanguageIcon,
-      EsLanguageIcon,
-      RuLanguageIcon,
+export default {
+  name: 'LayoutLanguageSelect',
+  components: {
+    EnLanguageIcon,
+    EsLanguageIcon,
+    RuLanguageIcon,
+  },
+  computed: {
+    ...mapGetters('references', {
+      i18n: REFERENCES.GET_I18N,
+      currentLanguageId: REFERENCES.GET_LANGUAGE_ID,
+    }),
+  },
+  methods: {
+    ...mapActions('references', {
+      selectLanguageId: REFERENCES.SET_LANGUAGE_ID,
+    }),
+    ...mapActions('modal', {
+      closeModal: MODAL.HIDE_MODAL,
+    }),
+    selectLanguage(languageId) {
+      this.selectLanguageId(languageId);
+      this.closeModal();
     },
-    computed: {
-      ...mapGetters('references', {
-        i18n: REFERENCES.GET_I18N,
-        currentLanguageId: REFERENCES.GET_LANGUAGE_ID,
-      }),
-    },
-    methods: {
-      ...mapActions('references', {
-        selectLanguageId: REFERENCES.SET_LANGUAGE_ID,
-      }),
-      ...mapActions('modal', {
-        closeModal: MODAL.HIDE_MODAL,
-      }),
-      selectLanguage(languageId) {
-        this.selectLanguageId(languageId);
-        this.closeModal();
-      },
-    },
-  };
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-  .layout-language-select__wrapper {
-    padding: 0 30px;
-  }
-  .layout-language-select__title {
-    display: block;
-    font-size: 25px;
-    font-weight: 500;
-    color: $color-gray-01;
-    text-align: center;
-  }
+.layout-language-select__wrapper {
+  padding: 0 30px;
+}
+.layout-language-select__title {
+  display: block;
+  font-size: 25px;
+  font-weight: 500;
+  color: $color-gray-01;
+  text-align: center;
+}
+.layout-language-select__option {
+  display: block;
+  border-radius: 10px;
+  overflow: hidden;
+  opacity: 0.5;
+  transition: opacity $animation-time-01 $animation-easing, transform $animation-time-01 $animation-easing;
+  transform: scale(1);
+  cursor: pointer;
+  margin: 0 auto;
+  max-width: 120px;
+}
+.layout-language-select__option_selected {
+  opacity: 1;
+  transform: scale(1.1);
+}
+.layout-language-select__option:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+.layout-language-select__option svg {
+  display: block;
+  width: 100%;
+}
+.layout-language-select__option-title {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: $color-gray-01;
+  text-transform: uppercase;
+  margin-top: 15px;
+}
+@media (min-width: $screen-md) {
   .layout-language-select__option {
-    display: block;
-    border-radius: 10px;
-    overflow: hidden;
-    opacity: 0.5;
-    transition: opacity $animation-time-01 $animation-easing, transform $animation-time-01 $animation-easing;
-    transform: scale(1);
-    cursor: pointer;
-    margin: 0 auto;
-    max-width: 120px;
+    max-width: unset;
   }
-  .layout-language-select__option_selected {
-    opacity: 1;
-    transform: scale(1.1);
+  .layout-report-select__option-title {
+    font-size: 15px;
   }
-  .layout-language-select__option:hover {
-    opacity: 1;
-    transform: scale(1.1);
-  }
-  .layout-language-select__option svg {
-    display: block;
-    width: 100%;
-  }
-  .layout-language-select__option-title {
-    display: block;
-    width: 100%;
-    text-align: center;
-    font-size: 12px;
-    font-weight: 500;
-    color: $color-gray-01;
-    text-transform: uppercase;
-    margin-top: 15px;
-  }
-  @media (min-width: $screen-md) {
-    .layout-language-select__option {
-      max-width: unset;
-    }
-    .layout-report-select__option-title {
-      font-size: 15px;
-    }
-  }
+}
 </style>

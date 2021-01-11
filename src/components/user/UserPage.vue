@@ -9,7 +9,7 @@
           <template v-if="reportTypes.length">
             <div class="col-12 mb-4">
               <UserChartLegend
-                :list="reportTypes"
+                :active-list="reportTypes"
               />
             </div>
             <div class="col-12 mb-5">

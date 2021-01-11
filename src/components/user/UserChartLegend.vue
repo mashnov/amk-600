@@ -10,14 +10,14 @@
       tag="div"
     >
       <div
-        v-for="(chartType, index) in list"
+        v-for="(chartType, index) in legendList"
         :key="`select-item${index}`"
         class="col-3 col-md-3 col-lg-1 mb-3"
       >
         <div
           v-tooltip="{ content: getIconTitle(chartType), offset: 15 }"
           class="user-chart-legend__icon"
-          :style="getItemStyle(chartType)"
+          :style="activeList.includes(chartType) && getItemStyle(chartType)"
           @click="itemClickHandler(chartType)"
         >
           <Component :is="getIconName(chartType)" />
@@ -120,12 +120,23 @@
       FillIcon,
     },
     props: {
-      list: {
+      activeList: {
         type: Array,
         required: true,
         default: () => ([]),
       },
     },
+    data: () => ({
+      legendList: [
+        'temperature',
+        'humidity',
+        'windHSpeed',
+        'windDirection',
+        'windVSpeed',
+        'pressure',
+        'rain',
+      ],
+    }),
     computed: {
       ...mapGetters('references', {
         i18n: REFERENCES.GET_I18N,
@@ -198,6 +209,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    color: $color-gray-01;
     cursor: pointer;
   }
   .user-chart-legend__icon svg {

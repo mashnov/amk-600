@@ -65,16 +65,24 @@
         >
           <UnitIcon />
         </div>
-        <a
-          v-if="userIsAuthed && cameraIsVisible"
+        <div
+          v-if="userIsAuthed"
           key="camera"
           v-tooltip.right="{ content: i18n.camera, offset: 15 }"
-          :href="cameraLink"
-          target="_blank"
           class="layout-navigation_item"
+          @click="showCameraModal"
         >
           <CameraIcon />
-        </a>
+        </div>
+        <div
+          v-if="userIsAuthed && !userIsAdmin"
+          key="documentation"
+          v-tooltip.right="{ content: i18n.documentation, offset: 15 }"
+          class="layout-navigation_item"
+          @click="showDocumentationModal"
+        >
+          <DocumentationIcon />
+        </div>
         <div
           v-if="userIsAuthed"
           key="logout"
@@ -99,6 +107,8 @@
   import LayoutReportSelect from './LayoutReportSelect';
   import LayoutDeviceInfo from './LayoutDeviceInfo';
   import LayoutDevicePosition from './LayoutDevicePosition';
+  import LayoutCamera from './LayoutCamera';
+  import LayoutDocumentation from './LayoutDocumentation';
 
   import UserIcon from '~/assets/svg/user-icon.svg';
   import DashboardIcon from '~/assets/svg/dashboard-icon.svg';
@@ -107,6 +117,7 @@
   import LanguageIcon from '~/assets/svg/language-icon.svg';
   import UnitIcon from '~/assets/svg/unit-icon.svg';
   import CameraIcon from '~/assets/svg/camera-icon.svg';
+  import DocumentationIcon from '~/assets/svg/documentation-icon.svg';
   import ReportIcon from '~/assets/svg/report-icon.svg';
   import LogoutIcon from '~/assets/svg/logout-icon.svg';
 
@@ -115,7 +126,6 @@
   const ADMIN_USER_TYPE = 'admin';
 
   const DEVICE_INFO_IS_LAYOUT_FROM = 1640;
-  const CAMERA_LINK = process.env.VUE_APP_CAMERA_LINK;
 
   export default {
     name: 'LayoutNavigation',
@@ -127,12 +137,10 @@
       LanguageIcon,
       UnitIcon,
       CameraIcon,
+      DocumentationIcon,
       ReportIcon,
       LogoutIcon,
     },
-    data: () => ({
-      cameraLink: CAMERA_LINK,
-    }),
     computed: {
       ...mapGetters('auth', {
         userType: AUTH.GET_USER_TYPE,
@@ -145,10 +153,6 @@
         viewportWidth: VIEWPORT.GET_VIEWPORT_WIDTH,
         viewportHeight: VIEWPORT.GET_VIEWPORT_HEIGHT,
       }),
-      cameraIsVisible() {
-        const { cameraLink } = this;
-        return (cameraLink || '').trim().length;
-      },
       screenProportion() {
         const { viewportWidth, viewportHeight } = this;
         return Math.floor(viewportWidth / viewportHeight);
@@ -190,7 +194,7 @@
         const { successes } = await this.changeUnitSystem();
         this.hidePreloader(PRELOADER_KEY_LOGOUT);
         if (!successes) {
-          this.logoutClickHandler();
+          await this.logoutClickHandler();
         }
       },
       showDeviceModal() {
@@ -202,6 +206,16 @@
       showLanguageModal() {
         this.showModal({
           component: LayoutLanguageSelect,
+        });
+      },
+      showDocumentationModal() {
+        this.showModal({
+          component: LayoutDocumentation,
+        });
+      },
+      showCameraModal() {
+        this.showModal({
+          component: LayoutCamera,
         });
       },
       showReportModal() {
