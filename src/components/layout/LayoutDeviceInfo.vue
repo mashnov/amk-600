@@ -172,6 +172,18 @@
               </div>
               <div
                 class="layout-devise-info__sensor-status-item"
+                :class="cameraData.isEnable && 'layout-devise-info__sensor-status-item_enable'"
+                @click="toggleCameraPower"
+              >
+                <span
+                  v-html="i18n.camera"
+                />
+                <span>
+                  {{ cameraData.isEnable ? i18n.connected : i18n.disconnected }}
+                </span>
+              </div>
+              <div
+                class="layout-devise-info__sensor-status-item"
                 :class="!sensorData.battery1IsOnLine || !sensorData.battery2IsOnLine && 'layout-devise-info__sensor-status-item_red'"
               >
                 <ChargeIcon
@@ -204,7 +216,7 @@
 <script>
   import isEmpty from 'lodash/isEmpty';
   import { DateTime } from 'luxon';
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapActions } from 'vuex';
   import { REFERENCES, USER } from '~/store/types';
   import { replaceCurly } from '~/helpers/system';
 
@@ -220,7 +232,7 @@
   const GOOGLE_MAPS_LINK = 'http://www.google.com/maps/place/{positionN},{positionW}';
 
   export default {
-    name: 'UserDevice',
+    name: 'LayoutDeviceInfo',
     components: {
       GeolocationIcon,
       PowerIcon,
@@ -245,6 +257,7 @@
       ...mapGetters('user', {
         sensorData: USER.GET_SENSOR_DATA,
         deviceData: USER.GET_DEVICE_DATA,
+        cameraData: USER.GET_CAMERA_DATA,
       }),
       getBattery1Tooltip() {
         const { i18n, deviceData } = this;
@@ -307,6 +320,11 @@
         const positionW = deviceData.positionW;
         return replaceCurly(GOOGLE_MAPS_LINK, ['positionN', 'positionW'], [positionN, positionW]);
       },
+    },
+    methods: {
+      ...mapActions('user', {
+        toggleCameraPower: USER.TOGGLE_CAMERA_POWER,
+      }),
     },
   };
 </script>
@@ -396,6 +414,11 @@
   .layout-devise-info__sensor-status-item:not(:last-child) {
     margin-bottom: 20px;
   }
+  .layout-devise-info__sensor-status-item:nth-child(6) {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
   .layout-devise-info__sensor-status-item span:first-child {
     display: block;
     font-weight: 500;
@@ -432,6 +455,19 @@
   }
   .layout-devise-info__sensor-status-item-icon_orange {
     color: $color-orange-01;
+  }
+  .layout-devise-info__sensor-status-item:nth-child(6):after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 6px;
+    height: 100%;
+    background-color: $color-red-02;
+    transition: width $animation-easing $animation-time-03, background-color $animation-easing $animation-time-03, opacity $animation-easing $animation-time-03;
+  }
+  .layout-devise-info__sensor-status-item_enable:after {
+    background-color: $color-green-01 !important;
   }
   @media (min-width: $screen-sm) {
     .layout-devise-info__sensor-status-item {
@@ -495,6 +531,11 @@
       left: 100px;
     }
     .layout-devise-info__sensor-status-item:nth-child(6) {
+      position: absolute;
+      top: 385px;
+      right: 75px;
+    }
+    .layout-devise-info__sensor-status-item:nth-child(7) {
       top: 530px;
       right: 20px;
     }
@@ -507,6 +548,16 @@
       line-height: 10px;
       text-transform: lowercase;
       text-align: left;
+    }
+    .layout-devise-info__sensor-status-item:nth-child(6):hover:after {
+      width: 100%;
+      opacity: 0.3;
+      background-color: $color-red-02 !important;
+    }
+    .layout-devise-info__sensor-status-item_enable:hover:after {
+      background-color: $color-green-01 !important;
+      width: 100%;
+      opacity: 0.3;
     }
   }
 </style>

@@ -52,9 +52,13 @@ export const userDataTransformer = (data) => {
     battery1IsOnLine: get(data, 'sensors.modulesStatus.battery[0]', false),
     battery2IsOnLine: get(data, 'sensors.modulesStatus.battery[1]', false),
   };
+  const cameraData = {
+    isEnable: get(data, 'isCameraPowerEnable', false),
+    interfacePort: get(data, 'cameraPort', false),
+    streamUrl: get(data, 'cameraVideoStream.url', false),
+  };
   const unitSystem = get(data, 'sensors.pressure.unit', null);
-  const cameraPort = get(data, 'cameraPort', null);
-  return { momentData, statData, deviceData, sensorData, unitSystem, cameraPort };
+  return { momentData, statData, deviceData, sensorData, unitSystem, cameraData };
 };
 
 export const chartDataTransformer = ({ chartData, chartPeriod }) => {

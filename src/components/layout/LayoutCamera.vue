@@ -5,14 +5,14 @@
         <div class="col-12 mb-5">
           <iframe
             class="layout-camera__stream"
-            :src="cameraStreamLink"
+            :src="cameraStreamUrl"
           />
         </div>
         <div class="col-12">
           <a
             class="layout-camera__interface-link"
             target="_blank"
-            :href="cameraLink"
+            :href="cameraInterfaceUrl"
           >
             {{ i18n.cameraInterfaceLink }}
           </a>
@@ -24,21 +24,27 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { REFERENCES } from '~/store/types';
+import { REFERENCES, USER } from '~/store/types';
 
-const CAMERA_LINK = process.env.VUE_APP_CAMERA_LINK;
-const CAMERA_STREAM_LINK = process.env.VUE_APP_CAMERA_STREAM_LINK;
+const API_URL = process.env.VUE_APP_API_URL;
 
 export default {
   name: 'LayoutCamera',
-  data: () => ({
-    cameraLink: CAMERA_LINK,
-    cameraStreamLink: CAMERA_STREAM_LINK,
-  }),
   computed: {
     ...mapGetters('references', {
       i18n: REFERENCES.GET_I18N,
     }),
+    ...mapGetters('user', {
+      cameraData: USER.GET_CAMERA_DATA,
+    }),
+    cameraStreamUrl() {
+      const { cameraData } = this;
+      return cameraData.streamUrl;
+    },
+    cameraInterfaceUrl() {
+      const { cameraData } = this;
+      return `${API_URL}:${cameraData.interfacePort}`;
+    },
   },
 };
 </script>

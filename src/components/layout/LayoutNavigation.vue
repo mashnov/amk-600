@@ -66,7 +66,7 @@
           <UnitIcon />
         </div>
         <div
-          v-if="userIsAuthed"
+          v-if="userIsAuthed && cameraData.isEnable"
           key="camera"
           v-tooltip.right="{ content: i18n.camera, offset: 15 }"
           class="layout-navigation_item"
@@ -153,6 +153,9 @@
         viewportWidth: VIEWPORT.GET_VIEWPORT_WIDTH,
         viewportHeight: VIEWPORT.GET_VIEWPORT_HEIGHT,
       }),
+      ...mapGetters('user', {
+        cameraData: USER.GET_CAMERA_DATA,
+      }),
       screenProportion() {
         const { viewportWidth, viewportHeight } = this;
         return Math.floor(viewportWidth / viewportHeight);
@@ -162,8 +165,8 @@
         return viewportWidth >= DEVICE_INFO_IS_LAYOUT_FROM;
       },
       userIsAuthed() {
-        const { userToken } = this;
-        return !isNull(userToken);
+        const { userType } = this;
+        return !isNull(userType);
       },
       userIsAdmin() {
         const { userType } = this;

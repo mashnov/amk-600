@@ -6,5 +6,5 @@ export default {
   [MODULE.GET_DEVICE_DATA]: ({ deviceData }) => deviceData,
   [MODULE.GET_SENSOR_DATA]: ({ sensorData }) => sensorData,
   [MODULE.GET_UNIT_SYSTEM]: ({ unitSystem }) => unitSystem,
-  [MODULE.GET_CAMERA_PORT]: ({ cameraPort }) => cameraPort,
+  [MODULE.GET_CAMERA_DATA]: ({ cameraData }) => cameraData,
 };

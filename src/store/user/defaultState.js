@@ -1,6 +1,5 @@
 export default {
   unitSystem: null,
-  cameraPort: null,
   momentData: {
     temperature: null,
     humidity: null,
@@ -31,12 +30,17 @@ export default {
     voltage2: null,
   },
   sensorData: {
-    windIsOnLine: true,
-    rainIsOnLine: true,
-    weatherIsOnLine: true,
-    gpsIsOnLine: true,
-    compassIsOnLine: true,
-    battery1IsOnLine: true,
-    battery2IsOnLine: true,
+    windIsOnLine: false,
+    rainIsOnLine: false,
+    weatherIsOnLine: false,
+    gpsIsOnLine: false,
+    compassIsOnLine: false,
+    battery1IsOnLine: false,
+    battery2IsOnLine: false,
+  },
+  cameraData: {
+    isEnable: false,
+    interfacePort: null,
+    streamUrl: null,
   },
 };

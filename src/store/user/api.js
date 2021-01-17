@@ -36,4 +36,19 @@ export default {
       return { successes: false };
     }
   },
+  async [MODULE.TOGGLE_CAMERA_POWER]({ userToken, isEnable }) {
+    const apiUrl = user.toggleCameraPower;
+    if (tokenIsEmpty(userToken)) {
+      return { successes: false };
+    }
+    try {
+      const response = await axios.post(apiUrl, { token: userToken, enable: isEnable });
+      const successes = get(response, 'data.successes', false);
+      const token = get(response, 'data.token', null);
+      return { successes, token };
+    }
+    catch {
+      return { successes: false };
+    }
+  },
 };

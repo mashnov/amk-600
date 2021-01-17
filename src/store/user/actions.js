@@ -28,13 +28,13 @@ export default {
     const { successes, token, data } = await Api.FETCH_USER_DATA({ userToken });
     dispatch(REQUEST_LOGGER_STOP, MODULE.FETCH_USER_DATA, { root: true });
     if (successes) {
-      const { momentData, statData, deviceData, sensorData, unitSystem, cameraPort } = userDataTransformer(data);
+      const { momentData, statData, deviceData, sensorData, unitSystem, cameraData } = userDataTransformer(data);
       commit(MODULE.MUTATE_MOMENT_DATA, momentData);
       commit(MODULE.MUTATE_STAT_DATA, statData);
       commit(MODULE.MUTATE_DEVICE_DATA, deviceData);
       commit(MODULE.MUTATE_SENSOR_DATA, sensorData);
       commit(MODULE.MUTATE_UNIT_SYSTEM, unitSystem);
-      commit(MODULE.MUTATE_CAMERA_PORT, cameraPort);
+      commit(MODULE.MUTATE_CAMERA_DATA, cameraData);
     }
     dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
     return { successes };
@@ -56,5 +56,11 @@ export default {
     dispatch(RELOAD_CHART_DATA_ACTION_NAME, null, { root: true });
     dispatch(REQUEST_LOGGER_STOP, MODULE.CHANGE_UNIT_SYSTEM, { root: true });
     return { successes: successes && response.successes };
+  },
+  async [MODULE.TOGGLE_CAMERA_POWER]({ dispatch, state: { cameraData: { isEnable } }, rootGetters }) {
+    const userToken = rootGetters[USER_TOKEN_GETTER_KEY];
+    const { successes, token } = await Api.TOGGLE_CAMERA_POWER({ userToken, isEnable: !isEnable });
+    dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
+    return { successes };
   },
 };

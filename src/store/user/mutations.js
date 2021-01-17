@@ -16,7 +16,7 @@ export default {
   [MODULE.MUTATE_UNIT_SYSTEM]: (state, unitSystem) => {
     state.unitSystem = unitSystem;
   },
-  [MODULE.MUTATE_CAMERA_PORT]: (state, cameraPort) => {
-    state.cameraPort = cameraPort;
+  [MODULE.MUTATE_CAMERA_DATA]: (state, cameraData) => {
+    state.cameraData = cameraData;
   },
 };
