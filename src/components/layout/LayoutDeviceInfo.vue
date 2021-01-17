@@ -171,9 +171,10 @@
                 </span>
               </div>
               <div
+                v-tooltip.left="{ content: getCameraTooltip, offset: 15 }"
                 class="layout-devise-info__sensor-status-item"
                 :class="cameraData.isEnable && 'layout-devise-info__sensor-status-item_enable'"
-                @click="toggleCameraPower"
+                @click="toggleCameraPowerHandler"
               >
                 <span
                   v-html="i18n.camera"
@@ -217,7 +218,7 @@
   import isEmpty from 'lodash/isEmpty';
   import { DateTime } from 'luxon';
   import { mapGetters, mapActions } from 'vuex';
-  import { REFERENCES, USER } from '~/store/types';
+  import { REFERENCES, PRELOADER, USER } from '~/store/types';
   import { replaceCurly } from '~/helpers/system';
 
   import GeolocationIcon from '~/assets/svg/geolocation-icon.svg';
@@ -229,6 +230,7 @@
   import ChargeIcon from '~/assets/svg/charge-icon.svg';
   import AdventLogo from '~/assets/svg/adwent-logo.svg';
 
+  const PRELOADER_KEY = 'deviceUpdate';
   const GOOGLE_MAPS_LINK = 'http://www.google.com/maps/place/{positionN},{positionW}';
 
   export default {
@@ -268,6 +270,11 @@
         const { i18n, deviceData } = this;
         const isCharging = deviceData.battery2Charging;
         return `${i18n.battery2} ${isCharging ? i18n.isCharging : i18n.isNotCharging}`;
+      },
+      getCameraTooltip() {
+        const { i18n, cameraData } = this;
+        const isEnable = cameraData.isEnable;
+        return `${isEnable ? i18n.disableCamera : i18n.enableCamera}`;
       },
       deviceDataIsReady() {
         const { deviceData, sensorData } = this;
@@ -322,9 +329,18 @@
       },
     },
     methods: {
+      ...mapActions('preloader', {
+        showPreloader: PRELOADER.SHOW_PRELOADER,
+        hidePreloader: PRELOADER.HIDE_PRELOADER,
+      }),
       ...mapActions('user', {
         toggleCameraPower: USER.TOGGLE_CAMERA_POWER,
       }),
+      async toggleCameraPowerHandler() {
+        this.showPreloader(PRELOADER_KEY);
+        await this.toggleCameraPower();
+        this.hidePreloader(PRELOADER_KEY);
+      },
     },
   };
 </script>
@@ -466,8 +482,14 @@
     background-color: $color-red-02;
     transition: width $animation-easing $animation-time-03, background-color $animation-easing $animation-time-03, opacity $animation-easing $animation-time-03;
   }
-  .layout-devise-info__sensor-status-item_enable:after {
-    background-color: $color-green-01 !important;
+  .layout-devise-info__sensor-status-item:nth-child(6):hover:after {
+    background-color: $color-green-01;
+  }
+  .layout-devise-info__sensor-status-item:nth-child(6).layout-devise-info__sensor-status-item_enable:after {
+    background-color: $color-green-01;
+  }
+  .layout-devise-info__sensor-status-item:nth-child(6).layout-devise-info__sensor-status-item_enable:hover:after {
+    background-color: $color-red-02;
   }
   @media (min-width: $screen-sm) {
     .layout-devise-info__sensor-status-item {
@@ -535,6 +557,10 @@
       top: 385px;
       right: 75px;
     }
+    .layout-devise-info__sensor-status-item:nth-child(6):hover:after {
+      width: 100%;
+      opacity: 0.3;
+    }
     .layout-devise-info__sensor-status-item:nth-child(7) {
       top: 530px;
       right: 20px;
@@ -548,16 +574,6 @@
       line-height: 10px;
       text-transform: lowercase;
       text-align: left;
-    }
-    .layout-devise-info__sensor-status-item:nth-child(6):hover:after {
-      width: 100%;
-      opacity: 0.3;
-      background-color: $color-red-02 !important;
-    }
-    .layout-devise-info__sensor-status-item_enable:hover:after {
-      background-color: $color-green-01 !important;
-      width: 100%;
-      opacity: 0.3;
     }
   }
 </style>

@@ -1,18 +1,34 @@
 <template>
-  <div class="col-10 col-sm-7 col-lg-5 col-xl-4 admin-camera-port-edit">
+  <div class="col-10 col-sm-7 col-lg-5 col-xl-4 admin-camera-param-edit">
     <div class="row">
       <div class="col-12 mb-5">
-        <div class="admin-camera-port-edit__title">
-          {{ i18n.setCameraPort }}
+        <div class="admin-camera-param-edit__title">
+          {{ i18n.setCameraParams }}
         </div>
       </div>
     </div>
     <div class="row mb-4">
       <div class="col-12">
+        <span class="admin-camera-param-edit__subtitle">
+          {{ i18n.cameraInterfacePort }}
+        </span>
         <AmkInput
           :value="cameraPort"
           :placeholder="currentCameraPort"
           @input="cameraPort = $event.target.value"
+          @enter-press="submitClickHandler"
+        />
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col-12">
+        <span class="admin-camera-param-edit__subtitle">
+          {{ i18n.cameraStreamUrl }}
+        </span>
+        <AmkInput
+          :value="cameraStream"
+          :placeholder="currentStreamUrl"
+          @input="cameraStream = $event.target.value"
           @enter-press="submitClickHandler"
         />
       </div>
@@ -53,13 +69,14 @@
   const PRELOADER_KEY = 'cameraPortEdit';
 
   export default {
-    name: 'AdminCameraPortEdit',
+    name: 'AdminCameraParamEdit',
     components: {
       AmkInput,
       AmkButton,
     },
     data: () => ({
       cameraPort: null,
+      cameraStream: null,
     }),
     computed: {
       ...mapGetters('references', {
@@ -72,10 +89,17 @@
         const { deviceData } = this;
         return get(deviceData, 'cameraPort', '');
       },
+      currentStreamUrl() {
+        const { deviceData } = this;
+        return get(deviceData, 'cameraVideoStream.url', '');
+      },
       submitIsDisabled() {
-        const { cameraPort, currentCameraPort } = this;
+        const { cameraPort, cameraStream, currentCameraPort, currentStreamUrl } = this;
         const isCameraPort = (cameraPort || '').length;
-        return !isCameraPort || currentCameraPort === cameraPort;
+        const isStreamUrl = (cameraStream || '').length;
+        const portIsEqual = currentCameraPort === cameraPort;
+        const streamIsEqual = currentStreamUrl === cameraStream;
+        return (!isCameraPort || portIsEqual) && (!isStreamUrl || streamIsEqual);
       },
     },
     methods: {
@@ -90,15 +114,15 @@
         hidePreloader: PRELOADER.HIDE_PRELOADER,
       }),
       ...mapActions('admin', {
-        setCameraPort: ADMIN.SET_CAMERA_PORT,
+        setCameraParams: ADMIN.SET_CAMERA_PARAMS,
       }),
       async submitClickHandler() {
-        const { cameraPort, submitIsDisabled } = this;
+        const { cameraPort, cameraStream, submitIsDisabled } = this;
         if (submitIsDisabled) {
           return;
         }
         this.showPreloader(PRELOADER_KEY);
-        const { successes } = await this.setCameraPort(cameraPort);
+        const { successes } = await this.setCameraParams({ cameraPort, cameraStream });
         this.hidePreloader(PRELOADER_KEY);
         if (!successes) {
           this.logoutAction();
@@ -117,11 +141,18 @@
 </script>
 
 <style lang="scss" scoped>
-  .admin-camera-port-edit__title {
+  .admin-camera-param-edit__title {
     display: block;
     font-size: 25px;
     font-weight: 500;
     color: $color-gray-01;
     text-transform: uppercase;
+  }
+  .admin-camera-param-edit__subtitle {
+    display: block;
+    font-size: 13px;
+    color: $color-gray-01;
+    text-transform: uppercase;
+    margin-bottom: 10px;
   }
 </style>

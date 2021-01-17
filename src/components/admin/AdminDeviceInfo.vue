@@ -21,8 +21,11 @@
       <AmkButton @click="showChangeDeviceNameModal">
         {{ i18n.changeName }}
       </AmkButton>
-      <AmkButton @click="showChangeCameraPortModal">
-        {{ i18n.setCameraPort }}
+      <AmkButton @click="showChangeCameraParamsModal">
+        {{ i18n.setCameraParams }}
+      </AmkButton>
+      <AmkButton @click="showChangeCompassParamsModal">
+        {{ i18n.setCompassParams }}
       </AmkButton>
     </div>
   </div>
@@ -36,7 +39,8 @@
   import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
 
   import AdminDeviceNameEdit from './AdminDeviceNameEdit';
-  import AdminCameraPortEdit from './AdminCameraPortEdit';
+  import AdminCameraParamsEdit from './AdminCameraParamsEdit';
+  import AdminCompassParamsEdit from './AdminCompassParamsEdit';
   import AmkButton from '~/components/form-items/amk-button/AmkButton';
 
   const PRELOADER_KEY = 'adminClearLogs';
@@ -99,9 +103,14 @@
           component: AdminDeviceNameEdit,
         });
       },
-      showChangeCameraPortModal() {
+      showChangeCameraParamsModal() {
         this.showModal({
-          component: AdminCameraPortEdit,
+          component: AdminCameraParamsEdit,
+        });
+      },
+      showChangeCompassParamsModal() {
+        this.showModal({
+          component: AdminCompassParamsEdit,
         });
       },
       async clearLogsHandler() {

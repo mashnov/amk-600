@@ -3,10 +3,9 @@
     <div class="layout-camera__wrapper">
       <div class="row">
         <div class="col-12 mb-5">
-          <iframe
-            class="layout-camera__stream"
-            :src="cameraStreamUrl"
-          />
+          <div class="layout-camera__stream">
+            <iframe :src="cameraStreamUrl" />
+          </div>
         </div>
         <div class="col-12">
           <a
@@ -54,12 +53,21 @@ export default {
   padding: 0 30px;
 }
 .layout-camera__stream {
+  position: relative;
   display: block;
   width: 100%;
   height: 0;
   padding-bottom: 56.25%;
-  border: none;
   background: $color-gray-03;
+}
+.layout-camera__stream iframe {
+  position: absolute;
+  border: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 .layout-camera__interface-link {
   font-weight: 300;

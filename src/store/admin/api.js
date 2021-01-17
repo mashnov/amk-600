@@ -96,6 +96,36 @@ export default {
       return { successes: false };
     }
   },
+  async [MODULE.SET_CAMERA_STREAM]({ userToken, cameraStream }) {
+    const apiUrl = admin.setSetting;
+    if (tokenIsEmpty(userToken)) {
+      return { successes: false };
+    }
+    try {
+      const { data } = await axios.post(apiUrl, { token: userToken, val: cameraStream, key: 'cameraVideoStream.url' });
+      const successes = get(data, 'successes', false);
+      const token = get(data, 'token', null);
+      return { successes, token };
+    }
+    catch {
+      return { successes: false };
+    }
+  },
+  async [MODULE.SET_COMPASS_CORRECTION]({ userToken, compassCorrection }) {
+    const apiUrl = admin.setSetting;
+    if (tokenIsEmpty(userToken)) {
+      return { successes: false };
+    }
+    try {
+      const { data } = await axios.post(apiUrl, { token: userToken, val: compassCorrection, key: 'calibration.compass' });
+      const successes = get(data, 'successes', false);
+      const token = get(data, 'token', null);
+      return { successes, token };
+    }
+    catch {
+      return { successes: false };
+    }
+  },
   async [MODULE.FETCH_USER_LIST]({ userToken }) {
     const apiUrl = admin.fetchUsers;
     if (tokenIsEmpty(userToken)) {
