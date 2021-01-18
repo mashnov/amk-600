@@ -1,5 +1,18 @@
 <template>
-  <div class="col-11 col-sm-8 layout-camera">
+  <div
+    class="layout-camera"
+    :class="[
+      fullScreen && 'col-12',
+      !fullScreen && 'col-11 col-sm-8',
+    ]"
+  >
+    <div
+      v-tooltip.right="{ content: i18n.fullScreen, offset: 15 }"
+      class="layout-camera__resize"
+      @click="fullScreenClickHandler"
+    >
+      <ResizeIcon />
+    </div>
     <div class="layout-camera__wrapper">
       <div class="row">
         <div class="col-12 mb-5">
@@ -25,10 +38,18 @@
 import { mapGetters } from 'vuex';
 import { REFERENCES, USER } from '~/store/types';
 
+import ResizeIcon from '~/assets/svg/resize-icon.svg';
+
 const API_URL = process.env.VUE_APP_API_URL;
 
 export default {
   name: 'LayoutCamera',
+  components: {
+    ResizeIcon,
+  },
+  data: () => ({
+    fullScreen: false,
+  }),
   computed: {
     ...mapGetters('references', {
       i18n: REFERENCES.GET_I18N,
@@ -45,10 +66,37 @@ export default {
       return `${API_URL}:${cameraData.interfacePort}`;
     },
   },
+  methods: {
+    fullScreenClickHandler() {
+      const { fullScreen } = this;
+      this.fullScreen = !fullScreen;
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+.layout-camera__resize {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 20px;
+  cursor: pointer;
+  z-index: 2;
+  transition: transform $animation-easing $animation-time-01;
+}
+.layout-camera__resize:hover {
+  transform: scale(1.2);
+}
+.layout-camera__resize svg {
+  display: block;
+  width: 100%;
+  margin: auto;
+  color: $color-gray-01;
+}
 .layout-camera__wrapper {
   padding: 0 30px;
 }
