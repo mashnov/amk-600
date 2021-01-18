@@ -6,29 +6,25 @@
           <div class="col-12 mb-5">
             <UserMomentData />
           </div>
-          <template v-if="reportTypes.length">
-            <div class="col-12 mb-4">
-              <UserChartLegend
-                :active-list="reportTypes"
-              />
-            </div>
-            <div class="col-12 mb-5">
-              <div class="user-page__chart">
-                <transition
-                  appear
-                  name="fade-in"
+          <div class="col-12 mb-4">
+            <UserChartLegend />
+          </div>
+          <div class="col-12 mb-5">
+            <div class="user-page__chart">
+              <transition
+                appear
+                name="fade-in"
+              >
+                <div
+                  v-if="fetchIsLock"
+                  class="user-page__chart-loader"
                 >
-                  <div
-                    v-if="fetchIsLock"
-                    class="user-page__chart-loader"
-                  >
-                    <PreloaderIcon />
-                  </div>
-                </transition>
-                <UserChartJs />
-              </div>
+                  <PreloaderIcon />
+                </div>
+              </transition>
+              <UserChartJs />
             </div>
-          </template>
+          </div>
           <div class="col-12">
             <UserStatData />
           </div>
@@ -76,7 +72,6 @@
       }),
       ...mapGetters('reports', {
         fetchIsLock: REPORTS.GET_FETCH_IS_LOCK,
-        reportTypes: REPORTS.GET_REPORT_TYPES,
       }),
       ...mapGetters('viewport', {
         viewportWidth: VIEWPORT.GET_VIEWPORT_WIDTH,

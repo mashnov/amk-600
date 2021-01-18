@@ -17,7 +17,7 @@
         <div
           v-tooltip="{ content: getIconTitle(chartType), offset: 15 }"
           class="user-chart-legend__icon"
-          :style="activeList.includes(chartType) && getItemStyle(chartType)"
+          :style="reportTypes.includes(chartType) && getItemStyle(chartType)"
           @click="itemClickHandler(chartType)"
         >
           <Component :is="getIconName(chartType)" />
@@ -119,13 +119,6 @@
       AxisIcon,
       FillIcon,
     },
-    props: {
-      activeList: {
-        type: Array,
-        required: true,
-        default: () => ([]),
-      },
-    },
     data: () => ({
       legendList: [
         'temperature',
@@ -144,6 +137,7 @@
       ...mapGetters('reports', {
         fetchIsLock: REPORTS.GET_FETCH_IS_LOCK,
         chartPeriod: REPORTS.GET_REPORT_RANGE,
+        reportTypes: REPORTS.GET_REPORT_TYPES,
       }),
       periodTranslation() {
         const { i18n, chartPeriod } = this;
