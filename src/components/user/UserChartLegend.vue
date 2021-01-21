@@ -123,10 +123,10 @@
       legendList: [
         'temperature',
         'humidity',
+        'pressure',
         'windHSpeed',
         'windDirection',
         'windVSpeed',
-        'pressure',
         'rain',
       ],
     }),

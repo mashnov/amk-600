@@ -177,10 +177,10 @@
                 @click="toggleCameraPowerHandler"
               >
                 <span
-                  v-html="i18n.camera"
+                  v-html="i18n.cameraPower"
                 />
                 <span>
-                  {{ cameraData.isEnable ? i18n.connected : i18n.disconnected }}
+                  {{ cameraData.isEnable ? i18n.powerOn : i18n.powerOff }}
                 </span>
               </div>
               <div
@@ -479,7 +479,7 @@
     right: 0;
     width: 6px;
     height: 100%;
-    background-color: $color-red-02;
+    background-color: transparent;
     transition: width $animation-easing $animation-time-03, background-color $animation-easing $animation-time-03, opacity $animation-easing $animation-time-03;
   }
   .layout-devise-info__sensor-status-item:nth-child(6):hover:after {
@@ -554,7 +554,7 @@
     }
     .layout-devise-info__sensor-status-item:nth-child(6) {
       position: absolute;
-      top: 385px;
+      top: 290px;
       right: 75px;
     }
     .layout-devise-info__sensor-status-item:nth-child(6):hover:after {
@@ -562,8 +562,8 @@
       opacity: 0.3;
     }
     .layout-devise-info__sensor-status-item:nth-child(7) {
-      top: 530px;
-      right: 20px;
+      top: 650px;
+      right: 40px;
     }
     .layout-devise-info__sensor-status-item span:first-child {
       font-size: 11px;
