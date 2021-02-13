@@ -1,15 +1,15 @@
 <template>
-  <div class="col-10 col-sm-7 col-lg-5 col-xl-4 admin-compas-params-edit">
+  <div class="col-10 col-sm-7 col-lg-5 col-xl-4 admin-compass-params-edit">
     <div class="row">
       <div class="col-12 mb-5">
-        <div class="admin-compas-params-edit__title">
+        <div class="admin-compass-params-edit__title">
           {{ i18n.setCompassParams }}
         </div>
       </div>
     </div>
     <div class="row mb-4">
       <div class="col-12">
-        <span class="admin-compas-params-edit__subtitle">
+        <span class="admin-compass-params-edit__subtitle">
           {{ i18n.compassCorrection }} {{ i18n.degreeUnit }}
         </span>
         <AmkInput
@@ -156,14 +156,14 @@
 </script>
 
 <style lang="scss" scoped>
-  .admin-compas-params-edit__title {
+  .admin-compass-params-edit__title {
     display: block;
     font-size: 25px;
     font-weight: 500;
     color: $color-gray-01;
     text-transform: uppercase;
   }
-  .admin-compas-params-edit__subtitle {
+  .admin-compass-params-edit__subtitle {
     display: block;
     font-size: 13px;
     color: $color-gray-01;

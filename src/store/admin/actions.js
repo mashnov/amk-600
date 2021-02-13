@@ -86,10 +86,24 @@ export default {
     return { successes };
   },
   async [MODULE.SET_DEVICE_NAME]({ rootGetters, dispatch }, deviceName) {
+    if (isNull(deviceName)) {
+      return { successes: true };
+    }
     const userToken = rootGetters[USER_TOKEN_GETTER_KEY];
     dispatch(REQUEST_LOGGER_START, MODULE.SET_DEVICE_NAME, { root: true });
     const { successes, token } = await Api.SET_DEVICE_NAME({ userToken, deviceName });
     dispatch(REQUEST_LOGGER_STOP, MODULE.SET_DEVICE_NAME, { root: true });
+    dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
+    return { successes };
+  },
+  async [MODULE.SET_TIMEZONE]({ rootGetters, dispatch }, deviceTimezone) {
+    if (isNull(deviceTimezone)) {
+      return { successes: true };
+    }
+    const userToken = rootGetters[USER_TOKEN_GETTER_KEY];
+    dispatch(REQUEST_LOGGER_START, MODULE.SET_TIMEZONE, { root: true });
+    const { successes, token } = await Api.SET_TIMEZONE({ userToken, deviceTimezone });
+    dispatch(REQUEST_LOGGER_STOP, MODULE.SET_TIMEZONE, { root: true });
     dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
     return { successes };
   },

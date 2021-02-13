@@ -19,7 +19,7 @@
         {{ i18n.restartCpu }}
       </AmkButton>
       <AmkButton @click="showChangeDeviceNameModal">
-        {{ i18n.changeName }}
+        {{ i18n.setDeviceParams }}
       </AmkButton>
       <AmkButton @click="showChangeCameraParamsModal">
         {{ i18n.setCameraParams }}
