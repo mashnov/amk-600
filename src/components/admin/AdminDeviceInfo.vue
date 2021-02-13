@@ -27,6 +27,9 @@
       <AmkButton @click="showChangeCompassParamsModal">
         {{ i18n.setCompassParams }}
       </AmkButton>
+      <AmkButton @click="showChangeWindParamsModal">
+        {{ i18n.setWindParams }}
+      </AmkButton>
     </div>
   </div>
 </template>
@@ -41,6 +44,7 @@
   import AdminDeviceNameEdit from './AdminDeviceNameEdit';
   import AdminCameraParamsEdit from './AdminCameraParamsEdit';
   import AdminCompassParamsEdit from './AdminCompassParamsEdit';
+  import AdminAnemometerParamsEdit from './AdminAnemometerParamsEdit';
   import AmkButton from '~/components/form-items/amk-button/AmkButton';
 
   const PRELOADER_KEY = 'adminClearLogs';
@@ -111,6 +115,11 @@
       showChangeCompassParamsModal() {
         this.showModal({
           component: AdminCompassParamsEdit,
+        });
+      },
+      showChangeWindParamsModal() {
+        this.showModal({
+          component: AdminAnemometerParamsEdit,
         });
       },
       async clearLogsHandler() {

@@ -130,19 +130,12 @@ export default {
     return { successes: success.port && success.stream };
   },
   async [MODULE.SET_COMPASS_PARAMS]({ rootGetters, dispatch }, { compassCorrection }) {
-    const success = {
-      compass: true,
-    };
-    let userToken = rootGetters[USER_TOKEN_GETTER_KEY];
+    const userToken = rootGetters[USER_TOKEN_GETTER_KEY];
     dispatch(REQUEST_LOGGER_START, MODULE.SET_COMPASS_PARAMS, { root: true });
-    if (!isNull(compassCorrection)) {
-      const { successes, token } = await Api[MODULE.SET_COMPASS_CORRECTION]({ userToken, compassCorrection });
-      success.port = successes;
-      userToken = token;
-      dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
-    }
+    const { successes, token } = await Api[MODULE.SET_COMPASS_CORRECTION]({ userToken, compassCorrection });
+    dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
     dispatch(REQUEST_LOGGER_STOP, MODULE.SET_COMPASS_PARAMS, { root: true });
-    return { successes: success.compass };
+    return { successes };
   },
   async [MODULE.SET_WIND_PARAMS]({ rootGetters, dispatch }, { windCorrection }) {
     const userToken = rootGetters[USER_TOKEN_GETTER_KEY];
@@ -150,6 +143,14 @@ export default {
     const { successes, token } = await Api[MODULE.SET_WIND_PARAMS]({ userToken, windCorrection });
     dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
     dispatch(REQUEST_LOGGER_STOP, MODULE.SET_WIND_PARAMS, { root: true });
+    return { successes };
+  },
+  async [MODULE.SET_WIND_CORRECTION]({ rootGetters, dispatch }, { windCorrection }) {
+    const userToken = rootGetters[USER_TOKEN_GETTER_KEY];
+    dispatch(REQUEST_LOGGER_START, MODULE.SET_WIND_CORRECTION, { root: true });
+    const { successes, token } = await Api[MODULE.SET_WIND_CORRECTION]({ userToken, windCorrection });
+    dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
+    dispatch(REQUEST_LOGGER_STOP, MODULE.SET_WIND_CORRECTION, { root: true });
     return { successes };
   },
   [MODULE.SET_SELECTED_USER]({ commit }, userName) {
