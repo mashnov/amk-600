@@ -22,6 +22,16 @@
         />
       </div>
     </div>
+    <div class="row mb-5">
+      <div class="col-12">
+        <AmkCheckbox
+          :value="compassForWindCorrection"
+          @input="setWindCorrectionHandler"
+        >
+          {{ i18n.compassForWindCorrection }}
+        </AmkCheckbox>
+      </div>
+    </div>
     <div class="row">
       <div class="col-12 col-md-6 d-flex">
         <AmkButton
@@ -53,17 +63,20 @@
   import { AUTH as AUTH_ROUTE_NAMES } from '~/router/names';
 
   import AmkButton from '~/components/form-items/amk-button/AmkButton';
+  import AmkCheckbox from '~/components/form-items/amk-checkbox/AmkCheckbox';
   import AmkInput from '~/components/form-items/amk-input/AmkInput';
 
-  const PRELOADER_KEY = 'cameraPortEdit';
+  const PRELOADER_KEY = 'AdminCompassParamsEdit';
 
   export default {
     name: 'AdminCameraPortEdit',
     components: {
       AmkInput,
+      AmkCheckbox,
       AmkButton,
     },
     data: () => ({
+      compassForWindCorrection: false,
       compassCorrection: null,
     }),
     computed: {
@@ -83,6 +96,15 @@
         return !isCompassCorrection || currentCompassCorrection === compassCorrection;
       },
     },
+    watch: {
+      deviceData: {
+        deep: true,
+        immediate: true,
+        handler() {
+          this.setCorrectionValue();
+        },
+      },
+    },
     methods: {
       ...mapActions('auth', {
         logoutHandler: AUTH.LOGOUT_HANDLER,
@@ -95,15 +117,27 @@
         hidePreloader: PRELOADER.HIDE_PRELOADER,
       }),
       ...mapActions('admin', {
-        setCompasCorrection: ADMIN.SET_COMPASS_PARAMS,
+        setCompassCorrection: ADMIN.SET_COMPASS_PARAMS,
+        setWindCorrection: ADMIN.SET_WIND_PARAMS,
       }),
+      setCorrectionValue() {
+        const { deviceData } = this;
+        this.compassCorrection = get(deviceData, 'calibration.compass', 0);
+        this.compassForWindCorrection = get(deviceData, 'calibration["wind.compassbias"]', false);
+      },
+      async setWindCorrectionHandler(windCorrection) {
+        this.showPreloader(PRELOADER_KEY);
+        await this.setWindCorrection({ windCorrection });
+        this.compassForWindCorrection = windCorrection;
+        this.hidePreloader(PRELOADER_KEY);
+      },
       async submitClickHandler() {
         const { compassCorrection, submitIsDisabled } = this;
         if (submitIsDisabled) {
           return;
         }
         this.showPreloader(PRELOADER_KEY);
-        const { successes } = await this.setCompasCorrection({ compassCorrection });
+        const { successes } = await this.setCompassCorrection({ compassCorrection });
         this.hidePreloader(PRELOADER_KEY);
         if (!successes) {
           this.logoutAction();

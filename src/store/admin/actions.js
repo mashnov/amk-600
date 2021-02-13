@@ -130,6 +130,14 @@ export default {
     dispatch(REQUEST_LOGGER_STOP, MODULE.SET_COMPASS_PARAMS, { root: true });
     return { successes: success.compass };
   },
+  async [MODULE.SET_WIND_PARAMS]({ rootGetters, dispatch }, { windCorrection }) {
+    const userToken = rootGetters[USER_TOKEN_GETTER_KEY];
+    dispatch(REQUEST_LOGGER_START, MODULE.SET_WIND_PARAMS, { root: true });
+    const { successes, token } = await Api[MODULE.SET_WIND_PARAMS]({ userToken, windCorrection });
+    dispatch(UPDATE_USER_TOKEN_KEY, token, { root: true });
+    dispatch(REQUEST_LOGGER_STOP, MODULE.SET_WIND_PARAMS, { root: true });
+    return { successes };
+  },
   [MODULE.SET_SELECTED_USER]({ commit }, userName) {
     commit(MODULE.MUTATE_SELECTED_USER, userName);
   },
