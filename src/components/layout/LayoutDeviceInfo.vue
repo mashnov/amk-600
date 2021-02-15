@@ -51,7 +51,7 @@
             <div class="layout-devise-info__status-item">
               <TimeIcon />
               <span>
-                {{ formattedTime }} GMT+0
+                {{ formattedTime }}
               </span>
             </div>
           </div>
